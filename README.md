@@ -1,28 +1,24 @@
-# AkairoTemplate  
-A template for Akairo based TS Discord.js Bots.   
+# Yoki (WIP)
+Yet another Discord bot.
 
 ## What is this?  
-This is my personal structure template for Akairo based TS Discord.js Bots. Comes with a QueryBuilder called `knex.js`, with compatibility with multiple types of SQL databases.  
+This is Yoki, a discord bot that encorporates ideas that I think some discord bots are missing.
 
-## Structure  
-`src/core/client/Client.ts` - Main Akairo Client.  
-`src/core/index.ts` - Main script that runs the client and related packages.  
-`src/core/listeners/**` - Listeners for the Client.  
-`src/core/commands/**` - Non Packaged commands for the client.  
-`src/core/inhibitors/**` - Inhibitors for the Client.  
-`src/core/managers/**` - Managers for structures.
-`src/core/structures/**` - Custom/Extended Structures.
+## Commands
+Coming soon.
+
+## How can I contribute?
+Yoki is structured almost like a monorepo, with each module of it (giveaway, logging, etc) in different folders in src/. The structure we are attempting to create is so that only one line has to be changed in the core to add another module. Just extend core/structures/modules.
 
 ## Scripts  
-`npm start` - Run the bot using ts-node  
-`npm run start::build` - Compile the bot, and run the compiled source.  
+`npm start` - Compile the bot and run it. 
 `npm run lint` - Lint the TS of the bot  
 `npm run build` - Compile the bot  
 
 ### LICENSING  
-Created ~10/03/2020  
+Created ~10/04/2020  
 
-**AkairoTemplate** © [zaida04](https://github.com/zaida04), Released under the [MIT](https://github.com/zaida04/AkairoTemplate/blob/master/LICENSE) License.  
+**Yoki** © [zaida04](https://github.com/zaida04), Released under the [MIT](https://github.com/zaida04/Yoki/blob/master/LICENSE) License.  
 Authored and maintained by zaida04.
 
 > GitHub [@zaida04](https://github.com/zaida04) 
