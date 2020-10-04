@@ -1,0 +1,37 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 11
+    },
+    "extends": [
+        "marine/prettier/node",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": ["unused-imports"],
+    "rules": {
+        "linebreak-style": "off",
+        "prefer-template": "warn",
+        "unused-imports/no-unused-imports": "warn",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "prettier/prettier": [
+            "warn",
+            {
+                "endOfLine": "auto"
+            }
+        ],
+        "no-duplicate-imports": "warn"
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.js",
+                "*.ts"
+            ]
+        }
+    ]
+}
