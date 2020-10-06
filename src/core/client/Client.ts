@@ -4,8 +4,11 @@ import { ClientOptions } from "../../typings/ClientOptions";
 
 import "../../typings/Akairo";
 import "../../typings/Guild";
+import "../structures/discord.js/Guild";
+
 import Logger from "../../logger/Logger";
 import DatabaseManager from "../../database/DatabaseManager";
+import { Message } from "discord.js";
 
 export default class Client extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -25,9 +28,8 @@ export default class Client extends AkairoClient {
 
         this.commandHandler = new CommandHandler(this, {
             directory: join(__dirname, "/../commands/"),
-            prefix: async (message) => {
-                return (await message.guild?.settings.get<string>("prefix")) ?? this.config.defaultPrefix;
-            },
+            prefix: async (message: Message) =>
+                (await message.guild?.settings.get<string>("prefix")) ?? this.config.defaultPrefix,
             allowMention: true,
             defaultCooldown: 5000,
         });
@@ -39,7 +41,7 @@ export default class Client extends AkairoClient {
         });
     }
 
-    private _init() {
+    private async _init() {
         this.commandHandler.useListenerHandler(this.listenerHandler);
         this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 
@@ -52,6 +54,8 @@ export default class Client extends AkairoClient {
         this.commandHandler.loadAll();
         this.listenerHandler.loadAll();
         this.inhibitorHandler.loadAll();
+
+        await this.db.init();
     }
 
     private async _loadModules() {
@@ -60,7 +64,7 @@ export default class Client extends AkairoClient {
     }
 
     public async login(token: string) {
-        this._init();
+        await this._init();
         await this._loadModules();
         this.Logger.log("Logging in...");
         return super.login(token);

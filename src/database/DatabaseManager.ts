@@ -8,7 +8,7 @@ export default class DatabaseManager {
         this.api = knex(dbENV);
     }
 
-    private async init() {
+    public async init() {
         await initTable(this.api, "settings", (table: TableBuilder) => {
             table.increments("guild_id");
             table.string("prefix");
