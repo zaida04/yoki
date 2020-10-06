@@ -21,12 +21,12 @@ export default class Client extends AkairoClient {
 
         this.config = config;
         this.Logger = new Logger();
-        this.db = new DatabaseManager(config.dbEnv, this);
+        this.db = new DatabaseManager(config.dbEnv);
 
         this.commandHandler = new CommandHandler(this, {
             directory: join(__dirname, "/../commands/"),
             prefix: async (message) => {
-                return (await message.guild?.settings.get("prefix")) ?? this.config.defaultPrefix;
+                return (await message.guild?.settings.get<string>("prefix")) ?? this.config.defaultPrefix;
             },
             allowMention: true,
             defaultCooldown: 5000,
@@ -54,8 +54,13 @@ export default class Client extends AkairoClient {
         this.inhibitorHandler.loadAll();
     }
 
+    private _loadModules() {
+        return 0;
+    }
+
     public async login(token: string) {
         this._init();
+        this._loadModules();
         this.Logger.log("Logging in...");
         return super.login(token);
     }
