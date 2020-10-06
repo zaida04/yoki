@@ -13,6 +13,5 @@ export default class GuildMemberAddListener extends Listener {
         this.client.Logger.log(
             `Member ${member.user.tag} (${member.id}) joined guild ${member.guild.name} (${member.guild.id})`
         );
-        await guildMemberAdd(member);
     }
 }

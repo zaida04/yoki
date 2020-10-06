@@ -54,13 +54,14 @@ export default class Client extends AkairoClient {
         this.inhibitorHandler.loadAll();
     }
 
-    private _loadModules() {
-        return 0;
+    private async _loadModules() {
+        new (await import("../../modules/logging/Logging")).default(this).load();
+        return void 0;
     }
 
     public async login(token: string) {
         this._init();
-        this._loadModules();
+        await this._loadModules();
         this.Logger.log("Logging in...");
         return super.login(token);
     }

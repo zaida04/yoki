@@ -37,8 +37,7 @@ export default class missingPermissions extends Listener {
     }
 
     private async clientMissingPermissions(message: Message, missing: any[]) {
-        const channel = (await message.guild!.settings.logChannel) || message.channel;
-        return channel.send(
+        return message.channel.send(
             new MessageEmbed()
                 .setTitle("I am missing permissions!")
                 .setColor("RED")
