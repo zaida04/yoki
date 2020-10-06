@@ -1,4 +1,5 @@
 import { Guild } from "discord.js";
+import { QueryBuilder } from "knex";
 import DatabaseManager from "../../database/DatabaseManager";
 
 export default class SettingsManager {
@@ -9,16 +10,20 @@ export default class SettingsManager {
         this.db = db;
     }
 
-    private get baseGuildSettings() {
-        return this.db.api("settings").where("guild_id", this.guild.id);
+    private baseGuildSettings<T>(): QueryBuilder {
+        return this.db.api<T>("settings").where("guild_id", this.guild.id);
     }
 
-    public async get(key: string): Promise<string | null> {
+    public async get<T extends string | Record<string, string | boolean | number>>(
+        key: string,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        transformation?: (...params: any[]) => any
+    ): Promise<T | null> {
         return key
-            ? this.baseGuildSettings
+            ? this.baseGuildSettings<T>()
                   .select(key)
                   .first()
-                  .then((x) => x?.[key] || null)
+                  .then((x: T) => (transformation ? transformation(x) : x))
             : null;
     }
 }
