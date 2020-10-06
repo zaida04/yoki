@@ -14,7 +14,7 @@ export default class SettingsManager {
         return this.db.api<T>("settings").where("guild_id", this.guild.id);
     }
 
-    public async get<T extends string | Record<string, string | boolean | number>>(
+    public async get<T extends string | boolean | number>(
         key: string,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         transformation?: (...params: any[]) => any
