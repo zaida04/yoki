@@ -23,7 +23,7 @@ export default class SettingsManager {
             ? this.baseGuildSettings<T>()
                   .select(key)
                   .first()
-                  .then((x: T) => (transformation ? transformation(x) : x))
+                  .then((x: T) => (x ? (transformation ? transformation(x) : x) : null))
             : null;
     }
 }

@@ -23,8 +23,7 @@
             {
                 "endOfLine": "auto"
             }
-        ],
-        "no-duplicate-imports": "warn"
+        ]
     },
     "overrides": [
         {
