@@ -11,8 +11,8 @@ Coming soon.
 Yoki is structured almost like a monorepo, with each module of it (giveaway, logging, etc) in different folders in src/. The structure we are attempting to create is so that only one line has to be changed in the core to add another module. Just extend core/structures/modules.
 
 ## Scripts  
-`npm start` - Compile the bot and run it. 
-`npm run lint` - Lint the TS of the bot  
+`npm start` - Compile the bot and run it.   
+`npm run lint` - Lint the TS of the bot    
 `npm run build` - Compile the bot  
 
 ### LICENSING  
