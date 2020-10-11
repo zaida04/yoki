@@ -18,6 +18,8 @@
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "no-duplicate-imports": "off",
         "prettier/prettier": [
             "warn",
             {

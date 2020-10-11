@@ -1,6 +1,8 @@
 import { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } from "discord-akairo";
 import { join } from "path";
 import { ClientOptions } from "../../typings/ClientOptions";
+import { Message } from "discord.js";
+import { Collection } from "discord.js";
 
 import "../../typings/Akairo";
 import "../../typings/Guild";
@@ -8,7 +10,11 @@ import "../structures/discord.js/Guild";
 
 import Logger from "../../logger/Logger";
 import DatabaseManager from "../../database/DatabaseManager";
-import { Message } from "discord.js";
+import Responses from "../structures/embeds/Embeds";
+import Constants from "../responses";
+
+import moderation from "../../moderation/moderation";
+import YokiModule from "../../YokiModule";
 
 export default class Client extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -23,11 +29,14 @@ export default class Client extends AkairoClient {
         );
 
         this.config = config;
+        this.Embeds = Responses;
+        this.Responses = Constants;
+        this.Modules = new Collection<string, YokiModule>();
         this.Logger = new Logger();
         this.db = new DatabaseManager(config.dbEnv);
 
         this.commandHandler = new CommandHandler(this, {
-            directory: join(__dirname, "/../commands/"),
+            directory: `${__dirname}/../commands/`,
             prefix: async (message: Message) =>
                 (await message.guild?.settings.get<string>("prefix")) ?? this.config.defaultPrefix,
             allowMention: true,
@@ -58,14 +67,15 @@ export default class Client extends AkairoClient {
         await this.db.init();
     }
 
-    private async _loadModules() {
-        new (await import("../../modules/logging/Logging")).default(this).load();
-        return void 0;
+    private _loadModules() {
+        const moderationModule = new moderation(this).load();
+        this.Modules.set(moderationModule.options.id, moderationModule);
+        return 0;
     }
 
     public async login(token: string) {
         await this._init();
-        await this._loadModules();
+        this._loadModules();
         this.Logger.log("Logging in...");
         return super.login(token);
     }

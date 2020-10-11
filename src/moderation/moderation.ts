@@ -1,12 +1,13 @@
 import { AkairoClient } from "discord-akairo";
 import YokiModule from "../YokiModule";
 
-export default class Logging extends YokiModule {
+export default class Moderation extends YokiModule {
     public constructor(client: AkairoClient) {
         super(
             {
-                id: "logging",
-                name: "logging",
+                id: "moderation",
+                name: "moderation",
+                commandDirectory: `${__dirname}/commands/`,
             },
             client
         );
