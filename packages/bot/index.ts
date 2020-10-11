@@ -1,10 +1,12 @@
 import Client from "./core/client/Client";
 import { config } from "dotenv";
-import { ClientOptions } from "./typings/ClientOptions";
-import DBEnviroment from "../knexfile";
+import { ClientOptions } from "../typings/ClientOptions";
+import DBEnviroment from "../../knexfile";
 
 import { Config } from "knex";
-config();
+config({
+    path: `${__dirname}/../../bot.env`,
+});
 
 if (!process.env.DEFAULTPREFIX) throw new Error("Must provide a prefix!");
 if (!process.env.TOKEN) throw new Error("Must provide a token");

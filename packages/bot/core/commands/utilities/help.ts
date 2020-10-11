@@ -2,7 +2,7 @@ import { Category } from "discord-akairo";
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
-import { YokiCommand } from "../../../typings/YokiCommand";
+import { YokiCommand } from "../../../../typings/YokiCommand";
 const ignoredCategories = ["owner", "default"];
 
 export default class Help extends Command {

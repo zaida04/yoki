@@ -1,0 +1,10 @@
+{
+  "name": "@yoki/database",
+  "version": "1.0.0",
+  "description": "Database related interactions for Yoki",
+  "main": "DatabaseManager.ts",
+  "scripts": {
+  },
+  "author": "Nico",
+  "license": "MIT"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@yoki/bot",
+  "version": "1.0.0",
+  "description": "Bot related files of Yoki",
+  "main": "index.ts",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Nico",
+  "license": "MIT"
+}

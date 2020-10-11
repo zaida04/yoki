@@ -1,0 +1,10 @@
+{
+  "name": "@yoki/logger",
+  "version": "1.0.0",
+  "description": "Logging utilities for Yoki and it's related services",
+  "main": "Logger.ts",
+  "scripts": {
+  },
+  "author": "Nico",
+  "license": "MIT"
+}
