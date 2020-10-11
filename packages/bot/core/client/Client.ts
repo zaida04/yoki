@@ -1,20 +1,19 @@
 import { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } from "discord-akairo";
 import { join } from "path";
-import { ClientOptions } from "../../typings/ClientOptions";
+import { ClientOptions } from "../../../typings/ClientOptions";
 import { Message } from "discord.js";
 import { Collection } from "discord.js";
 
-import "../../typings/Akairo";
-import "../../typings/Guild";
+import "../../../typings/Akairo";
+import "../../../typings/Guild";
 import "../structures/discord.js/Guild";
 
-import Logger from "../../logger/Logger";
-import DatabaseManager from "../../database/DatabaseManager";
+import Logger from "../../../logger/Logger";
+import DatabaseManager from "../../../database/DatabaseManager";
 import Responses from "../structures/embeds/Embeds";
 import Constants from "../responses";
 
-import moderation from "../../moderation/moderation";
-import YokiModule from "../../YokiModule";
+import YokiModule from "../../../YokiModule";
 
 export default class Client extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -68,8 +67,6 @@ export default class Client extends AkairoClient {
     }
 
     private _loadModules() {
-        const moderationModule = new moderation(this).load();
-        this.Modules.set(moderationModule.options.id, moderationModule);
         return 0;
     }
 

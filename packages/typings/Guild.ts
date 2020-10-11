@@ -1,4 +1,4 @@
-import SettingsManager from "../core/structures/managers/SettingsManager";
+import SettingsManager from "../bot/core/structures/managers/SettingsManager";
 
 declare module "discord.js" {
     interface Guild {

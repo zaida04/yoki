@@ -3,4 +3,4 @@ dist/
 .vscode/
 
 *.sqlite3
-.env
+*.env

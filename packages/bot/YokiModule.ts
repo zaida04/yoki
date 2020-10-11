@@ -1,5 +1,5 @@
 import { AkairoClient } from "discord-akairo";
-import { YokiModuleConfig } from "./typings/YokiModuleConfig";
+import { YokiModuleConfig } from "../typings/YokiModuleConfig";
 
 export default abstract class YokiModule {
     public constructor(public options: YokiModuleConfig, private readonly client: AkairoClient) {}

@@ -3,7 +3,7 @@ import { TextChannel } from "discord.js";
 
 import { VoiceChannel } from "discord.js";
 import { Guild } from "discord.js";
-import { DatabaseManager, QueryBuilder } from "../../../typings/Database";
+import { DatabaseManager, QueryBuilder } from "../../../../typings/Database";
 
 export default class SettingsManager {
     public guild: Guild;
