@@ -1,8 +1,15 @@
 # Yoki (WIP)
 Yet another Discord bot.
 
-## What is this?  
-This is Yoki, a discord bot that encorporates ideas that I think some discord bots are missing.
+## Usage
+> **Note: Requires Node >12.0.0**  
+    - `git clone https://github.com/zaida04/Yoki.git`  
+    - `pnpm i --r`  
+    - Change knexfile.example.ts => knexfile.ts  
+    - `pnpm run build`  
+    - `pnpm run start::bot`  
+    - `pnpm run start::dash`
+    
 
 ## Commands
 Coming soon.
@@ -11,9 +18,10 @@ Coming soon.
 Yoki is structured almost like a monorepo, with each module of it (giveaway, logging, etc) in different folders in src/. The structure we are attempting to create is so that only one line has to be changed in the core to add another module. Just extend core/structures/modules.
 
 ## Scripts  
-`npm start` - Compile the bot and run it.   
-`npm run lint` - Lint the TS of the bot    
-`npm run build` - Compile the bot  
+`pnpm start::bot` - Compile the bot and run it. 
+`pnpm start::dash` - Compile the dashboard and run it.  
+`pnpm run lint` - Lint `packages` 
+`pnpm run build` - Compile `packages`
 
 ### LICENSING  
 Created ~10/04/2020  
