@@ -15,6 +15,7 @@
         "linebreak-style": "off",
         "prefer-template": "warn",
         "unused-imports/no-unused-imports": "warn",
+        "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/naming-convention": "off",
