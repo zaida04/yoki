@@ -13,7 +13,7 @@ import DatabaseManager from "../../../database/DatabaseManager";
 import Responses from "../structures/embeds/Embeds";
 import Constants from "../responses";
 
-import YokiModule from "../../../YokiModule";
+import YokiModule from "../../YokiModule";
 
 export default class Client extends AkairoClient {
     public constructor(config: ClientOptions) {
