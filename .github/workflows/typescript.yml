@@ -19,5 +19,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run TypeScript compiler
-        run: npx tsc
+      - name: Run TypeScript Compiler
+        uses: icrawl/action-tsc@v1
