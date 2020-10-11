@@ -11,7 +11,7 @@ export default class missingPermissions extends Listener {
         });
     }
 
-    public exec(message: Message, command: Command, type: "client" | "user", missing: any[]) {
+    public exec(message: Message, command: Command, type: "client" | "user", missing: string[]) {
         if (!message.guild) return;
         this.client.Logger.error(
             `${
@@ -25,7 +25,7 @@ export default class missingPermissions extends Listener {
             : this.clientMissingPermissions(message, missing);
     }
 
-    private async userMissingPermissions(message: Message, missing: any[]) {
+    private async userMissingPermissions(message: Message, missing: string[]) {
         return message.channel.send(
             new MessageEmbed()
                 .setTitle("You are missing permissions!")
@@ -36,7 +36,7 @@ export default class missingPermissions extends Listener {
         );
     }
 
-    private async clientMissingPermissions(message: Message, missing: any[]) {
+    private async clientMissingPermissions(message: Message, missing: string[]) {
         return message.channel.send(
             new MessageEmbed()
                 .setTitle("I am missing permissions!")

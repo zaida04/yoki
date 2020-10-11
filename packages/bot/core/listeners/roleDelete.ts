@@ -8,5 +8,7 @@ export default class RoleCreateListener extends Listener {
         });
     }
 
-    public exec(role: Role) {}
+    public exec(role: Role) {
+        this.client.Logger.log(`Role ${role.name} (${role.id}) deleted in guild ${role.guild.name} (${role.guild.id})`);
+    }
 }
