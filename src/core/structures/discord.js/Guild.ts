@@ -1,6 +1,6 @@
 import { Structures } from "discord.js";
 import Client from "../../client/Client";
-import SettingsManager from "../../managers/SettingsManager";
+import SettingsManager from "../managers/SettingsManager";
 
 Structures.extend("Guild", (Guild) => {
     return class extends Guild {
