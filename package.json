@@ -5,9 +5,10 @@
   "main": "dist/src/index.js",
   "private": true,
   "scripts": {
-    "start": "npm run build && node dist/src/index.js",
+    "start::bot": "cd dist/packages/bot && npm start",
+    "start::dash": "cd dist/packages/dashboard && npm start",
     "build": "npx tsc",
-    "lint": "npx eslint src/ --fix"
+    "lint": "npx eslint packages/ --fix"
   },
   "repository": {
     "type": "git",

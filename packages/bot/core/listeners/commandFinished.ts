@@ -10,10 +10,10 @@ export default class CommandFinishedListener extends Listener {
         });
     }
 
-    public exec(message: Message, command: Command, args: any) {
+    public exec(message: Message, command: Command, args: unknown[]) {
         this.client.Logger.log(
             `Finished ${command.id} on ${message.guild ? `${message.guild.name} (${message.guild.id})` : "DM"}${
-                Object.keys(args).length && !args.command ? ` with arguments ${JSON.stringify(args)}` : ""
+                Object.keys(args).length ? ` with arguments ${JSON.stringify(args)}` : ""
             }`
         );
     }
