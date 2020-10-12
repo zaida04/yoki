@@ -3,3 +3,4 @@ dist/
 
 *.config.js
 config.js
+*.tsbuildinfo

@@ -1,11 +1,25 @@
 {
-  "name": "@yoki/bot",
-  "version": "1.0.0",
-  "description": "Bot related files of Yoki",
-  "main": "index.ts",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "author": "Nico",
-  "license": "MIT"
+    "name": "@yoki/bot",
+    "version": "1.0.0",
+    "description": "Bot related files of Yoki",
+    "main": "./dist/index.js",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@yoki/database": "1.0.0",
+        "@yoki/logger": "1.0.0",
+        "discord-akairo": "^8.1.0",
+        "discord.js": "^12.3.1",
+        "dotenv": "^8.2.0",
+        "knex": "^0.21.5",
+        "moment": "^2.29.0",
+        "tslib": "^2.0.1",
+        "typescript": "^4.0.2"
+    },
+    "author": "Nico",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^14.11.8"
+    }
 }
