@@ -1,0 +1,21 @@
+{
+  "name": "@yoki/database",
+  "version": "1.0.0",
+  "description": "Database related interactions for Yoki",
+  "main": "./dist/index.js",
+  "typings": "./dist/types/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Nico",
+  "license": "MIT",
+  "dependencies": {
+    "knex": "^0.21.6",
+    "mysql": "^2.18.1",
+    "sqlite3": "^5.0.0",
+    "tslib": "^2.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  }
+}
