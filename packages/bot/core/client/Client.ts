@@ -13,7 +13,7 @@ import DatabaseManager from "../../../database/DatabaseManager";
 import Responses from "../structures/embeds/Embeds";
 import Constants from "../responses";
 
-import YokiModule from "../../YokiModule";
+import YokiModule from "../../common/YokiModule";
 
 export default class Client extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -66,13 +66,14 @@ export default class Client extends AkairoClient {
         await this.db.init();
     }
 
-    private _loadModules() {
+    private async _loadModules() {
+        this.Modules.set("moderation", await new (await import("../../moderation/moderation")).default(this).load());
         return 0;
     }
 
     public async login(token: string) {
         await this._init();
-        this._loadModules();
+        await this._loadModules();
         this.Logger.log("Logging in...");
         return super.login(token);
     }

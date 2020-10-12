@@ -1,5 +1,7 @@
 export interface GuildSettings {
-    guild_id: string;
+    guild: string;
     prefix: string;
     premium: boolean;
+    left: boolean;
+    logChannel: string;
 }

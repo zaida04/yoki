@@ -3,7 +3,7 @@ import Logger from "../logger/Logger";
 import { ClientOptions } from "./ClientOptions";
 import Responses from "../bot/core/responses";
 import Embeds from "../bot/core/structures/embeds/Embeds";
-import YokiModule from "../bot/YokiModule";
+import YokiModule from "../bot/common/YokiModule";
 import { Collection } from "discord.js";
 
 declare module "discord-akairo" {
