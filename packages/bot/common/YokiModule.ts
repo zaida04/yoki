@@ -1,8 +1,8 @@
 import { AkairoClient } from "discord-akairo";
-import { YokiModuleConfig } from "../typings/YokiModuleConfig";
+import { YokiModuleConfig } from "../../typings/YokiModuleConfig";
 
 export default abstract class YokiModule {
-    public constructor(public options: YokiModuleConfig, private readonly client: AkairoClient) {}
+    public constructor(public options: YokiModuleConfig, public client: AkairoClient) {}
 
     public load() {
         this.options.commandDirectory ? this.client.commandHandler.loadAll(this.options.commandDirectory) : void 0;

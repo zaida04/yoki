@@ -14,18 +14,27 @@ export default class SettingsManager {
     }
 
     private baseGuildSettings<T>(): QueryBuilder {
-        return this.db.api<T>("settings").where("guild_id", this.guild.id);
+        return this.db.api<T>("settings").where("guild", this.guild.id);
     }
 
     public get<T>(key: string | string[]): Promise<T | null> {
         return this.baseGuildSettings<T>()
             .select(key)
             .first()
-            .then((x) => (x ? (x as T) : null));
+            .then((x) => (x ? (Array.isArray(key) ? { ...x } : x[key]) : null));
     }
 
-    public update(key: string, value: string | boolean | number) {
-        return this.baseGuildSettings().update(key, value, ["guild_id", key]);
+    public async update(key: string, value: string | boolean | number) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const update: any = {};
+        update[key] = value;
+        return (await this.baseGuildSettings).length > 0
+            ? this.baseGuildSettings().update(key, value)
+            : this.baseGuildSettings().insert({
+                  guild: this.guild.id,
+                  left: false,
+                  ...update,
+              });
     }
     /* CONVENIENCE GETTERS BELOW */
 

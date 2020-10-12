@@ -5,8 +5,8 @@
   "main": "dist/src/index.js",
   "private": true,
   "scripts": {
-    "start::bot": "cd dist/packages/bot && npm start",
-    "start::dash": "cd dist/packages/dashboard && npm start",
+    "start::bot": "ts-node packages/bot/index.ts",
+    "start::dash": "ts-node packages/dashboard/index.ts",
     "build": "npx tsc",
     "lint": "npx eslint packages/ --fix"
   },
