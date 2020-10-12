@@ -8,7 +8,7 @@
     "start::bot": "node ./packages/bot/dist/index.js",
     "start::dash": "node dist/packages/dashboard/index.js",
     "build": "pnpm recursive run build --filter @yoki/*",
-    "lint": "npx eslint packages/ src/ --fix"
+    "lint": "npx eslint packages/ libs/ --fix"
   },
   "repository": {
     "type": "git",
