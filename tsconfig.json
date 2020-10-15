@@ -6,17 +6,21 @@
     "removeComments": true,
     "pretty": true,
     "module": "CommonJS",
-    "target": "es2019",
+    "target": "ES2017",
     "lib": [
-      "ESNext"
+      "ESNext",
+      "DOM"
     ],
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node"],
     "sourceMap": true,
     "incremental": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
     "noEmitHelpers": true,
     "resolveJsonModule": true,
     "importHelpers": true
   },
-  "exclude": ["node_modules/**", "dist/**"]
+  "exclude": ["dist/**"]
 }

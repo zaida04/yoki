@@ -4,9 +4,14 @@ dependencies:
   sqlite3: 5.0.0
   tslib: 2.0.3
 devDependencies:
+  '@types/node': 14.11.8
   typescript: 4.0.3
 lockfileVersion: 5.1
 packages:
+  /@types/node/14.11.8:
+    dev: true
+    resolution:
+      integrity: sha512-KPcKqKm5UKDkaYPTuXSx8wEP7vE9GnuaXIZKijwRYcePpZFDVuy2a57LarFKiORbHOuTOOwYzxVxcUzsh2P2Pw==
   /abbrev/1.1.1:
     dev: false
     resolution:
@@ -1925,6 +1930,7 @@ packages:
     resolution:
       integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
 specifiers:
+  '@types/node': ^14.11.8
   knex: ^0.21.6
   mysql: ^2.18.1
   sqlite3: ^5.0.0

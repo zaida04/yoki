@@ -43,6 +43,7 @@ export default class Help extends Command {
                     `\`${command.aliases.filter((x: string) => x !== command.id).join("`, `")}\``
                 );
             }
+            return message.channel.send(embed);
         }
         embed.setTitle("Commands").setDescription(
             `
