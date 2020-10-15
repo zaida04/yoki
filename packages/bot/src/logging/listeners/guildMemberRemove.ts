@@ -1,21 +1,26 @@
-import { Guild } from "discord.js";
-import { User } from "discord.js";
-import Action from "../../moderation/structures/Action";
-import ActionEmbed from "../structures/ActionEmbed";
-import LogListener from "./LogListener";
+import { Listener } from "discord-akairo";
 
-export default class guildBanAdd extends LogListener {
+import { GuildMember } from "discord.js";
+
+import Action from "../../moderation/structures/Action";
+import ActionEmbed from "../util/ActionEmbed";
+import retrieveLogChannel from "../util/retrieveLogChannel";
+
+export default class guildMemberRemove extends Listener {
     public constructor() {
-        super("listener-guildBanAdd", "guildBanAdd");
+        super("logging-guildMemberRemove", {
+            emitter: "client",
+            event: "guildMemberRemove",
+        });
     }
 
-    public async exec(guild: Guild, user: User) {
-        const logChannel = await this.retrieveLogChannel(guild);
+    public async exec(member: GuildMember) {
+        const logChannel = await retrieveLogChannel(member.guild);
         if (!logChannel) return;
 
-        if (this.client.caseActions.cache.some((x: Action) => x.user.id === user.id && x.type === "kick")) {
+        if (this.client.caseActions.cache.some((x: Action) => x.user.id === member.id && x.type === "kick")) {
             const cached = this.client.caseActions.cache.find(
-                (x: Action) => x.user.id === user.id && x.type === "kick"
+                (x: Action) => x.user.id === member.id && x.type === "kick"
             );
             return logChannel.send(new ActionEmbed(cached!));
         }

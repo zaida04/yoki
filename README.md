@@ -5,7 +5,7 @@ Yet another Discord bot.
 > **Note: Requires Node >12.0.0**  
     - `git clone https://github.com/zaida04/Yoki.git`  
     - `pnpm i --r`  
-    - Change knexfile.example.ts => knexfile.ts  
+    - Change knexfile.example.ts => knexfile.ts & supply ENV variables in a `bot.env` file in the root.
     - `pnpm run build`  
     - `pnpm run start::bot`  
     - `pnpm run start::dash`

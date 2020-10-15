@@ -14,6 +14,8 @@ import Responses from "../structures/embeds/Embeds";
 import Constants from "../responses";
 
 import YokiModule from "../../common/YokiModule";
+import Moderation from "../../moderation/moderation";
+import Logging from "../../logging/logging";
 
 export default class Client extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -32,6 +34,7 @@ export default class Client extends AkairoClient {
         this.Responses = Constants;
         this.Modules = new Collection<string, YokiModule>();
         this.Logger = new Logger();
+
         this.db = new DatabaseManager(config.dbEnv);
 
         this.commandHandler = new CommandHandler(this, {
@@ -67,7 +70,8 @@ export default class Client extends AkairoClient {
     }
 
     private async _loadModules() {
-        this.Modules.set("moderation", await new (await import("../../moderation/moderation")).default(this).load());
+        this.Modules.set("moderation", await new Moderation(this).load());
+        this.Modules.set("logging", await new Logging(this).load());
         return 0;
     }
 

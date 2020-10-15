@@ -67,7 +67,9 @@ export default class Ban extends Command {
             type: "ban",
             user: target instanceof GuildMember ? target.user : target,
         });
-        await message.guild!.members.ban(target, { reason: reason });
+        await message.guild!.members.ban(target, {
+            reason: `Ban case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`,
+        });
         return message.reply(
             new this.client.Embeds.SuccessEmbed(
                 "User Successfully Banned",
@@ -77,7 +79,7 @@ export default class Ban extends Command {
                     reason
                 ),
                 message
-            ).setFooter(`Case ${createdCase.id}`)
+            ).setFooter(`Case-ID ${createdCase.id}`)
         );
     }
 }

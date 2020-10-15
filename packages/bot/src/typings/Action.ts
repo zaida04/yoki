@@ -1,7 +1,7 @@
 import { Guild } from "discord.js";
 import { User } from "discord.js";
 
-export type ActionType = "kick" | "ban" | "mute";
+export type ActionType = "kick" | "ban" | "mute" | "softban" | "unban";
 export interface ActionDatabaseData {
     guild: string;
     id: string;

@@ -4,14 +4,14 @@ import Action from "../../moderation/structures/Action";
 export default class ActionEmbed extends MessageEmbed {
     public constructor(action: Action) {
         super();
-        super.setAuthor(`${action.executor.username} (${action.executor.id})`, action.executor.displayAvatarURL());
+        super.setAuthor(`${action.executor.tag}`, action.executor.displayAvatarURL());
         super.setDescription(`
-        **Target:** \`${action.user.tag}\` (${action.user.id})\n
-        **Type:** \`${action.type}\`\n
+        **Target:** \`${action.user.tag}\` (${action.user.id})
+        **Type:** \`${action.type}\`
         **Reason:** ${action.reason}`);
         super.setThumbnail(action.user.displayAvatarURL());
         super.setFooter(
-            `case ${action.id} • ${action.guild.name} (${action.guild.id})`,
+            `Case-ID ${action.id} • ${action.guild.name}`,
             action.guild.icon ? action.guild.iconURL()! : undefined
         );
         super.setTimestamp();
@@ -23,6 +23,14 @@ export default class ActionEmbed extends MessageEmbed {
             }
             case "kick": {
                 super.setColor("ORANGE");
+                break;
+            }
+            case "unban": {
+                super.setColor("GREEN");
+                break;
+            }
+            case "softban": {
+                super.setColor("YELLOW");
                 break;
             }
             case "mute": {

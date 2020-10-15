@@ -6,6 +6,8 @@ import Embeds from "../core/structures/embeds/Embeds";
 import YokiModule from "../common/YokiModule";
 import { Collection } from "discord.js";
 
+import "./Moderation";
+
 declare module "discord-akairo" {
     interface AkairoClient {
         config: ClientOptions;
