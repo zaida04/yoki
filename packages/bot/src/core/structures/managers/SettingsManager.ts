@@ -3,7 +3,7 @@ import { TextChannel } from "discord.js";
 
 import { VoiceChannel } from "discord.js";
 import { Guild } from "discord.js";
-import { QueryBuilder } from "knex"
+import { QueryBuilder } from "knex";
 import DatabaseManager from "@yoki/database";
 
 export default class SettingsManager {
@@ -29,7 +29,7 @@ export default class SettingsManager {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const update: any = {};
         update[key] = value;
-        return (await this.baseGuildSettings).length > 0
+        return (await this.baseGuildSettings().first())
             ? this.baseGuildSettings().update(key, value)
             : this.baseGuildSettings().insert({
                   guild: this.guild.id,

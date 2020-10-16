@@ -34,7 +34,9 @@ export default class Help extends Command {
                 .addField("❯ Description", command.description.content || "No Description provided")
                 .addField(
                     "❯ Usage",
-                    `\`${prefix}${command.aliases[0]}${command.description.usage ? command.description.usage : ""}\``
+                    `\`${prefix}${command.aliases[0]}${
+                        command.description.usage ? ` ${command.description.usage}` : ""
+                    }\``
                 )
                 .addField("❯ Examples", command.description.example.map((x) => `\`${prefix}${x}\``).join("\n"));
             if (command.aliases.length > 1) {
