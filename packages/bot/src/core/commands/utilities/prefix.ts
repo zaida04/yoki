@@ -1,7 +1,7 @@
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
 
-export default class PrefixCommand extends Command {
+export default class Prefix extends Command {
     public constructor() {
         super("prefix", {
             aliases: ["prefix", "p"],

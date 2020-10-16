@@ -13,6 +13,8 @@ export default class DatabaseManager {
             table.increments("guild");
             table.string("prefix");
             table.string("logChannel");
+            table.string("muteRole");
+            table.string("welcomeChannel");
             table.boolean("premium");
             table.boolean("left");
         });

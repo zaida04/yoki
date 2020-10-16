@@ -25,6 +25,10 @@ export default class ActionEmbed extends MessageEmbed {
                 super.setColor("ORANGE");
                 break;
             }
+            case "warn": {
+                super.setColor("YELLOW");
+                break;
+            }
             case "unban": {
                 super.setColor("GREEN");
                 break;
