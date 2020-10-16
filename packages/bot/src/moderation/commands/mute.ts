@@ -3,15 +3,15 @@ import { GuildMember } from "discord.js";
 
 import { Message } from "discord.js";
 
-export default class Warn extends Command {
+export default class Mute extends Command {
     public constructor() {
-        super("warn", {
-            aliases: ["warn"],
+        super("mute", {
+            aliases: ["mute"],
             category: "moderation",
             description: {
-                content: "warn a user in this server",
+                content: "unban a user from this server",
                 usage: "<@user> [...reason]",
-                example: ["warn @ociN#3727 annoying"],
+                example: ["mute @ociN#3727 accidental ban"],
             },
             args: [
                 {
@@ -33,20 +33,25 @@ export default class Warn extends Command {
     public async exec(message: Message, { target, reason }: { target?: GuildMember; reason?: string }) {
         if (!target)
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
-        if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("warn"));
+        if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("mute"));
+
+        const mutedRole = await message.guild!.settings.get<string>("muteRole");
+        if (!mutedRole) return message.channel.send(new this.client.Embeds.ErrorEmbed("No Mute Role Set", null));
 
         const createdCase = await this.client.caseActions.create({
             guild: message.guild!,
             reason: reason,
             executor: message.author,
-            type: "warn",
+            type: "mute",
             user: target.user,
         });
 
+        await target.roles.add(mutedRole);
+
         return message.reply(
             new this.client.Embeds.SuccessEmbed(
-                "User Successfully Warned",
-                this.client.Responses.NEW_MODACTION_RESPONSE("warnned", target.user, reason),
+                "User Successfully Muted",
+                this.client.Responses.NEW_MODACTION_RESPONSE("muted", target.user, reason),
                 message
             ).setFooter(`Case-ID: ${createdCase.id}`)
         );
