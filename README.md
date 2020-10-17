@@ -1,7 +1,7 @@
 <img src="static/yoki-readme.png" alt="Yoki Face" width='350' align="right">
 
 # Yoki (WIP)
-Yet another Discord bot.
+A general usage discord bot made with discord.js
 
 ## Usage
 > **Note: Requires Node >12.0.0**  
@@ -9,21 +9,17 @@ Yet another Discord bot.
     - `pnpm i --r`  
     - Change knexfile.example.ts => knexfile.ts & supply ENV variables in a `bot.env` file in the root.  
     - `pnpm run build`  
-    - `pnpm run start::bot`  
-    - `pnpm run start::dash`
+    - `pnpm run start::bot` 
     
 
 ## Commands
 Coming soon.
 
-## How can I contribute?
-Yoki is structured almost like a monorepo, with each module of it (giveaway, logging, etc) in different folders in src/. The structure we are attempting to create is so that only one line has to be changed in the core to add another module. Just extend core/structures/modules.
+## More Info
+Yoki is structured as a monorepo, with custom unrelated libraries in `lib/` and the main applications in `packages/`. In `packages/bot` is where the bot part of Yoki lives, with each part of Yoki such as logging and moderation separated into separate dirs. `core/` being the core of Yoki, `common/` being things that more than one folder share in dependency.
 
-## Scripts  
-`pnpm start::bot` - Compile the bot and run it. 
-`pnpm start::dash` - Compile the dashboard and run it.  
-`pnpm run lint` - Lint `packages` 
-`pnpm run build` - Compile `packages`
+## Contributing
+All PRs are welcome. People of any experience are free to open a PR and recieve feedback on how to make them ready for Yoki.
 
 ### LICENSING  
 Created ~10/04/2020  
