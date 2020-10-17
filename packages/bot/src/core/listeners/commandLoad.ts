@@ -9,5 +9,7 @@ export default class commandLoadListener extends Listener {
         });
     }
 
-    public exec(command: Command) {}
+    public exec(command: Command) {
+        return command;
+    }
 }
