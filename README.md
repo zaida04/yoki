@@ -1,3 +1,5 @@
+<img src="static/yoki-readme.png" alt="Yoki Face" width='350' align="right">
+
 # Yoki (WIP)
 Yet another Discord bot.
 

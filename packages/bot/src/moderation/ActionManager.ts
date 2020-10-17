@@ -10,17 +10,23 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
     }
 
     public async create(data: ActionData): Promise<Action> {
-        const id = "testid";
-        await this.client.db.api("actions").insert({
-            guild: data.guild.id,
-            user: data.user.id,
-            executor: data.executor.id,
-            reason: data.reason,
-            type: data.type,
-        });
+        const id = (
+            await this.client.db
+                .api("actions")
+                .insert({
+                    guild: data.guild.id,
+                    user: data.user.id,
+                    executor: data.executor.id,
+                    reason: data.reason,
+                    type: data.type,
+                })
+                .returning("id")
+        )[0];
+
+        console.log(id);
 
         const action = new Action(
-            id,
+            id as string,
             data.guild,
             data.user,
             data.executor,
