@@ -9,7 +9,5 @@ export default class commandLoadListener extends Listener {
         });
     }
 
-    public exec(command: Command) {
-        this.client.Logger.log(`Command ${command.id} loaded.`);
-    }
+    public exec(command: Command) {}
 }

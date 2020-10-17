@@ -78,6 +78,15 @@ export default class Client extends AkairoClient {
     public async login(token: string) {
         await this._init();
         await this._loadModules();
+        console.table(
+            this.commandHandler.categories.map((x) => [
+                x.id,
+                this.commandHandler.modules
+                    .filter((y) => y.categoryID === x.id)
+                    .map((x) => x.id)
+                    .join(", "),
+            ])
+        );
         this.Logger.log("Logging in...");
         return super.login(token);
     }

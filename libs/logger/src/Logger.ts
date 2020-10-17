@@ -27,12 +27,12 @@ export default class Logger {
         return console.log(outputBuilder, value, colors.RESET);
     }
 
-    public log(value: string) {
-        return this.base("INFO", value, colors.GREEN);
+    public log(value: string, color?: colors) {
+        return this.base("INFO", value, color ? color : colors.GREEN);
     }
 
-    public warn(value: string) {
-        return this.base("WARN", value, colors.YELLOW);
+    public warn(value: string, color?: colors) {
+        return this.base("WARN", value, color ? color : colors.YELLOW);
     }
 
     public error(value: string | Error) {

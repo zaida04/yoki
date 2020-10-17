@@ -27,7 +27,7 @@ export default class Help extends Command {
 
     public async exec(message: Message, { command }: { command?: YokiCommand }) {
         const prefix = (await message.guild?.settings.get<string>("prefix")) ?? this.client.config.defaultPrefix;
-        const embed = new MessageEmbed().setColor(3447003);
+        const embed = new MessageEmbed().setColor("#ffa500");
 
         if (command) {
             embed
@@ -52,8 +52,9 @@ export default class Help extends Command {
 					A list of available commands.
                     For additional info on a command, type \`${prefix}help [command]\`
                     
-                    \`<>\` means an argument is required.
-                    \`[]\` means an argument is optional.
+                    **Arguments:**
+                    \`<>\` - required.
+                    \`[]\` - optional.
                     
 					`
         );
