@@ -1,9 +1,11 @@
 <img src="static/yoki-readme.png" alt="Yoki Face" width='350' align="right">
+ 
+# Yoki (WIP) 
+[![Discord](https://img.shields.io/discord/732714723744940032.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/jf66UUN) ![Build](https://github.com/zaida04/Yoki/workflows/TypeScript/badge.svg) ![Linting](https://github.com/zaida04/Yoki/workflows/Linting/badge.svg)  
+A general usage discord bot made with discord.js  
 
-# Yoki (WIP)
-A general usage discord bot made with discord.js
-
-## Usage
+ 
+## Installation 
 > **Note: Requires Node >12.0.0**  
     - `git clone https://github.com/zaida04/Yoki.git`  
     - `pnpm i --r`  
