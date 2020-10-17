@@ -8,6 +8,7 @@
     "start::bot": "npm run build && node ./packages/bot/dist/index.js",
     "start::dash": "node dist/packages/dashboard/index.js",
     "build": "pnpm recursive run build --filter @yoki/*",
+    "preinstall": "npx only-allow pnpm",
     "lint": "npx eslint packages/ libs/ --fix"
   },
   "repository": {

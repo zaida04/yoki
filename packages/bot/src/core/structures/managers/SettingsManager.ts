@@ -19,10 +19,13 @@ export default class SettingsManager {
     }
 
     public get<T>(key: string | string[]): Promise<T | null> {
-        return this.baseGuildSettings<T>()
-            .select(key)
-            .first()
-            .then((x: any[] | any) => (x ? (Array.isArray(key) ? { ...x } : x[key]) : null));
+        return (
+            this.baseGuildSettings<T>()
+                .select(key)
+                .first()
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                .then((x: any[] | any) => (x ? (Array.isArray(key) ? { ...x } : x[key]) : null))
+        );
     }
 
     public async update(key: string, value: string | boolean | number) {
