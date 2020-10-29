@@ -10,7 +10,7 @@ export default class Prefix extends Command {
             description: {
                 content: "Set a new prefix for this server",
                 usage: "[new-prefix]",
-                example: "prefix f!",
+                example: ["prefix f!"],
             },
             category: "util",
             cooldown: 600000,

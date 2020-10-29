@@ -15,6 +15,7 @@ export default class DatabaseManager {
             table.string("logChannel");
             table.string("muteRole");
             table.string("welcomeChannel");
+            table.string("welcomeMessage");
             table.boolean("premium");
             table.boolean("left");
         });

@@ -9,7 +9,6 @@ export default class SuccessEmbed extends MessageEmbed {
             super.addFields(fields);
         }
         super.setColor("GREEN");
-        super.setFooter(message.client.user!.tag, message.client.user!.displayAvatarURL());
         super.setAuthor(message.author.tag, message.author.displayAvatarURL());
         super.setTimestamp();
     }

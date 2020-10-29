@@ -21,6 +21,9 @@ declare module "discord-akairo" {
         Modules: Collection<string, YokiModule>;
     }
     interface Command {
-        sub_commands?: string[];
+        subCommands?: string[][];
+    }
+    interface CommandOptions {
+        subCommands?: string[][];
     }
 }

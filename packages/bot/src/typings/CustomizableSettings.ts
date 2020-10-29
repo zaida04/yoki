@@ -6,7 +6,7 @@ export const CustomizableSettingsArr = {
     },
     "log-channel": {
         mappedName: "logChannel",
-        type: "textchannel",
+        type: "textChannel",
     },
     "mute-role": {
         mappedName: "muteRole",
@@ -14,6 +14,6 @@ export const CustomizableSettingsArr = {
     },
     "welcome-channel": {
         mappedName: "welcomeChannel",
-        type: "textchanel",
+        type: "textChannel",
     },
 };
