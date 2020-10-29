@@ -4,7 +4,7 @@ import { Guild } from "discord.js";
 import { User } from "discord.js";
 import Action from "../../moderation/structures/Action";
 import ActionEmbed from "../util/ActionEmbed";
-import retrieveLogChannel from "../util/retrieveLogChannel";
+import { retrieveLogChannel } from "../util/retrieveChannel";
 
 export default class guildBanRemove extends Listener {
     public constructor() {

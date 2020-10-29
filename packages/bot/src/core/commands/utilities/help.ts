@@ -66,7 +66,7 @@ export default class Help extends Command {
                 `${category
                     .filter((cmd) => cmd.aliases.length > 0)
                     .map((cmd) => `\`${cmd.aliases[0]}\``)
-                    .join(", ")}`
+                    .join(" ")}`
             );
         }
 

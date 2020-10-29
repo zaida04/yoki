@@ -1,10 +1,11 @@
 import { Listener } from "discord-akairo";
-
 import { GuildMember } from "discord.js";
 
 import Action from "../../moderation/structures/Action";
 import ActionEmbed from "../util/ActionEmbed";
-import retrieveLogChannel from "../util/retrieveLogChannel";
+
+import LeaveEmbed from "../util/LeaveEmbed";
+import { retrieveLogChannel, retrieveWelcomeChannel } from "../util/retrieveChannel";
 
 export default class guildMemberRemove extends Listener {
     public constructor() {
@@ -15,6 +16,11 @@ export default class guildMemberRemove extends Listener {
     }
 
     public async exec(member: GuildMember) {
+        const welcomeChannel = await retrieveWelcomeChannel(member.guild);
+        if (welcomeChannel) {
+            return welcomeChannel.send(new LeaveEmbed(member));
+        }
+
         const logChannel = await retrieveLogChannel(member.guild);
         if (!logChannel) return;
 
@@ -24,7 +30,5 @@ export default class guildMemberRemove extends Listener {
             );
             return logChannel.send(new ActionEmbed(cached!));
         }
-
-        return void 0;
     }
 }
