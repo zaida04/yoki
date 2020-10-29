@@ -1,7 +1,7 @@
 import { Flag } from "discord-akairo";
-import { Command } from "discord-akairo";
+import SubCommand from "../../../common/SubCommand";
 
-export default class Cases extends Command {
+export default class Cases extends SubCommand {
     public constructor() {
         super("cases", {
             aliases: ["cases", "actions"],

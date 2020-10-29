@@ -1,6 +1,6 @@
 import { Command, Inhibitor } from "discord-akairo";
 import { Message } from "discord.js";
-import { YokiCommand } from "../../typings/YokiCommand";
+import YokiCommand from "../../common/YokiCommand";
 
 export default class Premium extends Inhibitor {
     public constructor() {
