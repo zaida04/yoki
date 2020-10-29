@@ -1,6 +1,6 @@
 import { colors } from "@yoki/logger";
 import { AkairoClient } from "discord-akairo";
-import { YokiModuleConfig } from "../typings/YokiModuleConfig";
+import { YokiModuleConfig } from "./YokiModuleConfig";
 
 export default abstract class YokiModule {
     public constructor(public options: YokiModuleConfig, public client: AkairoClient) {}

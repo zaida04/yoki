@@ -2,7 +2,7 @@ import { Category } from "discord-akairo";
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
-import { YokiCommand } from "../../../typings/YokiCommand";
+import YokiCommand from "../../../common/YokiCommand";
 const ignoredCategories = ["owner", "default"];
 
 export default class Help extends Command {
@@ -38,7 +38,7 @@ export default class Help extends Command {
                         command.description.usage ? ` ${command.description.usage}` : ""
                     }\``
                 )
-                .addField("❯ Examples", command.description.example.map((x) => `\`${prefix}${x}\``).join("\n"));
+                .addField("❯ Examples", command.description.example.map((x: any) => `\`${prefix}${x}\``).join("\n"));
             if (command.aliases.length > 1) {
                 embed.addField(
                     "❯ Aliases",

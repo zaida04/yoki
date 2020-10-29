@@ -1,6 +1,6 @@
-import { Command } from "discord-akairo";
+import { CommandOptions } from "discord-akairo";
 
-export interface YokiCommand extends Command {
+export interface YokiCommandOptions extends CommandOptions {
     premium?: boolean;
     description: {
         usage: string;
