@@ -18,7 +18,13 @@ A general usage discord bot made with discord.js
 Coming soon.
 
 ## More Info
-Yoki is structured as a monorepo, with custom unrelated libraries in `lib/` and the main applications in `packages/`. In `packages/bot` is where the bot part of Yoki lives, with each part of Yoki such as logging and moderation separated into separate dirs. `core/` being the core of Yoki, `common/` being things that more than one folder share in dependency.
+Yoki is structured as a monorepo  
+Custom unrelated libraries in `lib/` (like logger and database)
+  
+`packages/` - Main applications     
+`packages/bot` - Where the bot part of Yoki lives
+`packages/bot/core/` - Being the core of Yoki  
+`packages/bot/common/` - Being things that more than one folder share in dependency
 
 ## Contributing
 All PRs are welcome. People of any experience are free to open a PR and recieve feedback on how to make them ready for Yoki.
