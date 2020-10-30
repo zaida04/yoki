@@ -23,8 +23,6 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
                 .returning("id")
         )[0];
 
-        console.log(id);
-
         const action = new Action(
             id as string,
             data.guild,
