@@ -2,6 +2,8 @@ import { Argument } from "discord-akairo";
 import { Command } from "discord-akairo";
 import { GuildMember } from "discord.js";
 import { User, Message } from "discord.js";
+import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Ban extends Command {
     public constructor() {
@@ -67,9 +69,15 @@ export default class Ban extends Command {
             type: "ban",
             user: target instanceof GuildMember ? target.user : target,
         });
+
         await message.guild!.members.ban(target, {
             reason: `Ban case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`,
         });
+
+        const logChannel = await retrieveLogChannel(message.guild!);
+        void logChannel?.send(new ActionEmbed(createdCase));
+        this.client.caseActions.cache.delete(createdCase.id);
+
         return message.reply(
             new this.client.Embeds.SuccessEmbed(
                 "User Successfully Banned",
