@@ -2,6 +2,7 @@ import { Command } from "discord-akairo";
 import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import { Message } from "discord.js";
+import { YokiColors } from "../../common/YokiColors";
 
 export default class missingPermissions extends Listener {
     public constructor() {
@@ -29,7 +30,7 @@ export default class missingPermissions extends Listener {
         return message.channel.send(
             new MessageEmbed()
                 .setTitle("You are missing permissions!")
-                .setColor("RED")
+                .setColor(YokiColors.RED)
                 .setDescription(
                     `You are missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}`
                 )
@@ -40,7 +41,7 @@ export default class missingPermissions extends Listener {
         return message.channel.send(
             new MessageEmbed()
                 .setTitle("I am missing permissions!")
-                .setColor("RED")
+                .setColor(YokiColors.RED)
                 .setDescription(
                     `I am missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}`
                 )

@@ -1,5 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import SubCommand from "../../../common/SubCommand";
+import { YokiColors } from "../../../common/YokiColors";
 
 export default class SubCommandEmbed extends MessageEmbed {
     public constructor(command: SubCommand) {
@@ -9,6 +10,6 @@ export default class SubCommandEmbed extends MessageEmbed {
                 .map((x: string[]) => `\`${x[1]}\``)
                 .join(", ")}.\n Example: \`${command.aliases[0]} ${command.subCommands[0][1]} [...args]\``
         );
-        super.setColor("GOLD");
+        super.setColor(YokiColors.LIGHT_ORANGE);
     }
 }

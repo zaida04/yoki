@@ -7,6 +7,7 @@ import YokiModule from "../common/YokiModule";
 import { Collection } from "discord.js";
 
 import "./Moderation";
+import { YokiColors } from "../common/YokiColors";
 
 declare module "discord-akairo" {
     interface AkairoClient {
@@ -14,6 +15,7 @@ declare module "discord-akairo" {
         db: DatabaseManager;
         commandHandler: CommandHandler;
         listenerHandler: ListenerHandler;
+        colors: typeof YokiColors;
         inhibitorHandler: InhibitorHandler;
         Logger: Logger;
         Embeds: typeof Embeds;

@@ -1,13 +1,15 @@
 import { Argument } from "discord-akairo";
 import { Command } from "discord-akairo";
 import { Role } from "discord.js";
+import { MessageEmbed } from "discord.js";
 import { GuildChannel } from "discord.js";
 import { TextChannel, VoiceChannel } from "discord.js";
 import { Message } from "discord.js";
+import { YokiColors } from "../../../common/YokiColors";
 import { CustomizableSettings, CustomizableSettingsArr } from "../../../typings/CustomizableSettings";
+const settingsKeys = Object.keys(CustomizableSettingsArr);
 
 export default class Settings extends Command {
-    private readonly settingsKey: string[];
     public constructor() {
         super("settings", {
             aliases: ["settings", "setting"],
@@ -29,9 +31,21 @@ export default class Settings extends Command {
                 {
                     id: "setting",
                     type: "string",
+                    prompt: {
+                        start: new MessageEmbed()
+                            .setColor(YokiColors.YELLOW)
+                            .setTitle("Please provide a setting to change")
+                            .setDescription(`Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(", ")}`),
+                    },
                 },
                 {
                     id: "value",
+                    prompt: {
+                        start: new MessageEmbed()
+                            .setColor(YokiColors.YELLOW)
+                            .setTitle("Input required!")
+                            .setDescription(`Please provide an input to change this setting to.`),
+                    },
                     type: Argument.union("textChannel", "voiceChannel", "string", async (message, phrase) => {
                         const textChannel = message.guild?.channels.cache.filter((x) => x.type === "text").get(phrase);
                         if (textChannel) return textChannel;
@@ -44,20 +58,20 @@ export default class Settings extends Command {
                 },
             ],
         });
-        this.settingsKey = Object.keys(CustomizableSettingsArr);
     }
 
     public async exec(
         message: Message,
         { setting, value }: { setting: CustomizableSettings; value: TextChannel | VoiceChannel | string }
     ) {
-        if (!this.settingsKey.includes(setting))
+        if (!settingsKeys.includes(setting))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Incorrect Setting!",
-                    `That is not a valid setting. Your options are: ${this.settingsKey
-                        .map((x) => `\`${x}\``)
-                        .join(", ")}`
+                    `That is not a valid setting. Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(", ")}
+                        
+                    You can also use our dashboard to change these settings.
+                    `
                 )
             );
 

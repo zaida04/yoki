@@ -12,10 +12,12 @@ import Logger from "@yoki/logger";
 import DatabaseManager from "@yoki/database";
 import Responses from "../structures/embeds/Embeds";
 import Constants from "../responses";
+import { YokiColors } from "../../common/YokiColors";
 
 import YokiModule from "../../common/YokiModule";
 import Moderation from "../../moderation/moderation";
 import Logging from "../../logging/logging";
+import { MessageEmbed } from "discord.js";
 
 export default class Client extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -33,6 +35,7 @@ export default class Client extends AkairoClient {
         this.Embeds = Responses;
         this.Responses = Constants;
         this.Modules = new Collection<string, YokiModule>();
+        this.colors = YokiColors;
         this.Logger = new Logger();
 
         this.db = new DatabaseManager(config.dbEnv);
@@ -43,6 +46,28 @@ export default class Client extends AkairoClient {
                 (await message.guild?.settings.get<string>("prefix")) ?? this.config.defaultPrefix,
             allowMention: true,
             defaultCooldown: 5000,
+            commandUtil: true,
+            argumentDefaults: {
+                prompt: {
+                    retries: 3,
+                    retry: new MessageEmbed()
+                        .setColor(YokiColors.YELLOW)
+                        .setTitle("Please try again")
+                        .setDescription("Your argument was not proper, please try again."),
+                    timeout: new MessageEmbed()
+                        .setColor(YokiColors.ORANGE_RED)
+                        .setTitle("Command Cancelled")
+                        .setDescription("You have run out of time!"),
+                    cancel: new MessageEmbed()
+                        .setColor(YokiColors.ORANGE_RED)
+                        .setTitle("Command Cancelled")
+                        .setDescription("Command has been cancelled."),
+                    ended: new MessageEmbed()
+                        .setColor(YokiColors.RED)
+                        .setTitle("Command Cancelled")
+                        .setDescription("Proper argument was not provided."),
+                },
+            },
         });
         this.listenerHandler = new ListenerHandler(this, {
             directory: join(__dirname, "/../listeners/"),

@@ -2,6 +2,7 @@ import { Category } from "discord-akairo";
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
+import { YokiColors } from "../../../common/YokiColors";
 import YokiCommand from "../../../common/YokiCommand";
 const ignoredCategories = ["owner", "default"];
 
@@ -27,7 +28,7 @@ export default class Help extends Command {
 
     public async exec(message: Message, { command }: { command?: YokiCommand }) {
         const prefix = (await message.guild?.settings.get<string>("prefix")) ?? this.client.config.defaultPrefix;
-        const embed = new MessageEmbed().setColor("#ffa500");
+        const embed = new MessageEmbed().setColor(YokiColors.LIGHT_ORANGE);
 
         if (command) {
             embed
