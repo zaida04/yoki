@@ -46,13 +46,15 @@ export default class Settings extends Command {
                             .setTitle("Input required!")
                             .setDescription(`Please provide an input to change this setting to.`),
                     },
-                    type: Argument.union("textChannel", "voiceChannel", "string", async (message, phrase) => {
+                    type: Argument.union("textChannel", "voiceChannel", "role", "string", async (message, phrase) => {
                         const textChannel = message.guild?.channels.cache.filter((x) => x.type === "text").get(phrase);
                         if (textChannel) return textChannel;
                         const voiceChannel = await message.guild?.channels.cache
                             .filter((x) => x.type === "voice")
                             .get(phrase);
                         if (voiceChannel) return voiceChannel;
+                        const role = await message.guild?.roles.fetch(phrase);
+                        if (role) return role;
                         return null;
                     }),
                 },
@@ -62,7 +64,7 @@ export default class Settings extends Command {
 
     public async exec(
         message: Message,
-        { setting, value }: { setting: CustomizableSettings; value: TextChannel | VoiceChannel | string }
+        { setting, value }: { setting: CustomizableSettings; value: TextChannel | VoiceChannel | Role | string }
     ) {
         if (!settingsKeys.includes(setting))
             return message.channel.send(
@@ -89,34 +91,34 @@ export default class Settings extends Command {
             case "textChannel": {
                 if (!(value instanceof TextChannel))
                     return message.channel.send(
-                        `Sorry, but that is not the proper argument. Expected a valid \`${matched_setting.type}\``
+                        `Sorry, but that is not the proper argument. Expected a valid \`text channel\``
                     );
                 break;
             }
             case "voiceChannel": {
                 if (!(value instanceof VoiceChannel))
                     return message.channel.send(
-                        `Sorry, but that is not the proper argument. Expected a valid \`${matched_setting.type}\``
+                        `Sorry, but that is not the proper argument. Expected a valid \`voice channel\``
                     );
                 break;
             }
             case "role": {
                 if (!(value instanceof Role))
                     return message.channel.send(
-                        `Sorry, but that is not the proper argument. Expected a valid \`${matched_setting.type}\``
+                        `Sorry, but that is not the proper argument. Expected a valid \`role\``
                     );
                 break;
             }
         }
         await message.guild!.settings.update(
             matched_setting.mappedName,
-            value instanceof GuildChannel ? value.id : value
+            value instanceof GuildChannel || value instanceof Role ? value.id : value
         );
 
         return message.channel.send(
             new this.client.Embeds.SuccessEmbed(
-                "Setting Changed!",
-                `Setting \`${setting}\` has been changed to ${
+                "Success!",
+                `\`${setting}\` has been changed to ${
                     // eslint-disable-next-line @typescript-eslint/no-base-to-string
                     value instanceof TextChannel ? value.toString() : value instanceof VoiceChannel ? value.name : value
                 }`,
