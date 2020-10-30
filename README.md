@@ -20,11 +20,12 @@ Coming soon.
 ## More Info
 Yoki is structured as a monorepo  
 Custom unrelated libraries in `lib/` (like logger and database)
-  
+
 `packages/` - Main applications     
 `packages/bot` - Where the bot part of Yoki lives
 `packages/bot/core/` - Being the core of Yoki  
 `packages/bot/common/` - Being things that more than one folder share in dependency
+`packages/bot/**` - Most of the other dirs are modules (such as audit logging, moderation, etc)
 
 ## Contributing
 All PRs are welcome. People of any experience are free to open a PR and recieve feedback on how to make them ready for Yoki.
