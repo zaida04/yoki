@@ -38,7 +38,13 @@ export default class Mute extends Command {
         if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("mute"));
 
         const mutedRole = await message.guild!.settings.get<string>("muteRole");
-        if (!mutedRole) return message.channel.send(new this.client.Embeds.ErrorEmbed("No Mute Role Set", null));
+        if (!mutedRole)
+            return message.channel.send(
+                new this.client.Embeds.ErrorEmbed(
+                    "No mute role set!",
+                    `You can set one by doing the command \`settings mute-role @role\``
+                )
+            );
 
         const createdCase = await this.client.caseActions.create({
             guild: message.guild!,
