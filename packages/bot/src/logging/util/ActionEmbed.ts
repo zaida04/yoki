@@ -1,4 +1,5 @@
 import { MessageEmbed } from "discord.js";
+import { YokiColors } from "../../common/YokiColors";
 import Action from "../../moderation/structures/Action";
 
 export default class ActionEmbed extends MessageEmbed {
@@ -18,27 +19,27 @@ export default class ActionEmbed extends MessageEmbed {
 
         switch (action.type) {
             case "ban": {
-                super.setColor("RED");
+                super.setColor(YokiColors.RED);
                 break;
             }
             case "kick": {
-                super.setColor("ORANGE");
+                super.setColor(YokiColors.LIGHT_ORANGE);
                 break;
             }
             case "warn": {
-                super.setColor("YELLOW");
+                super.setColor(YokiColors.YELLOW);
                 break;
             }
             case "unban": {
-                super.setColor("GREEN");
+                super.setColor(YokiColors.GREEN);
                 break;
             }
             case "softban": {
-                super.setColor("YELLOW");
+                super.setColor(YokiColors.YELLOW);
                 break;
             }
             case "mute": {
-                super.setColor("YELLOW");
+                super.setColor(YokiColors.YELLOW);
                 break;
             }
         }
