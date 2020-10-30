@@ -20,6 +20,7 @@
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-base-to-string": "off",
         "no-duplicate-imports": "off",
         "prettier/prettier": [
             "warn",

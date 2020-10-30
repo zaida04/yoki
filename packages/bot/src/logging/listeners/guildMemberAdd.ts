@@ -1,7 +1,7 @@
 import { Listener } from "discord-akairo";
 import { GuildMember } from "discord.js";
 import JoinEmbed from "../util/JoinEmbed";
-import { retrieveWelcomeChannel } from "../util/retrieveChannel";
+import { retrieveWelcomeChannel } from "../../common/retrieveChannel";
 
 export default class guildMemberAdd extends Listener {
     public constructor() {

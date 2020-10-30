@@ -36,6 +36,7 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
     }
 
     public delete(guild_id: string, action_id: string): Promise<boolean> {
+        this.client.caseActions.cache.delete(action_id);
         return this.client.db
             .api<ActionDatabaseData>("actions")
             .where({

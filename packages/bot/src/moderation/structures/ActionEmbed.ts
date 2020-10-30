@@ -1,6 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import { YokiColors } from "../../common/YokiColors";
-import Action from "../../moderation/structures/Action";
+import Action from "./Action";
 
 export default class ActionEmbed extends MessageEmbed {
     public constructor(action: Action) {
@@ -9,7 +9,7 @@ export default class ActionEmbed extends MessageEmbed {
         super.setDescription(`
         **Target:** \`${action.user.tag}\` (${action.user.id})
         **Type:** \`${action.type}\`
-        **Reason:** ${action.reason}`);
+        **Reason:** ${action.reason ?? "`not set`"}`);
         super.setThumbnail(action.user.displayAvatarURL());
         super.setFooter(
             `Case-ID ${action.id} • ${action.guild.name}`,

@@ -2,6 +2,8 @@ import { Command } from "discord-akairo";
 import { GuildMember } from "discord.js";
 
 import { Message } from "discord.js";
+import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Mute extends Command {
     public constructor() {
@@ -24,7 +26,7 @@ export default class Mute extends Command {
                     type: "string",
                 },
             ],
-            clientPermissions: ["MANAGE_MESSAGES"],
+            clientPermissions: ["MANAGE_ROLES"],
             userPermissions: ["MANAGE_MESSAGES"],
             channel: "guild",
         });
@@ -47,6 +49,10 @@ export default class Mute extends Command {
         });
 
         await target.roles.add(mutedRole);
+
+        const logChannel = await retrieveLogChannel(message.guild!);
+        void logChannel?.send(new ActionEmbed(createdCase));
+        this.client.caseActions.cache.delete(createdCase.id);
 
         return message.reply(
             new this.client.Embeds.SuccessEmbed(

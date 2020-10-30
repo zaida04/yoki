@@ -1,6 +1,8 @@
 import { Command } from "discord-akairo";
 
 import { User, Message } from "discord.js";
+import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class UnBan extends Command {
     public constructor() {
@@ -45,6 +47,11 @@ export default class UnBan extends Command {
             user: target,
         });
         await message.guild!.members.unban(target, reason);
+
+        const logChannel = await retrieveLogChannel(message.guild!);
+        void logChannel?.send(new ActionEmbed(createdCase));
+        this.client.caseActions.cache.delete(createdCase.id);
+
         return message.reply(
             new this.client.Embeds.SuccessEmbed(
                 "User Successfully Unbanned",

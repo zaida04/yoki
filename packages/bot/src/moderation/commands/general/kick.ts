@@ -1,5 +1,7 @@
 import { Command } from "discord-akairo";
 import { GuildMember, Message } from "discord.js";
+import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Kick extends Command {
     public constructor() {
@@ -58,6 +60,11 @@ export default class Kick extends Command {
             user: target.user,
         });
         await target.kick(`Kick case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`);
+
+        const logChannel = await retrieveLogChannel(message.guild!);
+        void logChannel?.send(new ActionEmbed(createdCase));
+        this.client.caseActions.cache.delete(createdCase.id);
+
         return message.reply(
             new this.client.Embeds.SuccessEmbed(
                 "Member Successfully Kicked",

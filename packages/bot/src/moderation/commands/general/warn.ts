@@ -2,6 +2,8 @@ import { Command } from "discord-akairo";
 import { GuildMember } from "discord.js";
 
 import { Message } from "discord.js";
+import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Warn extends Command {
     public constructor() {
@@ -24,7 +26,6 @@ export default class Warn extends Command {
                     type: "string",
                 },
             ],
-            clientPermissions: ["MANAGE_MESSAGES"],
             userPermissions: ["MANAGE_MESSAGES"],
             channel: "guild",
         });
@@ -42,6 +43,10 @@ export default class Warn extends Command {
             type: "warn",
             user: target.user,
         });
+
+        const logChannel = await retrieveLogChannel(message.guild!);
+        void logChannel?.send(new ActionEmbed(createdCase));
+        this.client.caseActions.cache.delete(createdCase.id);
 
         return message.reply(
             new this.client.Embeds.SuccessEmbed(

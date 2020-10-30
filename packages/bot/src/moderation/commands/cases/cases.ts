@@ -1,4 +1,5 @@
 import { Flag } from "discord-akairo";
+import { hasAnyPermission } from "../../../common/PermissionUtil";
 import SubCommand from "../../../common/SubCommand";
 
 export default class Cases extends SubCommand {
@@ -16,8 +17,8 @@ export default class Cases extends SubCommand {
                 ["cases-fetch", "fetch"],
             ],
             channel: "guild",
-            clientPermissions: ["KICK_MEMBERS"],
-            userPermissions: ["KICK_MEMBERS"],
+            userPermissions: (message) =>
+                hasAnyPermission(message.member!, ["MANAGE_GUILD", "KICK_MEMBERS", "BAN_MEMBERS"]),
         });
     }
 
