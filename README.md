@@ -24,7 +24,7 @@ Custom unrelated libraries in `lib/` (like logger and database)
 `packages/` - Main applications     
 `packages/bot` - Where the bot part of Yoki lives
 `packages/bot/core/` - Being the core of Yoki  
-`packages/bot/common/` - Being things that more than one folder share in dependency
+`packages/bot/common/` - Being things that more than one folder share in dependency  
 `packages/bot/**` - Most of the other dirs are modules (such as audit logging, moderation, etc)
 
 ## Contributing
