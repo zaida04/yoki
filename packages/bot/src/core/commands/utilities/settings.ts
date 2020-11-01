@@ -1,11 +1,11 @@
 import { Argument } from "discord-akairo";
 import { Command } from "discord-akairo";
 import { Role } from "discord.js";
-import { MessageEmbed } from "discord.js";
+
 import { GuildChannel } from "discord.js";
 import { TextChannel, VoiceChannel } from "discord.js";
 import { Message } from "discord.js";
-import { YokiColors } from "../../../common/YokiColors";
+
 import { CustomizableSettings, CustomizableSettingsArr } from "../../../typings/CustomizableSettings";
 const settingsKeys = Object.keys(CustomizableSettingsArr);
 
@@ -31,21 +31,9 @@ export default class Settings extends Command {
                 {
                     id: "setting",
                     type: "string",
-                    prompt: {
-                        start: new MessageEmbed()
-                            .setColor(YokiColors.YELLOW)
-                            .setTitle("Please provide a setting to change")
-                            .setDescription(`Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(", ")}`),
-                    },
                 },
                 {
                     id: "value",
-                    prompt: {
-                        start: new MessageEmbed()
-                            .setColor(YokiColors.YELLOW)
-                            .setTitle("Input required!")
-                            .setDescription(`Please provide an input to change this setting to.`),
-                    },
                     type: Argument.union("textChannel", "voiceChannel", "role", "string", async (message, phrase) => {
                         const textChannel = message.guild?.channels.cache.filter((x) => x.type === "text").get(phrase);
                         if (textChannel) return textChannel;
@@ -53,7 +41,7 @@ export default class Settings extends Command {
                             .filter((x) => x.type === "voice")
                             .get(phrase);
                         if (voiceChannel) return voiceChannel;
-                        const role = await message.guild?.roles.fetch(phrase);
+                        const role = phrase ? await message.guild?.roles.fetch(phrase) : null;
                         if (role) return role;
                         return null;
                     }),
@@ -64,8 +52,9 @@ export default class Settings extends Command {
 
     public async exec(
         message: Message,
-        { setting, value }: { setting: CustomizableSettings; value: TextChannel | VoiceChannel | Role | string }
+        { setting, value }: { setting: CustomizableSettings; value?: TextChannel | VoiceChannel | Role | string }
     ) {
+        console.log(value);
         if (!settingsKeys.includes(setting))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
@@ -76,7 +65,6 @@ export default class Settings extends Command {
                     `
                 )
             );
-
         if (!value) {
             const current_value = await message.guild!.settings.get<string>(
                 CustomizableSettingsArr[setting].mappedName

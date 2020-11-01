@@ -15,6 +15,7 @@ export default class DatabaseManager {
             table.string("logChannel");
             table.string("muteRole");
             table.string("welcomeChannel");
+            table.string("modLogChannel");
             table.string("welcomeMessage");
             table.boolean("premium");
             table.boolean("left");
@@ -26,6 +27,16 @@ export default class DatabaseManager {
             table.string("user");
             table.string("executor");
             table.string("reason");
+            table.string("message_id");
+            table.string("channel_id");
+        });
+        await initTable(this.api, "tags", (table: TableBuilder) => {
+            table.string("guild");
+            table.string("name");
+            table.string("content");
+            table.string("creator");
+            table.string("createdAt");
+            table.boolean("boolean");
         });
     }
 }

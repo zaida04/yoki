@@ -1,7 +1,7 @@
 import { Command } from "discord-akairo";
 
 import { User, Message } from "discord.js";
-import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import { retrieveModLogChannel } from "../../../common/retrieveChannel";
 import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class UnBan extends Command {
@@ -9,6 +9,7 @@ export default class UnBan extends Command {
         super("unban", {
             aliases: ["unban"],
             category: "moderation",
+            module: "moderation",
             description: {
                 content: "unban a user from this server",
                 usage: "<@user> [...reason]",
@@ -43,13 +44,17 @@ export default class UnBan extends Command {
             guild: message.guild!,
             reason: reason,
             executor: message.author,
+            message: null,
             type: "unban",
             user: target,
         });
         await message.guild!.members.unban(target, reason);
 
-        const logChannel = await retrieveLogChannel(message.guild!);
-        void logChannel?.send(new ActionEmbed(createdCase));
+        const logChannel = await retrieveModLogChannel(message.guild!);
+        const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
+        if (logMessage) {
+            this.client.caseActions.updateMessage(createdCase, logMessage);
+        }
         this.client.caseActions.cache.delete(createdCase.id);
 
         return message.reply(

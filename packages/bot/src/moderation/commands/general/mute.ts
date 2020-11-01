@@ -2,18 +2,19 @@ import { Command } from "discord-akairo";
 import { GuildMember } from "discord.js";
 
 import { Message } from "discord.js";
-import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import { retrieveModLogChannel } from "../../../common/retrieveChannel";
 import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Mute extends Command {
     public constructor() {
         super("mute", {
             aliases: ["mute"],
+            module: "moderation",
             category: "moderation",
             description: {
-                content: "unban a user from this server",
-                usage: "<@user> [...reason]",
-                example: ["mute @ociN#3727 accidental ban"],
+                content: "mute a member of this server",
+                usage: "<@member> [...reason]",
+                example: ["mute @ociN#3727 annoying"],
             },
             args: [
                 {
@@ -37,8 +38,8 @@ export default class Mute extends Command {
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
         if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("mute"));
 
-        const mutedRole = await message.guild!.settings.get<string>("muteRole");
-        if (!mutedRole)
+        const mutedRoleID = await message.guild!.settings.get<string>("muteRole");
+        if (!mutedRoleID)
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "No mute role set!",
@@ -50,14 +51,19 @@ export default class Mute extends Command {
             guild: message.guild!,
             reason: reason,
             executor: message.author,
+            message: null,
             type: "mute",
             user: target.user,
         });
 
-        await target.roles.add(mutedRole);
+        const mutedRole = await message.guild!.roles.fetch(mutedRoleID);
+        mutedRole ? await target.roles.add(mutedRole) : void 0;
 
-        const logChannel = await retrieveLogChannel(message.guild!);
-        void logChannel?.send(new ActionEmbed(createdCase));
+        const logChannel = await retrieveModLogChannel(message.guild!);
+        const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
+        if (logMessage) {
+            this.client.caseActions.updateMessage(createdCase, logMessage);
+        }
         this.client.caseActions.cache.delete(createdCase.id);
 
         return message.reply(

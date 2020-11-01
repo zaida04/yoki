@@ -4,7 +4,7 @@ import { YokiColors } from "../../../common/YokiColors";
 export default class SuccessEmbed extends MessageEmbed {
     public constructor(title: string | null, description: string | null, message: Message, fields?: EmbedFieldData[]) {
         super();
-        super.setTitle(title);
+        title ? super.setTitle(title) : void 0;
         super.setDescription(description);
         if (fields && fields.length > 0) {
             super.addFields(fields);

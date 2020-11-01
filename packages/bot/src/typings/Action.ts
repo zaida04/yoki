@@ -1,3 +1,4 @@
+import { Message } from "discord.js";
 import { Guild } from "discord.js";
 import { User } from "discord.js";
 
@@ -9,6 +10,8 @@ export interface ActionDatabaseData {
     reason: string | null;
     type: ActionType;
     executor: string;
+    message_id: string | null;
+    channel_id: string | null;
 }
 export interface ActionData {
     guild: Guild;
@@ -16,4 +19,5 @@ export interface ActionData {
     type: ActionType;
     reason?: string;
     executor: User;
+    message: Message | null;
 }

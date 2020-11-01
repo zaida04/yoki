@@ -1,6 +1,6 @@
 import { Command } from "discord-akairo";
 import { GuildMember, Message } from "discord.js";
-import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import { retrieveModLogChannel } from "../../../common/retrieveChannel";
 import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Kick extends Command {
@@ -8,9 +8,10 @@ export default class Kick extends Command {
         super("kick", {
             aliases: ["kick"],
             category: "moderation",
+            module: "moderation",
             description: {
                 content: "Kick a member from this server",
-                usage: "<@user|id|username> [...reason]",
+                usage: "<@member> [...reason]",
                 examples: ["kick @ociN#3727 being mean", "kick 500765481788112916 being mean", "kick Nico being mean"],
             },
             ratelimit: 5,
@@ -56,13 +57,17 @@ export default class Kick extends Command {
             guild: message.guild!,
             reason: reason,
             executor: message.author,
+            message: null,
             type: "kick",
             user: target.user,
         });
         await target.kick(`Kick case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`);
 
-        const logChannel = await retrieveLogChannel(message.guild!);
-        void logChannel?.send(new ActionEmbed(createdCase));
+        const logChannel = await retrieveModLogChannel(message.guild!);
+        const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
+        if (logMessage) {
+            this.client.caseActions.updateMessage(createdCase, logMessage);
+        }
         this.client.caseActions.cache.delete(createdCase.id);
 
         return message.reply(

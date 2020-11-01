@@ -16,4 +16,8 @@ export const CustomizableSettingsArr = {
         mappedName: "welcomeChannel",
         type: "textChannel",
     },
+    "mod-log": {
+        mappedName: "modLogChannel",
+        type: "textChannel",
+    },
 };

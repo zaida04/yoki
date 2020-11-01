@@ -2,7 +2,7 @@ import { Command } from "discord-akairo";
 import { GuildMember } from "discord.js";
 
 import { Message } from "discord.js";
-import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import { retrieveModLogChannel } from "../../../common/retrieveChannel";
 import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Warn extends Command {
@@ -10,6 +10,7 @@ export default class Warn extends Command {
         super("warn", {
             aliases: ["warn"],
             category: "moderation",
+            module: "moderation",
             description: {
                 content: "warn a user in this server",
                 usage: "<@user> [...reason]",
@@ -40,12 +41,16 @@ export default class Warn extends Command {
             guild: message.guild!,
             reason: reason,
             executor: message.author,
+            message: null,
             type: "warn",
             user: target.user,
         });
 
-        const logChannel = await retrieveLogChannel(message.guild!);
-        void logChannel?.send(new ActionEmbed(createdCase));
+        const logChannel = await retrieveModLogChannel(message.guild!);
+        const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
+        if (logMessage) {
+            this.client.caseActions.updateMessage(createdCase, logMessage);
+        }
         this.client.caseActions.cache.delete(createdCase.id);
 
         return message.reply(

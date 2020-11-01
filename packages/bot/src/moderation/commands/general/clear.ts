@@ -2,7 +2,7 @@ import { Command } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import { TextChannel } from "discord.js";
 import { Message } from "discord.js";
-import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import { retrieveModLogChannel } from "../../../common/retrieveChannel";
 import { YokiColors } from "../../../common/YokiColors";
 
 export default class Clear extends Command {
@@ -10,6 +10,7 @@ export default class Clear extends Command {
         super("clear", {
             aliases: ["clear", "purge", "delete"],
             category: "moderation",
+            module: "moderation",
             description: {
                 content: "Delete a certain amount of messages in this channel",
                 usage: "<amount>",
@@ -35,30 +36,35 @@ export default class Clear extends Command {
         if (!(message.channel instanceof TextChannel)) return;
         if (amount > 1) {
             const deleted_messages = await message.channel.bulkDelete(amount + 1);
-            const logChannel = await retrieveLogChannel(message.guild!);
+            const logChannel = await retrieveModLogChannel(message.guild!);
 
-            void logChannel?.send(
-                new MessageEmbed()
+            void logChannel?.send({
+                embed: new MessageEmbed()
                     .setTitle("Purged Messages")
-                    .setDescription(`Purged ${deleted_messages.size} in ${message.channel}`)
+                    .setDescription(
+                        `
+                        **Amount:** ${deleted_messages.size} 
+                        **In:** ${message.channel}
+                        `
+                    )
                     .setColor(YokiColors.LIGHT_ORANGE),
-                {
-                    files: [
-                        {
-                            attachment: Buffer.from(
-                                deleted_messages.map(
+                files: [
+                    {
+                        attachment: Buffer.from(
+                            deleted_messages
+                                .map(
                                     (x) =>
                                         `AUTHOR: ${x.author.tag} (${x.author.id}); CONTENT: ${x.content.replace(
                                             /\n/g,
                                             " "
                                         )}; EMBEDS: ${x.embeds.length > 0 ? "YES" : "NO"}`
                                 )
-                            ),
-                            name: `PURGE_${new Date().toLocaleDateString()}`,
-                        },
-                    ],
-                }
-            );
+                                .join("\n")
+                        ),
+                        name: `PURGE-${new Date().toISOString().slice(0, 10)}.txt`,
+                    },
+                ],
+            });
         } else {
             const lastMessage = await message.channel.messages.fetch({
                 limit: 2,
