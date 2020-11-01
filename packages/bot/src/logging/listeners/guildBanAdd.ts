@@ -4,7 +4,7 @@ import { Guild } from "discord.js";
 import { User } from "discord.js";
 import Action from "../../moderation/structures/Action";
 
-import { retrieveLogChannel } from "../../common/retrieveChannel";
+import { retrieveModLogChannel } from "../../common/retrieveChannel";
 
 export default class guildBanAdd extends Listener {
     public constructor() {
@@ -22,7 +22,7 @@ export default class guildBanAdd extends Listener {
         )
             return;
 
-        const logChannel = await retrieveLogChannel(guild);
+        const logChannel = await retrieveModLogChannel(guild);
         if (!logChannel) return;
 
         return logChannel.send(
@@ -30,7 +30,7 @@ export default class guildBanAdd extends Listener {
                 .setAuthor("Unknown Executor")
                 .setDescription(
                     `
-                **Target:** \`${user.tag}\` (${user.id})
+                **Target:** ${user} \`(${user.id})\`
                 **Type:** \`ban\`
                 `
                 )

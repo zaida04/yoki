@@ -24,8 +24,13 @@ declare module "discord-akairo" {
     }
     interface Command {
         subCommands?: string[][];
+        module?: string;
+    }
+    interface Listener {
+        module?: string;
     }
     interface CommandOptions {
         subCommands?: string[][];
+        module?: string;
     }
 }

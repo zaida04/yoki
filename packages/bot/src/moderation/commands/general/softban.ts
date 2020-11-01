@@ -1,7 +1,7 @@
 import { Command } from "discord-akairo";
 import { GuildMember } from "discord.js";
 import { Message } from "discord.js";
-import { retrieveLogChannel } from "../../../common/retrieveChannel";
+import { retrieveModLogChannel } from "../../../common/retrieveChannel";
 import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class SoftBan extends Command {
@@ -9,6 +9,7 @@ export default class SoftBan extends Command {
         super("softban", {
             aliases: ["softban"],
             category: "moderation",
+            module: "moderation",
             description: {
                 content: "softban a user from this server",
                 usage: "<@user> [...reason]",
@@ -53,6 +54,7 @@ export default class SoftBan extends Command {
             guild: message.guild!,
             reason: reason,
             executor: message.author,
+            message: null,
             type: "softban",
             user: target instanceof GuildMember ? target.user : target,
         });
@@ -61,7 +63,7 @@ export default class SoftBan extends Command {
         });
         await message.guild!.members.unban(target, `Softban case: ${createdCase.id} | ${reason}`);
 
-        const logChannel = await retrieveLogChannel(message.guild!);
+        const logChannel = await retrieveModLogChannel(message.guild!);
         void logChannel?.send(new ActionEmbed(createdCase));
         this.client.caseActions.cache.delete(createdCase.id);
 

@@ -3,6 +3,8 @@ import { AkairoClient } from "discord-akairo";
 import { ActionData, ActionDatabaseData } from "../typings/Action";
 import BaseManager from "../common/BaseManager";
 import Action from "./structures/Action";
+import { TextChannel } from "discord.js";
+import { Message } from "discord.js";
 
 export default class ActionManager extends BaseManager<Action, ActionData> {
     public constructor(public client: AkairoClient) {
@@ -18,6 +20,8 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
                     user: data.user.id,
                     executor: data.executor.id,
                     reason: data.reason,
+                    message_id: data.message ? data.message.id : null,
+                    channel_id: data.message ? data.message.channel.id : null,
                     type: data.type,
                 })
                 .returning("id")
@@ -28,11 +32,25 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
             data.guild,
             data.user,
             data.executor,
+            null,
             data.type,
             data.reason ? data.reason : null
         );
         this.cache.set(action.id, action);
         return action;
+    }
+
+    public updateMessage(action: Action, message: Message) {
+        return this.client.db
+            .api<ActionDatabaseData>("actions")
+            .where({
+                guild: action.guild.id,
+                id: action.id,
+            })
+            .update({
+                channel_id: message.channel.id,
+                message_id: message.id,
+            });
     }
 
     public delete(guild_id: string, action_id: string): Promise<boolean> {
@@ -62,6 +80,11 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
                           await this.client.guilds.fetch(x.guild),
                           await this.client.users.fetch(x.user),
                           await this.client.users.fetch(x.executor),
+                          x.channel_id && x.message_id
+                              ? await ((await this.client.channels.fetch(x.channel_id)) as TextChannel).messages.fetch(
+                                    x.message_id
+                                )
+                              : null,
                           x.type,
                           x.reason
                       )

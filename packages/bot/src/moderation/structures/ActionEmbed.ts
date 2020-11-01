@@ -7,7 +7,7 @@ export default class ActionEmbed extends MessageEmbed {
         super();
         super.setAuthor(`${action.executor.tag}`, action.executor.displayAvatarURL());
         super.setDescription(`
-        **Target:** \`${action.user.tag}\` (${action.user.id})
+        **Target:** ${action.user} \`(${action.user.id})\`
         **Type:** \`${action.type}\`
         **Reason:** ${action.reason ?? "`not set`"}`);
         super.setThumbnail(action.user.displayAvatarURL());

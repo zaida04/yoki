@@ -5,16 +5,18 @@ import SubCommand from "../../../common/SubCommand";
 export default class Cases extends SubCommand {
     public constructor() {
         super("cases", {
-            aliases: ["cases", "actions"],
+            aliases: ["cases", "actions", "case"],
             category: "moderation",
+            module: "moderation",
             description: {
                 content: "Interact with this server's cases",
                 usage: "<subcommand> [...args]",
                 examples: ["cases fetch 12", "cases delete 12", "cases edit 12"],
             },
             subCommands: [
-                ["cases-delete", "delete"],
-                ["cases-fetch", "fetch"],
+                ["case-delete", "delete"],
+                ["case-fetch", "fetch"],
+                ["case-claim", "claim"],
             ],
             channel: "guild",
             userPermissions: (message) =>
