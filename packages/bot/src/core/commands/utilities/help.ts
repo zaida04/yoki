@@ -21,7 +21,7 @@ export default class Help extends Command {
             description: {
                 content: "Displays information about a command",
                 usage: "[command]",
-                examples: ["help ban"],
+                example: ["help ban"],
             },
         });
     }

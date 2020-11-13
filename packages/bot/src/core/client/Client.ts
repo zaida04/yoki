@@ -1,11 +1,11 @@
 import { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } from "discord-akairo";
 import { join } from "path";
-import { ClientOptions } from "../../typings/ClientOptions";
+import { ClientOptions } from "../typings/ClientOptions";
 import { Message } from "discord.js";
 import { Collection } from "discord.js";
 
-import "../../typings/Akairo";
-import "../../typings/Guild";
+import "../typings/Akairo";
+import "../typings/Guild";
 import "../structures/discord.js/Guild";
 
 import Logger from "@yoki/logger";
@@ -17,6 +17,7 @@ import { YokiColors } from "../../common/YokiColors";
 import YokiModule from "../../common/YokiModule";
 import Moderation from "../../moderation/moderation";
 import Logging from "../../logging/logging";
+import Tags from "../../tags/tags";
 import { MessageEmbed } from "discord.js";
 
 export default class Client extends AkairoClient {
@@ -43,10 +44,10 @@ export default class Client extends AkairoClient {
         this.commandHandler = new CommandHandler(this, {
             directory: `${__dirname}/../commands/`,
             prefix: async (message: Message) =>
-                (await message.guild?.settings.get<string>("prefix")) ?? this.config.defaultPrefix,
+                (await message.guild?.settings.get("prefix")) ?? this.config.defaultPrefix,
             allowMention: true,
             defaultCooldown: 5000,
-            commandUtil: true,
+            commandUtil: false,
             argumentDefaults: {
                 prompt: {
                     retries: 3,
@@ -97,6 +98,7 @@ export default class Client extends AkairoClient {
     private async _loadModules() {
         this.Modules.set("moderation", await new Moderation(this).load());
         this.Modules.set("logging", await new Logging(this).load());
+        this.Modules.set("tags", await new Tags(this).load());
         return 0;
     }
 

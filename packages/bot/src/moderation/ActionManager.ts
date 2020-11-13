@@ -1,6 +1,6 @@
 import { AkairoClient } from "discord-akairo";
 
-import { ActionData, ActionDatabaseData } from "../typings/Action";
+import { ActionData, ActionDatabaseData } from "./typings/Action";
 import BaseManager from "../common/BaseManager";
 import Action from "./structures/Action";
 import { TextChannel } from "discord.js";
@@ -17,9 +17,10 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
                 .api("actions")
                 .insert({
                     guild: data.guild.id,
-                    user: data.user.id,
-                    executor: data.executor.id,
+                    target_id: data.target.id,
+                    executor_id: data.executor.id,
                     reason: data.reason,
+                    createdAt: new Date().getTime(),
                     message_id: data.message ? data.message.id : null,
                     channel_id: data.message ? data.message.channel.id : null,
                     type: data.type,
@@ -30,7 +31,7 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
         const action = new Action(
             id as string,
             data.guild,
-            data.user,
+            data.target,
             data.executor,
             null,
             data.type,
@@ -78,8 +79,8 @@ export default class ActionManager extends BaseManager<Action, ActionData> {
                     ? new Action(
                           x.id,
                           await this.client.guilds.fetch(x.guild),
-                          await this.client.users.fetch(x.user),
-                          await this.client.users.fetch(x.executor),
+                          await this.client.users.fetch(x.target_id),
+                          await this.client.users.fetch(x.executor_id),
                           x.channel_id && x.message_id
                               ? await ((await this.client.channels.fetch(x.channel_id)) as TextChannel).messages.fetch(
                                     x.message_id

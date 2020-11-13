@@ -1,19 +1,18 @@
 import { AkairoClient } from "discord-akairo";
-
 import YokiModule from "../common/YokiModule";
-import ActionManager from "./ActionManager";
-import "./typings/Akairo";
+import TagHandler from "./TagHandler";
 
-export default class Moderation extends YokiModule {
+export default class Tags extends YokiModule {
     public constructor(client: AkairoClient) {
         super(
             {
-                id: "moderation",
-                name: "moderation",
+                id: "tags",
+                name: "tags",
                 commandDirectory: `${__dirname}/commands/`,
+                listenerDirectory: `${__dirname}/listeners/`,
             },
             client
         );
-        client.caseActions = new ActionManager(client);
+        this.client.tagHandler = new TagHandler(client);
     }
 }

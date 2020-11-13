@@ -7,14 +7,11 @@ export default class ActionEmbed extends MessageEmbed {
         super();
         super.setAuthor(`${action.executor.tag}`, action.executor.displayAvatarURL());
         super.setDescription(`
-        **Target:** ${action.user} \`(${action.user.id})\`
+        **Target:** ${action.target} \`(${action.target.id})\`
         **Type:** \`${action.type}\`
-        **Reason:** ${action.reason ?? "`not set`"}`);
-        super.setThumbnail(action.user.displayAvatarURL());
-        super.setFooter(
-            `Case-ID ${action.id} • ${action.guild.name}`,
-            action.guild.icon ? action.guild.iconURL()! : undefined
-        );
+        **Reason:** ${action.reason ? `\`${action.reason}\`` : "`not set`"}`);
+        super.setThumbnail(action.target.displayAvatarURL());
+        super.setFooter(`Case-ID ${action.id}`, action.guild.icon ? action.guild.iconURL()! : undefined);
         super.setTimestamp();
 
         switch (action.type) {

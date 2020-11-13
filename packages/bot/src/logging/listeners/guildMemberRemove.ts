@@ -2,8 +2,9 @@ import { Listener } from "discord-akairo";
 import { GuildMember } from "discord.js";
 
 import LeaveEmbed from "../util/LeaveEmbed";
-import { retrieveWelcomeChannel } from "../../common/retrieveChannel";
+
 import Action from "../../moderation/structures/Action";
+import { TextChannel } from "discord.js";
 
 export default class guildMemberRemove extends Listener {
     public constructor() {
@@ -14,9 +15,9 @@ export default class guildMemberRemove extends Listener {
     }
 
     public async exec(member: GuildMember) {
-        if (this.client.caseActions.cache.some((x: Action) => x.user.id === member.id && x.type === "kick")) return;
+        if (this.client.caseActions.cache.some((x: Action) => x.target.id === member.id && x.type === "kick")) return;
 
-        const welcomeChannel = await retrieveWelcomeChannel(member.guild);
+        const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomeChannel", "text");
         if (welcomeChannel) {
             return welcomeChannel.send(new LeaveEmbed(member));
         }

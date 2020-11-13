@@ -3,7 +3,6 @@ import { MessageEmbed } from "discord.js";
 import { TextChannel } from "discord.js";
 import { DMChannel } from "discord.js";
 import { GuildChannel } from "discord.js";
-import { retrieveLogChannel } from "../../common/retrieveChannel";
 
 export default class channelCreate extends Listener {
     public constructor() {
@@ -15,7 +14,7 @@ export default class channelCreate extends Listener {
 
     public async exec(channel: GuildChannel | DMChannel) {
         if (channel instanceof DMChannel) return;
-        const logChannel = await retrieveLogChannel(channel.guild);
+        const logChannel = await channel.guild.settings.channel<TextChannel>("logChannel", "text");
         if (!logChannel) return;
 
         const channelCreateEmbed = new MessageEmbed()

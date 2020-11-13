@@ -20,11 +20,11 @@ export default class SettingsManager {
 
     public get<T>(key: string | string[]): Promise<T | null> {
         return (
-            this.baseGuildSettings<T>()
+            this.baseGuildSettings()
                 .select(key)
                 .first()
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                .then((x: any[] | any) => (x ? (Array.isArray(key) ? { ...x } : x[key]) : null))
+                .then((x: any[] | any) => (x ? (Array.isArray(key) ? ({ ...x } as T) : (x[key] as T)) : null))
         );
     }
 
@@ -49,10 +49,10 @@ export default class SettingsManager {
         return this.baseGuildSettings<string>()
             .select(key)
             .first()
-            .then((x: string) => {
-                return x
-                    ? this.guild.channels.cache.filter((x) => x.type === type).has(x)
-                        ? (this.guild.channels.cache.filter((x) => x.type === type).get(x) as T)
+            .then((x: Record<string, any>) => {
+                return x[key]
+                    ? this.guild.channels.cache.filter((x) => x.type === type).has(x[key])
+                        ? (this.guild.channels.cache.filter((x) => x.type === type).get(x[key]) as T)
                         : null
                     : null;
             });

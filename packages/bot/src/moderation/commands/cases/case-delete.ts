@@ -13,7 +13,7 @@ export default class CaseDelete extends Command {
             description: {
                 content: "Delete a case by ID",
                 usage: "<id> [...reason]",
-                example: ["cases delete 345"],
+                example: ["pardon 345", "cases delete 345"],
             },
             args: [
                 {
@@ -49,7 +49,7 @@ export default class CaseDelete extends Command {
                     message,
                     this.client.Modules.get("moderation")!.commands.get("unban")!,
                     {
-                        target: fetchCase.user,
+                        target: fetchCase.target,
                         reason: reason,
                     }
                 );
@@ -58,13 +58,13 @@ export default class CaseDelete extends Command {
                 const mutedRoleID = await message.guild!.settings.get<string>("muteRole");
                 const mutedRole = mutedRoleID ? await message.guild!.roles.fetch(mutedRoleID) : null;
                 if (mutedRole) {
-                    void (await message.guild!.members.fetch(fetchCase.user)).roles.remove(mutedRole);
+                    void (await message.guild!.members.fetch(fetchCase.target)).roles.remove(mutedRole);
                 }
 
                 return message.channel.send(
                     new this.client.Embeds.SuccessEmbed(
                         "User Successfully unmuted",
-                        this.client.Responses.NEW_MODACTION_RESPONSE("unmuted", fetchCase.user, reason),
+                        this.client.Responses.NEW_MODACTION_RESPONSE("unmuted", fetchCase.target, reason),
                         message
                     ).setFooter(`Case-ID: ${fetchCase.id}`)
                 );

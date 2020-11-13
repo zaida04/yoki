@@ -11,7 +11,7 @@ export default class Cases extends SubCommand {
             description: {
                 content: "Interact with this server's cases",
                 usage: "<subcommand> [...args]",
-                examples: ["cases fetch 12", "cases delete 12", "cases edit 12"],
+                example: ["cases fetch 12", "cases delete 12", "cases edit 12"],
             },
             subCommands: [
                 ["case-delete", "delete"],

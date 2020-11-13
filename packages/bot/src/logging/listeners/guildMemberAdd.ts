@@ -1,7 +1,8 @@
 import { Listener } from "discord-akairo";
 import { GuildMember } from "discord.js";
 import JoinEmbed from "../util/JoinEmbed";
-import { retrieveWelcomeChannel } from "../../common/retrieveChannel";
+
+import { TextChannel } from "discord.js";
 
 export default class guildMemberAdd extends Listener {
     public constructor() {
@@ -12,7 +13,7 @@ export default class guildMemberAdd extends Listener {
     }
 
     public async exec(member: GuildMember) {
-        const welcomeChannel = await retrieveWelcomeChannel(member.guild);
+        const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomeChannel", "text");
         if (!welcomeChannel) return;
         return welcomeChannel.send(new JoinEmbed(member));
     }

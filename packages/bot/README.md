@@ -20,7 +20,7 @@ export default class ModuleName extends YokiModule {
                 id: "module-id",
                 name: "module-name",
                 commandDirectory: `${__dirname}/commands/`,
-                listenersDirectory: `${__dirname}/listeners/`
+                listenerDirectory: `${__dirname}/listeners/`
             },
             client
         );

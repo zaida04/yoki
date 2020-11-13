@@ -2,7 +2,7 @@ import { Command } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import { TextChannel } from "discord.js";
 import { Message } from "discord.js";
-import { retrieveModLogChannel } from "../../../common/retrieveChannel";
+
 import { YokiColors } from "../../../common/YokiColors";
 
 export default class Clear extends Command {
@@ -14,12 +14,16 @@ export default class Clear extends Command {
             description: {
                 content: "Delete a certain amount of messages in this channel",
                 usage: "<amount>",
-                examples: ["clear 5"],
+                example: ["clear 5"],
             },
             args: [
                 {
                     id: "amount",
                     type: "integer",
+                    prompt: {
+                        optional: true,
+                        start: "Please provide an amount of messages to delete *(say it below)*",
+                    },
                 },
             ],
             clientPermissions: ["MANAGE_MESSAGES"],
@@ -36,7 +40,7 @@ export default class Clear extends Command {
         if (!(message.channel instanceof TextChannel)) return;
         if (amount > 1) {
             const deleted_messages = await message.channel.bulkDelete(amount + 1);
-            const logChannel = await retrieveModLogChannel(message.guild!);
+            const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
 
             void logChannel?.send({
                 embed: new MessageEmbed()

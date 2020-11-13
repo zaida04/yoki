@@ -1,4 +1,4 @@
-import ActionManager from "../moderation/ActionManager";
+import ActionManager from "../ActionManager";
 
 declare module "discord-akairo" {
     interface AkairoClient {
