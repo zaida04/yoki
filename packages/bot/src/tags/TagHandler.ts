@@ -30,7 +30,7 @@ export default class TagHandler {
     }
 
     public create(guild: Guild | string, data: TagParams): Promise<DatabaseTagEntry> {
-        const tag: Record<string, any> = {
+        const tag: Record<string, string | number | boolean> = {
             guild_id: guild instanceof Guild ? guild.id : guild,
             name: data.name,
             creator_id: data.creator.id,
