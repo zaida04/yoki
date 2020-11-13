@@ -39,7 +39,10 @@ export default class Help extends Command {
                         command.description.usage ? ` ${command.description.usage}` : ""
                     }\``
                 )
-                .addField("❯ Examples", command.description.example.map((x: any) => `\`${prefix}${x}\``).join("\n"));
+                .addField(
+                    "❯ Examples",
+                    command.description.example.map((x: string[]) => `\`${prefix}${x}\``).join("\n")
+                );
             if (command.aliases.length > 1) {
                 embed.addField(
                     "❯ Aliases",
