@@ -1,13 +1,12 @@
 import DatabaseManager from "@yoki/database";
 import Logger from "@yoki/logger";
 import { ClientOptions } from "./ClientOptions";
-import Responses from "../core/responses";
-import Embeds from "../core/structures/embeds/Embeds";
-import YokiModule from "../common/YokiModule";
+import Responses from "../responses";
+import Embeds from "../structures/embeds/Embeds";
+import YokiModule from "../../common/YokiModule";
 import { Collection } from "discord.js";
 
-import "./Moderation";
-import { YokiColors } from "../common/YokiColors";
+import { YokiColors } from "../../common/YokiColors";
 
 declare module "discord-akairo" {
     interface AkairoClient {

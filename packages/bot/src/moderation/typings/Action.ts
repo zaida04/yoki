@@ -6,16 +6,17 @@ export type ActionType = "kick" | "ban" | "mute" | "softban" | "unban" | "warn";
 export interface ActionDatabaseData {
     guild: string;
     id: string;
-    user: string;
+    target_id: string;
     reason: string | null;
     type: ActionType;
-    executor: string;
+    executor_id: string;
     message_id: string | null;
     channel_id: string | null;
+    createdAt: Date;
 }
 export interface ActionData {
     guild: Guild;
-    user: User;
+    target: User;
     type: ActionType;
     reason?: string;
     executor: User;

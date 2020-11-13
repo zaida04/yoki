@@ -4,7 +4,7 @@ import { Guild } from "discord.js";
 import { User } from "discord.js";
 import Action from "../../moderation/structures/Action";
 
-import { retrieveModLogChannel } from "../../common/retrieveChannel";
+import { TextChannel } from "discord.js";
 
 export default class guildBanRemove extends Listener {
     public constructor() {
@@ -17,12 +17,12 @@ export default class guildBanRemove extends Listener {
     public async exec(guild: Guild, user: User) {
         if (
             this.client.caseActions.cache.some(
-                (x: Action) => x.user.id === user.id && (x.type === "unban" || x.type === "softban")
+                (x: Action) => x.target.id === user.id && (x.type === "unban" || x.type === "softban")
             )
         )
             return;
 
-        const logChannel = await retrieveModLogChannel(guild);
+        const logChannel = await guild.settings.channel<TextChannel>("modLogChannel", "text");
         if (!logChannel) return;
 
         return logChannel.send(

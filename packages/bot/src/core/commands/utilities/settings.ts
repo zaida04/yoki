@@ -6,7 +6,7 @@ import { GuildChannel } from "discord.js";
 import { TextChannel, VoiceChannel } from "discord.js";
 import { Message } from "discord.js";
 
-import { CustomizableSettings, CustomizableSettingsArr } from "../../../typings/CustomizableSettings";
+import { CustomizableSettings, CustomizableSettingsArr } from "../../typings/CustomizableSettings";
 const settingsKeys = Object.keys(CustomizableSettingsArr);
 
 export default class Settings extends Command {
@@ -31,6 +31,11 @@ export default class Settings extends Command {
                 {
                     id: "setting",
                     type: "string",
+                    prompt: {
+                        start: `Which setting do you wish to change? Your options are ${settingsKeys
+                            .map((x) => `\`${x}\``)
+                            .join(", ")} \n*(say it below)*`,
+                    },
                 },
                 {
                     id: "value",
@@ -45,6 +50,9 @@ export default class Settings extends Command {
                         if (role) return role;
                         return null;
                     }),
+                    prompt: {
+                        start: "What do you wish to change the setting to?",
+                    },
                 },
             ],
         });
@@ -54,7 +62,6 @@ export default class Settings extends Command {
         message: Message,
         { setting, value }: { setting: CustomizableSettings; value?: TextChannel | VoiceChannel | Role | string }
     ) {
-        console.log(value);
         if (!settingsKeys.includes(setting))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
@@ -69,8 +76,17 @@ export default class Settings extends Command {
             const current_value = await message.guild!.settings.get<string>(
                 CustomizableSettingsArr[setting].mappedName
             );
+            const possible_channel = current_value ? message.guild?.channels.cache.get(current_value) : null;
             return message.channel.send(
-                `Current value for ${setting} is ${current_value ? `\`${current_value}\`` : "`NOT SET`"}`
+                `Current value for ${setting} is: ${
+                    current_value
+                        ? possible_channel instanceof TextChannel
+                            ? possible_channel.toString()
+                            : possible_channel instanceof VoiceChannel
+                            ? possible_channel
+                            : current_value
+                        : `\`Not Set\``
+                }`
             );
         }
 

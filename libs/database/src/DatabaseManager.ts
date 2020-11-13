@@ -10,33 +10,34 @@ export default class DatabaseManager {
 
     public async init() {
         await initTable(this.api, "settings", (table: TableBuilder) => {
-            table.increments("guild");
-            table.string("prefix");
-            table.string("logChannel");
-            table.string("muteRole");
-            table.string("welcomeChannel");
-            table.string("modLogChannel");
-            table.string("welcomeMessage");
-            table.boolean("premium");
             table.boolean("left");
+            table.boolean("premium");
+            table.string("guild");
+            table.string("logChannel");
+            table.string("modLogChannel");
+            table.string("muteRole");
+            table.string("prefix");
+            table.string("welcomeChannel");
+            table.string("welcomeMessage");
         });
         await initTable(this.api, "actions", (table: TableBuilder) => {
             table.increments("id");
-            table.string("guild");
-            table.string("type");
-            table.string("user");
-            table.string("executor");
-            table.string("reason");
-            table.string("message_id");
             table.string("channel_id");
+            table.string("executor_id");
+            table.string("guild");
+            table.string("message_id");
+            table.string("reason");
+            table.string("target_id");
+            table.string("type");
+            table.date("createdAt");
         });
         await initTable(this.api, "tags", (table: TableBuilder) => {
-            table.string("guild");
-            table.string("name");
+            table.increments("id");
             table.string("content");
-            table.string("creator");
-            table.string("createdAt");
-            table.boolean("boolean");
+            table.date("createdAt");
+            table.string("creator_id");
+            table.string("guild_id");
+            table.string("name");
         });
     }
 }

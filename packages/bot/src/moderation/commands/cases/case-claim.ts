@@ -2,7 +2,7 @@ import { Command } from "discord-akairo";
 
 import { Message } from "discord.js";
 import { hasAnyPermission } from "../../../common/PermissionUtil";
-import { ActionType } from "../../../typings/Action";
+import { ActionType } from "../../typings/Action";
 import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class CaseClaim extends Command {
@@ -19,11 +19,20 @@ export default class CaseClaim extends Command {
                 {
                     id: "fetchMessage",
                     type: "guildMessage",
+                    prompt: {
+                        optional: true,
+                        start:
+                            "Please provide the id of a message in this guild that is an `Unknown Executor` Embed *(say it below)*",
+                    },
                 },
                 {
                     id: "reason",
                     match: "rest",
                     type: "string",
+                    prompt: {
+                        optional: true,
+                        start: "What's the reason for claiming this case?",
+                    },
                 },
             ],
             userPermissions: (message) =>
@@ -60,7 +69,7 @@ export default class CaseClaim extends Command {
 
         const createdCase = await this.client.caseActions.create({
             guild: message.guild!,
-            user: await this.client.users.fetch(
+            target: await this.client.users.fetch(
                 rows
                     .find((x) => x.trim().startsWith("**Target:**"))!
                     .replace(" ", "")

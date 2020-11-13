@@ -1,6 +1,6 @@
 import Client from "./core/client/Client";
 import { config } from "dotenv";
-import { ClientOptions } from "./typings/ClientOptions";
+import { ClientOptions } from "./core/typings/ClientOptions";
 // @ts-ignore
 import DBEnviroment from "../../../knexfile.example";
 

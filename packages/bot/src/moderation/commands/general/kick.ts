@@ -1,6 +1,7 @@
 import { Command } from "discord-akairo";
+import { TextChannel } from "discord.js";
 import { GuildMember, Message } from "discord.js";
-import { retrieveModLogChannel } from "../../../common/retrieveChannel";
+
 import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Kick extends Command {
@@ -12,7 +13,7 @@ export default class Kick extends Command {
             description: {
                 content: "Kick a member from this server",
                 usage: "<@member> [...reason]",
-                examples: ["kick @ociN#3727 being mean", "kick 500765481788112916 being mean", "kick Nico being mean"],
+                example: ["kick @ociN#3727 being mean", "kick 500765481788112916 being mean", "kick Nico being mean"],
             },
             ratelimit: 5,
             cooldown: 20000,
@@ -26,6 +27,11 @@ export default class Kick extends Command {
                     match: "rest",
                     type: "string",
                 },
+                {
+                    id: "hidden",
+                    match: "flag",
+                    flag: "--hidden",
+                },
             ],
             channel: "guild",
             clientPermissions: ["KICK_MEMBERS"],
@@ -33,7 +39,10 @@ export default class Kick extends Command {
         });
     }
 
-    public async exec(message: Message, { target, reason }: { target?: GuildMember; reason: string }) {
+    public async exec(
+        message: Message,
+        { target, reason, hidden }: { target?: GuildMember; reason: string; hidden?: boolean }
+    ) {
         if (!target)
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_MEMBER, null)
@@ -59,14 +68,19 @@ export default class Kick extends Command {
             executor: message.author,
             message: null,
             type: "kick",
-            user: target.user,
+            target: target.user,
         });
+        if (!hidden)
+            await target
+                .send(`You have been \`kicked\` in **${message.guild!.name}**\n\nReason: ${reason}`)
+                .catch((e) => e);
+
         await target.kick(`Kick case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`);
 
-        const logChannel = await retrieveModLogChannel(message.guild!);
+        const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
         const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
         if (logMessage) {
-            this.client.caseActions.updateMessage(createdCase, logMessage);
+            void this.client.caseActions.updateMessage(createdCase, logMessage);
         }
         this.client.caseActions.cache.delete(createdCase.id);
 

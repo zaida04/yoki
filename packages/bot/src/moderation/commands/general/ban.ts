@@ -1,8 +1,9 @@
 import { Argument } from "discord-akairo";
 import { Command } from "discord-akairo";
+import { TextChannel } from "discord.js";
 import { GuildMember } from "discord.js";
 import { User, Message } from "discord.js";
-import { retrieveModLogChannel } from "../../../common/retrieveChannel";
+
 import ActionEmbed from "../../structures/ActionEmbed";
 
 export default class Ban extends Command {
@@ -36,6 +37,11 @@ export default class Ban extends Command {
                     match: "rest",
                     type: "string",
                 },
+                {
+                    id: "hidden",
+                    match: "flag",
+                    flag: "--hidden",
+                },
             ],
             clientPermissions: ["BAN_MEMBERS"],
             userPermissions: ["BAN_MEMBERS"],
@@ -43,7 +49,10 @@ export default class Ban extends Command {
         });
     }
 
-    public async exec(message: Message, { target, reason }: { target?: User | GuildMember; reason?: string }) {
+    public async exec(
+        message: Message,
+        { target, reason, hidden }: { target?: User | GuildMember; reason?: string; hidden?: boolean }
+    ) {
         if (!target)
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
         if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("ban"));
@@ -69,17 +78,22 @@ export default class Ban extends Command {
             executor: message.author,
             message: null,
             type: "ban",
-            user: target instanceof GuildMember ? target.user : target,
+            target: target instanceof GuildMember ? target.user : target,
         });
+
+        if (!hidden)
+            await target
+                .send(`You have been \`banned\` in **${message.guild!.name}**\n\nReason: ${reason}`)
+                .catch((e) => e);
 
         await message.guild!.members.ban(target, {
             reason: `Ban case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`,
         });
 
-        const logChannel = await retrieveModLogChannel(message.guild!);
+        const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
         const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
         if (logMessage) {
-            this.client.caseActions.updateMessage(createdCase, logMessage);
+            void this.client.caseActions.updateMessage(createdCase, logMessage);
         }
         this.client.caseActions.cache.delete(createdCase.id);
 
