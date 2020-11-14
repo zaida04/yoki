@@ -24,9 +24,6 @@ export default class ModuleName extends YokiModule {
             },
             client
         );
-        client.caseActions = new ActionManager(client);
     }
 }
-
-
 ```

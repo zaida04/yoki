@@ -30,7 +30,7 @@ export default class TagHandler {
     }
 
     public create(guild: Guild | string, data: TagParams): Promise<DatabaseTagEntry> {
-        const tag: Record<string, string | number | boolean> = {
+        const tag: Partial<DatabaseTagEntry> = {
             guild_id: guild instanceof Guild ? guild.id : guild,
             name: data.name,
             creator_id: data.creator.id,
@@ -42,7 +42,7 @@ export default class TagHandler {
             .api<DatabaseTagEntry>("tags")
             .insert(tag, ["id"])
             .then((x: Pick<DatabaseTagEntry, "id">[]) => {
-                tag.id = x[0];
+                tag.id = x[0].id;
                 return tag as DatabaseTagEntry;
             });
     }
