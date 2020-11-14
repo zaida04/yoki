@@ -13,8 +13,17 @@ export default class guildMemberAdd extends Listener {
     }
 
     public async exec(member: GuildMember) {
+        const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberLog", "text");
+        if (memberLogChannel) {
+            void memberLogChannel.send(new JoinEmbed(member));
+        }
+
         const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomeChannel", "text");
-        if (!welcomeChannel) return;
-        return welcomeChannel.send(new JoinEmbed(member));
+        if (welcomeChannel) {
+            const welcomeChannelMessage = await member.guild.settings.get<string>("welcomeMessage");
+            void welcomeChannel.send(
+                welcomeChannelMessage ? welcomeChannelMessage : `${member.user} has joined! Welcome to the server!`
+            );
+        }
     }
 }

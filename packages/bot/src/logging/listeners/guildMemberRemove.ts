@@ -17,9 +17,15 @@ export default class guildMemberRemove extends Listener {
     public async exec(member: GuildMember) {
         if (this.client.caseActions.cache.some((x: Action) => x.target.id === member.id && x.type === "kick")) return;
 
+        const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberLog", "text");
+        if (memberLogChannel) {
+            void memberLogChannel.send(new LeaveEmbed(member));
+        }
+
         const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomeChannel", "text");
         if (welcomeChannel) {
-            return welcomeChannel.send(new LeaveEmbed(member));
+            const leaveChannelMessage = await member.guild.settings.get<string>("leaveMessage");
+            void welcomeChannel.send(leaveChannelMessage ? leaveChannelMessage : `${member.user} has left!`);
         }
     }
 }

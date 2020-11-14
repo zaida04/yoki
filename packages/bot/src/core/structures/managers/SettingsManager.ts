@@ -29,7 +29,7 @@ export default class SettingsManager {
         );
     }
 
-    public async update(key: string, value: string | boolean | number) {
+    public async update(key: string, value: string | boolean | number | null) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const update: any = {};
         update[key] = value;
