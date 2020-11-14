@@ -15,10 +15,12 @@ export default class DatabaseManager {
             table.string("guild");
             table.string("logChannel");
             table.string("modLogChannel");
+            table.string("memberLog");
             table.string("muteRole");
             table.string("prefix");
             table.string("welcomeChannel");
             table.string("welcomeMessage");
+            table.string("leaveMessage");
             table.date("joinedDate");
 
             /* Enabled */

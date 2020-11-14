@@ -31,14 +31,10 @@ export default class Settings extends Command {
                 {
                     id: "setting",
                     type: "string",
-                    prompt: {
-                        start: `Which setting do you wish to change? Your options are ${settingsKeys
-                            .map((x) => `\`${x}\``)
-                            .join(", ")} \n*(say it below)*`,
-                    },
                 },
                 {
                     id: "value",
+                    match: "rest",
                     type: Argument.union("textChannel", "voiceChannel", "role", "string", async (message, phrase) => {
                         const textChannel = message.guild?.channels.cache.filter((x) => x.type === "text").get(phrase);
                         if (textChannel) return textChannel;
@@ -50,9 +46,6 @@ export default class Settings extends Command {
                         if (role) return role;
                         return null;
                     }),
-                    prompt: {
-                        start: "What do you wish to change the setting to?",
-                    },
                 },
             ],
         });
@@ -60,8 +53,20 @@ export default class Settings extends Command {
 
     public async exec(
         message: Message,
-        { setting, value }: { setting: CustomizableSettings; value?: TextChannel | VoiceChannel | Role | string }
+        {
+            setting,
+            value,
+        }: { setting?: CustomizableSettings; value?: TextChannel | VoiceChannel | Role | boolean | null | string }
     ) {
+        if (!setting)
+            return message.channel.send(
+                new this.client.Embeds.ErrorEmbed(
+                    "Settings Options",
+                    `Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(", ")}. 
+                        
+                    If you want to set a setting to nothing, pass the word \`none\``
+                ).setColor("GOLD")
+            );
         if (!settingsKeys.includes(setting))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
@@ -84,34 +89,61 @@ export default class Settings extends Command {
                             ? possible_channel.toString()
                             : possible_channel instanceof VoiceChannel
                             ? possible_channel
-                            : current_value
-                        : `\`Not Set\``
+                            : `\`${current_value}\``
+                        : `\`none\``
                 }`
             );
         }
 
         const matched_setting = CustomizableSettingsArr[setting];
-        switch (matched_setting.type) {
-            case "textChannel": {
-                if (!(value instanceof TextChannel))
-                    return message.channel.send(
-                        `Sorry, but that is not the proper argument. Expected a valid \`text channel\``
-                    );
-                break;
-            }
-            case "voiceChannel": {
-                if (!(value instanceof VoiceChannel))
-                    return message.channel.send(
-                        `Sorry, but that is not the proper argument. Expected a valid \`voice channel\``
-                    );
-                break;
-            }
-            case "role": {
-                if (!(value instanceof Role))
-                    return message.channel.send(
-                        `Sorry, but that is not the proper argument. Expected a valid \`role\``
-                    );
-                break;
+        if (value === "none") value = null;
+        else {
+            switch (matched_setting.type) {
+                case "textChannel": {
+                    if (!(value instanceof TextChannel))
+                        return message.channel.send(
+                            `Sorry, but that is not the proper argument. Expected a valid \`text channel\``
+                        );
+                    break;
+                }
+                case "voiceChannel": {
+                    if (!(value instanceof VoiceChannel))
+                        return message.channel.send(
+                            `Sorry, but that is not the proper argument. Expected a valid \`voice channel\``
+                        );
+                    break;
+                }
+                case "role": {
+                    if (!(value instanceof Role))
+                        return message.channel.send(
+                            `Sorry, but that is not the proper argument. Expected a valid \`role\``
+                        );
+                    break;
+                }
+                case "y/n": {
+                    if (typeof value !== "string") return message.channel.send("Must supply text!");
+                    switch (value.toLowerCase()) {
+                        case "yes":
+                        case "y":
+                        case "enable":
+                        case "enabled": {
+                            value = true;
+                            break;
+                        }
+                        case "no":
+                        case "n":
+                        case "disable":
+                        case "disabled": {
+                            value = false;
+                            break;
+                        }
+
+                        default: {
+                            return message.channel.send("Invalid option, please use either `enable` or `disable`");
+                        }
+                    }
+                    break;
+                }
             }
         }
         await message.guild!.settings.update(
@@ -124,7 +156,13 @@ export default class Settings extends Command {
                 "Success!",
                 `\`${setting}\` has been changed to ${
                     // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                    value instanceof TextChannel ? value.toString() : value instanceof VoiceChannel ? value.name : value
+                    value instanceof TextChannel
+                        ? value.toString()
+                        : value instanceof VoiceChannel
+                        ? value.name
+                        : value === null
+                        ? `\`none\``
+                        : value
                 }`,
                 message
             )
