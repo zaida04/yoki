@@ -19,6 +19,10 @@ export default class DatabaseManager {
             table.string("prefix");
             table.string("welcomeChannel");
             table.string("welcomeMessage");
+            table.date("joinedDate");
+
+            /* Enabled */
+            table.boolean("messageFilterEnabled");
         });
         await initTable(this.api, "actions", (table: TableBuilder) => {
             table.increments("id");
@@ -29,6 +33,12 @@ export default class DatabaseManager {
             table.string("reason");
             table.string("target_id");
             table.string("type");
+            table.date("createdAt");
+        });
+        await initTable(this.api, "messageFilter", (table: TableBuilder) => {
+            table.string("guild_id");
+            table.string("content");
+            table.string("creator_id");
             table.date("createdAt");
         });
         await initTable(this.api, "tags", (table: TableBuilder) => {

@@ -1,24 +1,27 @@
+/* Main Dependencies */
 import { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } from "discord-akairo";
 import { join } from "path";
-import { ClientOptions } from "../typings/ClientOptions";
-import { Message } from "discord.js";
-import { Collection } from "discord.js";
+import { Message, Collection, MessageEmbed } from "discord.js";
 
+/* Typings */
 import "../typings/Akairo";
 import "../typings/Guild";
 import "../structures/discord.js/Guild";
+import { ClientOptions } from "../typings/ClientOptions";
 
+/* Helper Structures */
 import Logger from "@yoki/logger";
 import DatabaseManager from "@yoki/database";
 import Responses from "../structures/embeds/Embeds";
 import Constants from "../responses";
 import { YokiColors } from "../../common/YokiColors";
 
+/* Yoki Modules */
 import YokiModule from "../../common/YokiModule";
 import Moderation from "../../moderation/moderation";
 import Logging from "../../logging/logging";
 import Tags from "../../tags/tags";
-import { MessageEmbed } from "discord.js";
+import MessageFilter from "../../messageFilter/messageFilter";
 
 export default class Client extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -98,6 +101,7 @@ export default class Client extends AkairoClient {
     private async _loadModules() {
         this.Modules.set("moderation", await new Moderation(this).load());
         this.Modules.set("logging", await new Logging(this).load());
+        this.Modules.set("messageFilter", await new MessageFilter(this).load());
         this.Modules.set("tags", await new Tags(this).load());
         return 0;
     }

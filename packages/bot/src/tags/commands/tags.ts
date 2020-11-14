@@ -16,6 +16,7 @@ export default class Tags extends SubCommand {
                 ["tag-delete", "delete"],
                 ["tag-show", "show"],
                 ["tag-info", "info"],
+                ["tag-list", "list"],
                 ["tag-create", "create"],
             ],
             channel: "guild",

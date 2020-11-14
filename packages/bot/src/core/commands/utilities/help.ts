@@ -17,7 +17,7 @@ export default class Help extends Command {
                     default: null,
                 },
             ],
-            category: "utilities",
+            category: "util",
             description: {
                 content: "Displays information about a command",
                 usage: "[command]",
