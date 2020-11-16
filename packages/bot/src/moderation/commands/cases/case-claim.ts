@@ -36,7 +36,7 @@ export default class CaseClaim extends Command {
                 },
             ],
             userPermissions: (message) =>
-                hasAnyPermission(message.member!, ["MANAGE_GUILD", "KICK_MEMBERS", "BAN_MEMBERS"]),
+                hasAnyPermission(message.member!, ["MANAGE_MESSAGES", "MANAGE_GUILD", "KICK_MEMBERS", "BAN_MEMBERS"]),
             channel: "guild",
         });
     }

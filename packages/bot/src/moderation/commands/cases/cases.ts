@@ -17,6 +17,7 @@ export default class Cases extends SubCommand {
                 ["case-delete", "delete"],
                 ["case-fetch", "fetch"],
                 ["case-claim", "claim"],
+                ["case-history", "history"],
             ],
             channel: "guild",
             userPermissions: (message) =>

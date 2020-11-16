@@ -11,7 +11,7 @@ export default class ActionEmbed extends MessageEmbed {
         **Type:** \`${action.type}\`
         **Reason:** ${action.reason ? `\`${action.reason}\`` : "`not set`"}`);
         super.setThumbnail(action.target.displayAvatarURL());
-        super.setFooter(`Case-ID ${action.id}`, action.guild.icon ? action.guild.iconURL()! : undefined);
+        super.setFooter(`Case-ID #${action.id}`, action.guild.icon ? action.guild.iconURL()! : undefined);
         super.setTimestamp();
 
         switch (action.type) {

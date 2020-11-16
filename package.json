@@ -9,6 +9,7 @@
     "start::dash": "node dist/packages/dashboard/index.js",
     "build": "rimraf packages/bot/dist && rimraf libs/database/dist && rimraf libs/logger/dist && rimraf packages/bot/dist && pnpm recursive run build --filter @yoki/*",
     "preinstall": "npx only-allow pnpm",
+    "knex:init": "knex migrate:latest",
     "lint": "npx eslint packages/ libs/ --fix"
   },
   "repository": {
@@ -32,7 +33,11 @@
     "eslint-plugin-unused-imports": "^0.1.3",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "sqlite3": "^5.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "knex": "^0.21.12",
+    "mysql": "^2.18.1"
+  }
 }

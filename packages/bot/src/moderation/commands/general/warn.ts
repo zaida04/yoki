@@ -3,6 +3,7 @@ import { TextChannel } from "discord.js";
 import { GuildMember } from "discord.js";
 
 import { Message } from "discord.js";
+import { hasAnyPermission } from "../../../common/PermissionUtil";
 
 import ActionEmbed from "../../structures/ActionEmbed";
 
@@ -34,6 +35,8 @@ export default class Warn extends Command {
                 },
             ],
             userPermissions: ["MANAGE_MESSAGES"],
+            clientPermissions: (message) =>
+                hasAnyPermission(message.member!, ["MANAGE_MESSAGES", "BAN_MEMBERS", "KICK_MEMBERS"]),
             channel: "guild",
         });
     }

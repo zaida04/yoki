@@ -1,4 +1,4 @@
-import DatabaseManager from "@yoki/database";
+import DatabaseManager from "../structures/managers/DatabaseManager";
 import Logger from "@yoki/logger";
 import { ClientOptions } from "./ClientOptions";
 import Responses from "../responses";

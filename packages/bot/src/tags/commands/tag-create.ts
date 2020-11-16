@@ -29,6 +29,8 @@ export default class tagCreate extends Command {
                     type: "string",
                 },
             ],
+            userPermissions: ["MANAGE_MESSAGES"],
+            clientPermissions: ["EMBED_LINKS"],
             channel: "guild",
         });
     }

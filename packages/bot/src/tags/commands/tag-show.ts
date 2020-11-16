@@ -21,6 +21,7 @@ export default class tagInfo extends Command {
                 },
             ],
             channel: "guild",
+            clientPermissions: ["EMBED_LINKS"],
         });
     }
 

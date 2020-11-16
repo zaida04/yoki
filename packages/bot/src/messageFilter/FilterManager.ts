@@ -29,7 +29,7 @@ export default class FilterHandler {
             })
             .del();
         const existing = await this.guilds.get(data.guild_id);
-        existing!.delete(data.content);
+        existing?.delete(data.content);
         this.guilds.set(data.guild_id, existing!);
     }
 

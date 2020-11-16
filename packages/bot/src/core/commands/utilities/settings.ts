@@ -160,6 +160,10 @@ export default class Settings extends Command {
                         ? value.toString()
                         : value instanceof VoiceChannel
                         ? value.name
+                        : value === true
+                        ? "`enabled`"
+                        : value === false
+                        ? "`disabled`"
                         : value === null
                         ? `\`none\``
                         : value

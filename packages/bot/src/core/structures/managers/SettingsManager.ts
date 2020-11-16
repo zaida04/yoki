@@ -4,7 +4,7 @@ import { TextChannel } from "discord.js";
 import { VoiceChannel } from "discord.js";
 import { Guild } from "discord.js";
 import { QueryBuilder } from "knex";
-import DatabaseManager from "@yoki/database";
+import DatabaseManager from "./DatabaseManager";
 
 export default class SettingsManager {
     public guild: Guild;

@@ -43,7 +43,15 @@ export default class Help extends Command {
                     "❯ Examples",
                     command.description.example.map((x: string[]) => `\`${prefix}${x}\``).join("\n")
                 );
-            if (command.aliases.length > 1) {
+            if (command.userPermissions && Array.isArray(command.userPermissions)) {
+                embed.addField("❯ Permissions Needed (from user)", `\`${command.userPermissions.join("`, `")}\``);
+            }
+
+            if (command.clientPermissions && Array.isArray(command.clientPermissions)) {
+                embed.addField("❯ Permissions Needed (from me)", `\`${command.clientPermissions.join("`, `")}\``);
+            }
+
+            if (command.aliases.filter((x: string) => x !== command.id).length > 1) {
                 embed.addField(
                     "❯ Aliases",
                     `\`${command.aliases.filter((x: string) => x !== command.id).join("`, `")}\``
