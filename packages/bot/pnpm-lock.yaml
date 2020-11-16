@@ -1,5 +1,4 @@
 dependencies:
-  '@yoki/database': 'link:../../libs/database'
   '@yoki/logger': 'link:../../libs/logger'
   discord-akairo: 8.1.0
   discord.js: 12.3.1
@@ -1223,7 +1222,6 @@ packages:
       integrity: sha512-D3RuNkynyHmEJIpD2qrgVkc9DQ23OrN/moAwZX4L8DfvszsJxpjQuUq3LMx6HoYji9fbIOBY18XWBsAux1ZZUA==
 specifiers:
   '@types/node': ^14.11.8
-  '@yoki/database': 1.0.0
   '@yoki/logger': 1.0.0
   discord-akairo: ^8.1.0
   discord.js: ^12.3.1
