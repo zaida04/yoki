@@ -11,7 +11,7 @@ import { ClientOptions } from "../typings/ClientOptions";
 
 /* Helper Structures */
 import Logger from "@yoki/logger";
-import DatabaseManager from "@yoki/database";
+import DatabaseManager from "../structures/managers/DatabaseManager";
 import Responses from "../structures/embeds/Embeds";
 import Constants from "../responses";
 import { YokiColors } from "../../common/YokiColors";
@@ -23,7 +23,7 @@ import Logging from "../../logging/logging";
 import Tags from "../../tags/tags";
 import MessageFilter from "../../messageFilter/messageFilter";
 
-export default class Client extends AkairoClient {
+export default class YokiClient extends AkairoClient {
     public constructor(config: ClientOptions) {
         super(
             {
@@ -46,8 +46,7 @@ export default class Client extends AkairoClient {
 
         this.commandHandler = new CommandHandler(this, {
             directory: `${__dirname}/../commands/`,
-            prefix: async (message: Message) =>
-                (await message.guild?.settings.get("prefix")) ?? this.config.defaultPrefix,
+            prefix: async (message: Message) => (await message.guild?.prefix()) ?? this.config.defaultPrefix,
             allowMention: true,
             defaultCooldown: 5000,
             commandUtil: false,
@@ -81,7 +80,7 @@ export default class Client extends AkairoClient {
         });
     }
 
-    private async _init() {
+    private _init() {
         this.commandHandler.useListenerHandler(this.listenerHandler);
         this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 
@@ -94,8 +93,6 @@ export default class Client extends AkairoClient {
         this.commandHandler.loadAll();
         this.listenerHandler.loadAll();
         this.inhibitorHandler.loadAll();
-
-        await this.db.init();
     }
 
     private async _loadModules() {

@@ -34,9 +34,10 @@ Yoki **advises you use PNPM** due to it's monorepo setup. You can use npm, but i
 ### Installation 
 - `git clone https://github.com/zaida04/Yoki.git`  
 - `pnpm i --r`  
-- Change knexfile.example.ts => knexfile.ts  
+- Change `knexfile.example.js` => `knexfile.js`  
 - supply ENV variables in a `bot.env` file in the root.  
 - `pnpm run build`  
+- `pnpm run knex:init`
 - `pnpm run start::bot` 
     
 ## Commands
@@ -54,7 +55,7 @@ Contributions are what make the open source community such an amazing place to b
 
 Yoki is structured as a monorepo  
 
-`lib/` - Custom libraries
+`lib/` - Custom libraries  
 `packages/` - Main applications     
 `packages/bot` - Where the bot part of Yoki lives
 `packages/bot/src/core/` - Being the core of Yoki  

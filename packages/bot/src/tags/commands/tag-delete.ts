@@ -23,7 +23,7 @@ export default class tagInfo extends Command {
                 },
             ],
             channel: "guild",
-            userPermissions: "MANAGE_GUILD",
+            userPermissions: ["MANAGE_GUILD"],
         });
     }
 

@@ -17,6 +17,8 @@ export default class filterAdd extends Command {
                     type: "lowercase",
                 },
             ],
+            userPermissions: ["MANAGE_MESSAGES"],
+            clientPermissions: ["MANAGE_MESSAGES"],
             channel: "guild",
         });
     }

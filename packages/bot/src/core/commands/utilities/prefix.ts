@@ -32,6 +32,7 @@ export default class Prefix extends Command {
                 }\``
             );
         await message.guild!.settings.update("prefix", newPrefix);
+        message.guild!._prefix = newPrefix;
         return message.channel.send(
             new this.client.Embeds.SuccessEmbed(
                 "Prefix Successfully Changed",
