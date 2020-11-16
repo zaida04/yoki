@@ -7,7 +7,6 @@
         "build": "tsc"
     },
     "dependencies": {
-        "@yoki/database": "1.0.0",
         "@yoki/logger": "1.0.0",
         "discord-akairo": "^8.1.0",
         "discord.js": "^12.3.1",
