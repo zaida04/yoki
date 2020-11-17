@@ -65,7 +65,7 @@ Yoki is structured as a monorepo
 
 
 ## LICENSING  
-**Yoki** © [zaida04](https://github.com/zaida04), Released under the [MIT](https://github.com/zaida04/Yoki/blob/master/LICENSE) License.  
+> **Yoki** © [zaida04](https://github.com/zaida04), Released under the [MIT](https://github.com/zaida04/Yoki/blob/master/LICENSE) License.  
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [discord-link]: https://discord.gg/jf66UUN

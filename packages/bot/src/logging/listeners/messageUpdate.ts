@@ -38,7 +38,8 @@ export default class messageUpdate extends Listener {
                     newMessage.content.length > 900 ? `${newMessage.content.slice(0, 900)}...` : newMessage.content
                 } \`\`\`
             `
-            );
+            )
+            .setTimestamp();
 
         void logChannel.send(embed);
 

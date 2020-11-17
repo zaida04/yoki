@@ -4,28 +4,26 @@ import { TextChannel } from "discord.js";
 import { DMChannel } from "discord.js";
 import { GuildChannel } from "discord.js";
 
-export default class channelCreate extends Listener {
+export default class channelDelete extends Listener {
     public constructor() {
-        super("logging-channelCreate", {
+        super("logging-channelDelete", {
             emitter: "client",
-            event: "channelCreate",
+            event: "channelDelete",
         });
     }
 
     public async exec(channel: GuildChannel | DMChannel) {
         if (channel instanceof DMChannel) return;
-        if (this.client.tickets.cache.some((x) => x.channel.id === channel.id)) return;
         const logChannel = await channel.guild.settings.channel<TextChannel>("logChannel", "text");
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
-            .setColor("GREEN")
-            .setTitle("Channel Created")
+            .setColor("RED")
+            .setTitle("Channel Deleted")
             .setDescription(
                 `
             Name: \`${channel.name}\` 
-            ID: \`(${channel.id})\`
-            `
+            ID: \`(${channel.id})\``
             )
             .setTimestamp();
         void logChannel.send(embed);
