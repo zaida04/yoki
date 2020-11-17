@@ -6,7 +6,7 @@ import Action from "./structures/Action";
 import { TextChannel } from "discord.js";
 import { Message } from "discord.js";
 
-export default class ActionManager extends BaseManager<Action, ActionData> {
+export default class ActionManager extends BaseManager<Action> {
     public constructor(public client: AkairoClient) {
         super(client);
     }

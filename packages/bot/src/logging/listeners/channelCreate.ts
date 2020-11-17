@@ -14,7 +14,7 @@ export default class channelCreate extends Listener {
 
     public async exec(channel: GuildChannel | DMChannel) {
         if (channel instanceof DMChannel) return;
-        if (this.client.tickets.cache.some((x) => x.channel.id === channel.id)) return;
+        if (this.client.tickets.cache.some((x) => x.channel!.id === channel.id)) return;
         const logChannel = await channel.guild.settings.channel<TextChannel>("logChannel", "text");
         if (!logChannel) return;
 
