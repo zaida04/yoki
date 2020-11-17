@@ -1,14 +1,25 @@
-add logging for events of chanenl deletion, channel update, role creation, role deletion, role update
-message deletion
-message editing (only changed part)
-guildUpdate
-messageDeletebulk
+Giveaway system
+- reroll
+- time from now expiration
+- cancelation
+- prompt creation
 
+More Robust auto mod system
+- block links
+- block discord invites
 
-TAG SYSTEM
-show tag
-edit tag
-delete tag
+Ticket System
+- Ticket create
+- Ticket close
+- Ticket add
 
-MODERATION SYSTEM
-edit action
+Reaction Roles
+- create
+- delete
+
+Private Voice Channels
+- + new session
+- on join, create channel ${id} and corresponding text channel
+- lock channel (only accessible by add command)
+- once everyone leaves, archive text channel and delete voice channel
+- rename channel command
