@@ -15,6 +15,7 @@ General usage discord bot aimed at cutting down the amount of bots needed in a s
   * [Installation](#installation)
 * [Commands](#commands)
 * [Contributing](#contributing)
+* [TODO](#todo)
 * [License](#licensing)
 
 ## About the Project  
@@ -63,6 +64,23 @@ Yoki is structured as a monorepo
 `packages/bot/**` - Most of the other dirs are modules (such as audit logging, moderation, etc)
 `packages/dashboard` - Dashboard for Yoki
 
+## TODO
+* Giveaway system
+  * reroll
+  * time from now expiration
+  * cancelation
+  * prompt creation
+
+* Reaction Roles
+  * create
+  * delete
+
+* Private Voice Channels
+  * +new session
+  * on join, create channel ${id} and corresponding text channel
+  * lock channel (only accessible by add command)
+  * once everyone leaves, archive text channel and delete voice channel
+  * rename channel command
 
 ## LICENSING  
 > **Yoki** © [zaida04](https://github.com/zaida04), Released under the [MIT](https://github.com/zaida04/Yoki/blob/master/LICENSE) License.  
