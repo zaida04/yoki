@@ -12,10 +12,12 @@ exports.up = async function (knex) {
         table.string("welcomeChannel");
         table.string("welcomeMessage");
         table.string("leaveMessage");
+        table.string("ticketCategory");
         table.date("joinedDate");
 
         /* Enabled */
         table.boolean("messageFilterEnabled");
+        table.boolean("autoModEnabled");
     });
 
     await knex.schema.createTable("actions", (table) => {

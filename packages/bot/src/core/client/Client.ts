@@ -22,6 +22,7 @@ import Moderation from "../../moderation/moderation";
 import Logging from "../../logging/logging";
 import Tags from "../../tags/tags";
 import MessageFilter from "../../messageFilter/messageFilter";
+import Ticketing from "../../ticketing/ticketing";
 
 export default class YokiClient extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -100,6 +101,7 @@ export default class YokiClient extends AkairoClient {
         this.Modules.set("logging", await new Logging(this).load());
         this.Modules.set("messageFilter", await new MessageFilter(this).load());
         this.Modules.set("tags", await new Tags(this).load());
+        this.Modules.set("ticketing", await new Ticketing(this).load());
         return 0;
     }
 
