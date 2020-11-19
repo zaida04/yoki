@@ -60,7 +60,13 @@ export default class Warn extends Command {
 
         if (!hidden)
             void target
-                .send(`You have been \`warned\` in **${message.guild!.name}**\n\nReason: ${reason}`)
+                .send(
+                    `
+                You have been \`warned\` in **${
+                    message.guild!.name
+                }**\nReason: **${reason}**\n\n*Please ensure you comply with this servers rules*
+                `
+                )
                 .catch((e) => e);
 
         const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");

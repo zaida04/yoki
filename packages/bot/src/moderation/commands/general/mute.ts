@@ -67,7 +67,11 @@ export default class Mute extends Command {
 
         if (!hidden)
             await target
-                .send(`You have been \`muted\` in **${message.guild!.name}**\n\nReason: ${reason}`)
+                .send(
+                    `
+                You have been \`muted\` in **${message.guild!.name}**\n\nReason: **${reason}**
+                `
+                )
                 .catch((e) => e);
 
         const mutedRole = await message.guild!.roles.fetch(mutedRoleID);

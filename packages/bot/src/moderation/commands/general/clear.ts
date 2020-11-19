@@ -39,36 +39,42 @@ export default class Clear extends Command {
             );
         if (!(message.channel instanceof TextChannel)) return;
         if (amount > 1) {
-            const deleted_messages = await message.channel.bulkDelete(amount + 1);
-            const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
+            try {
+                const deleted_messages = await message.channel.bulkDelete(amount + 1);
+                const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
 
-            void logChannel?.send({
-                embed: new MessageEmbed()
-                    .setTitle("Purged Messages")
-                    .setDescription(
-                        `
+                void logChannel?.send({
+                    embed: new MessageEmbed()
+                        .setTitle("Purged Messages")
+                        .setDescription(
+                            `
                         **Amount:** ${deleted_messages.size} 
                         **In:** ${message.channel}
                         `
-                    )
-                    .setColor(YokiColors.LIGHT_ORANGE),
-                files: [
-                    {
-                        attachment: Buffer.from(
-                            deleted_messages
-                                .map(
-                                    (x) =>
-                                        `AUTHOR: ${x.author.tag} (${x.author.id}); CONTENT: ${x.content.replace(
-                                            /\n/g,
-                                            " "
-                                        )}; EMBEDS: ${x.embeds.length > 0 ? "YES" : "NO"}`
-                                )
-                                .join("\n")
-                        ),
-                        name: `PURGE-${new Date().toISOString().slice(0, 10)}.txt`,
-                    },
-                ],
-            });
+                        )
+                        .setColor(YokiColors.LIGHT_ORANGE),
+                    files: [
+                        {
+                            attachment: Buffer.from(
+                                deleted_messages
+                                    .map(
+                                        (x) =>
+                                            `AUTHOR: ${x.author.tag} (${x.author.id}); CONTENT: ${x.content.replace(
+                                                /\n/g,
+                                                " "
+                                            )}; EMBEDS: ${x.embeds.length > 0 ? "YES" : "NO"}`
+                                    )
+                                    .join("\n")
+                            ),
+                            name: `PURGE-${new Date().toISOString().slice(0, 10)}.txt`,
+                        },
+                    ],
+                });
+            } catch (e) {
+                return message.channel.send(
+                    "Some or all of these messages are older than 14 days and cannot be deleted."
+                );
+            }
         } else {
             const lastMessage = await message.channel.messages.fetch({
                 limit: 2,

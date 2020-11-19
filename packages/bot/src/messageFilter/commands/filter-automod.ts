@@ -4,7 +4,7 @@ import { Message } from "discord.js";
 export default class filterAutomod extends Command {
     public constructor() {
         super("filter-automod", {
-            category: "messageFilter",
+            category: "message-filter",
             module: "messageFilter",
             description: {
                 content: "Enable the automod to scan messages",

@@ -51,7 +51,7 @@ export default class SettingsManager {
             .select(key)
             .first()
             .then((x: Record<string, string>) => {
-                return x[key]
+                return key in x
                     ? this.guild.channels.cache.filter((x) => x.type === type).has(x[key])
                         ? (this.guild.channels.cache.filter((x) => x.type === type).get(x[key]) as T)
                         : null

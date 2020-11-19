@@ -4,7 +4,7 @@ import { Message } from "discord.js";
 export default class filterRemove extends Command {
     public constructor() {
         super("filter-remove", {
-            category: "messageFilter",
+            category: "message-filter",
             module: "messageFilter",
             description: {
                 content: "remove a word from the message filter",

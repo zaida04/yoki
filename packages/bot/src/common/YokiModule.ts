@@ -3,7 +3,6 @@ import { Command } from "discord-akairo";
 import { Listener } from "discord-akairo";
 import { AkairoClient } from "discord-akairo";
 import { Collection } from "discord.js";
-import { YokiModuleConfig } from "./YokiModuleConfig";
 
 export default abstract class YokiModule {
     public commands!: Collection<string, Command>;
@@ -18,4 +17,11 @@ export default abstract class YokiModule {
         this.listeners = this.client.listenerHandler.modules.filter((x) => x.module === this.options.id);
         return this;
     }
+}
+
+export interface YokiModuleConfig {
+    id: string;
+    name: string;
+    commandDirectory?: string;
+    listenerDirectory?: string;
 }
