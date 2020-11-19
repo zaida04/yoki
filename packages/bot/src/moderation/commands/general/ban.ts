@@ -83,7 +83,11 @@ export default class Ban extends Command {
 
         if (!hidden)
             await target
-                .send(`You have been \`banned\` in **${message.guild!.name}**\n\nReason: ${reason}`)
+                .send(
+                    `
+                You have been \`banned\` in **${message.guild!.name}**\n\nReason: **${reason}**
+                `
+                )
                 .catch((e) => e);
 
         await message.guild!.members.ban(target, {

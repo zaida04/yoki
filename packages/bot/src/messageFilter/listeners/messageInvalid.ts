@@ -39,6 +39,11 @@ export default class messageFilterMessageInvalid extends Listener {
                     const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
                     void this.client.caseActions.updateMessage(createdCase, logMessage);
                     this.client.caseActions.cache.delete(createdCase.id);
+                    void message.author
+                        .send(
+                            `You have been \`warned\` in **${message.guild.name}**\n\nReason: \`You have sent a link to another discord server which is forbidden.\`\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment`
+                        )
+                        .catch((e) => e);
                 }
                 return message.channel.send("Links to other discord servers are not allowed!");
             }
@@ -62,6 +67,11 @@ export default class messageFilterMessageInvalid extends Listener {
                     const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
                     void this.client.caseActions.updateMessage(createdCase, logMessage);
                     this.client.caseActions.cache.delete(createdCase.id);
+                    void message.author.send(
+                        `You have been \`warned\` in **${
+                            message.guild!.name
+                        }**\nReason: \`You have said a forbidden word in this server.\`\n\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment`
+                    );
                 }
             });
         }

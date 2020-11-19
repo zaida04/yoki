@@ -45,20 +45,18 @@ export default class CaseDelete extends Command {
 
         switch (fetchCase.type) {
             case "ban": {
-                void this.client.commandHandler.runCommand(
-                    message,
-                    this.client.Modules.get("moderation")!.commands.get("unban")!,
-                    {
+                void this.client.commandHandler
+                    .runCommand(message, this.client.commandHandler.modules.get("unban")!, {
                         target: fetchCase.target,
                         reason: reason,
-                    }
-                );
+                    })
+                    .catch(() => "caught");
             }
             case "mute": {
                 const mutedRoleID = await message.guild!.settings.get<string>("muteRole");
                 const mutedRole = mutedRoleID ? await message.guild!.roles.fetch(mutedRoleID) : null;
                 if (mutedRole) {
-                    void (await message.guild!.members.fetch(fetchCase.target)).roles.remove(mutedRole);
+                    void (await message.guild!.members.fetch(fetchCase.target.id)).roles.remove(mutedRole);
                 }
 
                 return message.channel.send(

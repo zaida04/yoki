@@ -4,7 +4,7 @@ import { Message } from "discord.js";
 export default class filterAdd extends Command {
     public constructor() {
         super("filter-add", {
-            category: "messageFilter",
+            category: "message-filter",
             module: "messageFilter",
             description: {
                 content: "Add a word to the message filter",

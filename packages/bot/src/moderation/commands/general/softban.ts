@@ -69,7 +69,11 @@ export default class SoftBan extends Command {
         });
         if (!hidden)
             await target
-                .send(`You have been \`softbanned\` in **${message.guild!.name}**\n\nReason: ${reason}`)
+                .send(
+                    `
+                You have been \`softbanned\` in **${message.guild!.name}**\n\nReason: **${reason}**
+                `
+                )
                 .catch((e) => e);
 
         await message.guild!.members.ban(target, {

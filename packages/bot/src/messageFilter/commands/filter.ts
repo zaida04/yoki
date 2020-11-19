@@ -5,7 +5,7 @@ export default class Tags extends SubCommand {
     public constructor() {
         super("filter", {
             aliases: ["filter", "message-filter"],
-            category: "messageFilter",
+            category: "message-filter",
             module: "messageFilter",
             description: {
                 content: "Interact with this server's message filter",

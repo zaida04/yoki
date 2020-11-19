@@ -5,8 +5,8 @@
   "main": "./dist/index.js",
   "private": true,
   "scripts": {
-    "start::bot": "npm run build && node ./packages/bot/dist/index.js",
-    "start::dash": "node dist/packages/dashboard/index.js",
+    "start:bot": "npm run build && node ./packages/bot/dist/index.js --trace-warnings",
+    "start:dash": "node dist/packages/dashboard/index.js",
     "build": "rimraf packages/bot/dist && rimraf libs/logger/dist && rimraf packages/bot/dist && pnpm recursive run build --filter @yoki/*",
     "preinstall": "npx only-allow pnpm",
     "knex:init": "knex migrate:latest",

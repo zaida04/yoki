@@ -71,10 +71,6 @@ Yoki is structured as a monorepo
   * cancelation
   * prompt creation
 
-* Reaction Roles
-  * create
-  * delete
-
 * Private Voice Channels
   * +new session
   * on join, create channel ${id} and corresponding text channel

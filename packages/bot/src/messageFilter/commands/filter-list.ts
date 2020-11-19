@@ -5,7 +5,7 @@ import { DatabaseBannedWordEntry } from "../typings/word";
 export default class filterList extends Command {
     public constructor() {
         super("filter-list", {
-            category: "messageFilter",
+            category: "message-filter",
             module: "messageFilter",
             description: {
                 content: "See the banned words of this guild",

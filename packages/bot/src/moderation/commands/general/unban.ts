@@ -21,10 +21,7 @@ export default class UnBan extends Command {
             args: [
                 {
                     id: "target",
-                    type: async (_, id) => {
-                        const user = await this.client.users.fetch(id).catch();
-                        return user;
-                    },
+                    type: "user",
                 },
                 {
                     id: "reason",
@@ -42,7 +39,6 @@ export default class UnBan extends Command {
         if (!target)
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
         if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("unban"));
-
         const createdCase = await this.client.caseActions.create({
             guild: message.guild!,
             reason: reason,
@@ -52,15 +48,13 @@ export default class UnBan extends Command {
             target: target,
         });
         try {
-            await message.guild!.members.unban(target, reason);
-
+            await message.guild!.members.unban(target, reason).catch((e) => e);
             const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
             const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
             if (logMessage) {
                 void this.client.caseActions.updateMessage(createdCase, logMessage);
             }
             this.client.caseActions.cache.delete(createdCase.id);
-
             return message.reply(
                 new this.client.Embeds.SuccessEmbed(
                     "User Successfully Unbanned",
@@ -74,6 +68,7 @@ export default class UnBan extends Command {
                     return message.channel.send(
                         new this.client.Embeds.ErrorEmbed("Incorrect Usage", "That person is not banned in this guild!")
                     );
+                else if (e.message === "Unknown Member") return;
             }
             throw e;
         }
