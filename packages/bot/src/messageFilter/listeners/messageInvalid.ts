@@ -2,7 +2,9 @@ import { Message } from "discord.js";
 import { Listener } from "discord-akairo";
 import { TextChannel } from "discord.js";
 
-export default class CommandBlockedListener extends Listener {
+const discordRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discord\.com\/invite)\/.+[a-z]/gi;
+
+export default class messageFilterMessageInvalid extends Listener {
     public constructor() {
         super("messageFilter-messageInvalid", {
             emitter: "commandHandler",
@@ -20,6 +22,27 @@ export default class CommandBlockedListener extends Listener {
 
         const sanitizedContent = message.content.replace(/[\u200B-\u200D\uFEFF]/g, "").toLowerCase();
         const words = await this.client.messageFilter.get(message.guild.id);
+
+        if (await message.guild.settings.get("autoModEnabled"))
+            if (discordRegex.test(sanitizedContent)) {
+                void message.delete();
+                const createdCase = await this.client.caseActions.create({
+                    executor: this.client.user!,
+                    reason: `\`Links to other Discord Servers\``,
+                    type: "warn",
+                    message: null,
+                    target: message.author,
+                    guild: message.guild,
+                });
+                const logChannel = await message.guild.settings.channel<TextChannel>("modLogChannel", "text");
+                if (logChannel) {
+                    const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
+                    void this.client.caseActions.updateMessage(createdCase, logMessage);
+                    this.client.caseActions.cache.delete(createdCase.id);
+                }
+                return message.channel.send("Links to other discord servers are not allowed!");
+            }
+
         if (Array.from(words).some((x) => sanitizedContent.includes(x))) {
             this.client.Logger.log(
                 `${message.author.tag} (${message.author.id}) has tripped the message filter in ${message.guild.id}`

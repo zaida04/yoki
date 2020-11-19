@@ -1,6 +1,7 @@
 import { Argument } from "discord-akairo";
 import { Command } from "discord-akairo";
 import { Role } from "discord.js";
+import { CategoryChannel } from "discord.js";
 
 import { GuildChannel } from "discord.js";
 import { TextChannel, VoiceChannel } from "discord.js";
@@ -35,17 +36,30 @@ export default class Settings extends Command {
                 {
                     id: "value",
                     match: "rest",
-                    type: Argument.union("textChannel", "voiceChannel", "role", "string", async (message, phrase) => {
-                        const textChannel = message.guild?.channels.cache.filter((x) => x.type === "text").get(phrase);
-                        if (textChannel) return textChannel;
-                        const voiceChannel = await message.guild?.channels.cache
-                            .filter((x) => x.type === "voice")
-                            .get(phrase);
-                        if (voiceChannel) return voiceChannel;
-                        const role = phrase ? await message.guild?.roles.fetch(phrase) : null;
-                        if (role) return role;
-                        return null;
-                    }),
+                    type: Argument.union(
+                        "textChannel",
+                        "voiceChannel",
+                        "categoryChannel",
+                        "role",
+                        "string",
+                        async (message, phrase) => {
+                            const textChannel = message.guild?.channels.cache
+                                .filter((x) => x.type === "text")
+                                .get(phrase);
+                            if (textChannel) return textChannel;
+                            const voiceChannel = message.guild?.channels.cache
+                                .filter((x) => x.type === "voice")
+                                .get(phrase);
+                            if (voiceChannel) return voiceChannel;
+                            const categoryChannel = await message.guild?.channels.cache
+                                .filter((x) => x.type === "category")
+                                .get(phrase);
+                            if (categoryChannel) return categoryChannel;
+                            const role = phrase ? await message.guild?.roles.fetch(phrase) : null;
+                            if (role) return role;
+                            return null;
+                        }
+                    ),
                 },
             ],
         });
@@ -56,7 +70,10 @@ export default class Settings extends Command {
         {
             setting,
             value,
-        }: { setting?: CustomizableSettings; value?: TextChannel | VoiceChannel | Role | boolean | null | string }
+        }: {
+            setting?: CustomizableSettings;
+            value?: TextChannel | VoiceChannel | CategoryChannel | Role | boolean | null | string;
+        }
     ) {
         if (!setting)
             return message.channel.send(
@@ -98,6 +115,7 @@ export default class Settings extends Command {
         const matched_setting = CustomizableSettingsArr[setting];
         if (value === "none") value = null;
         else {
+            console.log(matched_setting.type);
             switch (matched_setting.type) {
                 case "textChannel": {
                     if (!(value instanceof TextChannel))
@@ -110,6 +128,14 @@ export default class Settings extends Command {
                     if (!(value instanceof VoiceChannel))
                         return message.channel.send(
                             `Sorry, but that is not the proper argument. Expected a valid \`voice channel\``
+                        );
+                    break;
+                }
+                case "categoryChannel": {
+                    console.log("test2");
+                    if (!(value instanceof CategoryChannel))
+                        return message.channel.send(
+                            `Sorry, but that is not the proper argument. Expected a valid \`category channel\``
                         );
                     break;
                 }
@@ -144,6 +170,9 @@ export default class Settings extends Command {
                     }
                     break;
                 }
+                default: {
+                    throw Error("Invalid settings config on bot");
+                }
             }
         }
         await message.guild!.settings.update(
@@ -159,14 +188,16 @@ export default class Settings extends Command {
                     value instanceof TextChannel
                         ? value.toString()
                         : value instanceof VoiceChannel
-                        ? value.name
+                        ? `\`${value.name}\``
+                        : value instanceof CategoryChannel
+                        ? `\`${value.name}\``
                         : value === true
                         ? "`enabled`"
                         : value === false
                         ? "`disabled`"
                         : value === null
                         ? `\`none\``
-                        : value
+                        : `\`${value}\``
                 }`,
                 message
             )

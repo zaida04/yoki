@@ -16,7 +16,7 @@ export default class Tags extends SubCommand {
                 ["filter-remove", "remove"],
                 ["filter-add", "add"],
                 ["filter-list", "list"],
-                ["filter-status", "enable", "disable"],
+                ["filter-automod", "automod"],
             ],
             channel: "guild",
         });

@@ -4,15 +4,6 @@ Giveaway system
 - cancelation
 - prompt creation
 
-More Robust auto mod system
-- block links
-- block discord invites
-
-Ticket System
-- Ticket create
-- Ticket close
-- Ticket add
-
 Reaction Roles
 - create
 - delete

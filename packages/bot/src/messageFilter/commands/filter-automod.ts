@@ -1,15 +1,15 @@
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
 
-export default class filterAdd extends Command {
+export default class filterAutomod extends Command {
     public constructor() {
-        super("filter-add", {
+        super("filter-automod", {
             category: "messageFilter",
             module: "messageFilter",
             description: {
-                content: "Add a word to the message filter",
+                content: "Enable the automod to scan messages",
                 usage: "<word>",
-                example: ["filter add word1"],
+                example: ["filter automod enable"],
             },
             args: [
                 {
@@ -31,15 +31,14 @@ export default class filterAdd extends Command {
                     "You can enable it by doing the `settings message-filter enable` command"
                 )
             );
-        if (!word) return message.channel.send(new this.client.Embeds.ErrorEmbed("Must provide a word!"));
-        if (await (await this.client.messageFilter.get(message.guild!.id)).has(word))
-            return message.channel.send(new this.client.Embeds.ErrorEmbed("That word is already in the filter!"));
+        if (!word || (word !== "enable" && word !== "disable"))
+            return message.channel.send(
+                new this.client.Embeds.ErrorEmbed("You must pass either the word `enable` or `disable`")
+            );
 
-        await this.client.messageFilter.add({
-            guild_id: message.guild!.id,
-            content: word,
-            creator_id: message.author.id,
-        });
-        return message.channel.send(`Word has successfully been added to the message filter!`);
+        const value = word === "enable" ? true : false;
+
+        await message.guild!.settings.update("autoModEnabled", value);
+        return message.channel.send(`Automod has been ${value ? "`enabled`" : "`disabled`"}!`);
     }
 }

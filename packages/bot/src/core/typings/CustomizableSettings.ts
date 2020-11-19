@@ -7,7 +7,8 @@ export type CustomizableSettings =
     | "message-filter"
     | "member-log"
     | "welcome-message"
-    | "leave-message";
+    | "leave-message"
+    | "ticket-category";
 export const CustomizableSettingsArr = {
     prefix: {
         mappedName: "prefix",
@@ -44,5 +45,9 @@ export const CustomizableSettingsArr = {
     "leave-message": {
         mappedName: "leave-message",
         type: "string",
+    },
+    "ticket-category": {
+        mappedName: "ticketCategory",
+        type: "categoryChannel",
     },
 };
