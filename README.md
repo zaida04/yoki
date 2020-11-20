@@ -33,7 +33,9 @@ Yoki **requires Node.js >=12** due to the dependency on discord.js.
 Yoki **advises you use PNPM** due to it's monorepo setup. You can use npm, but it will be much more of a hassle.
 
 ### Installation 
+1. Normal
 - `git clone https://github.com/zaida04/Yoki.git`  
+- `cd yoki`
 - `pnpm i --r`  
 - Change `knexfile.example.js` => `knexfile.js`  
 - supply ENV variables in a `bot.env` file in the root.  
@@ -41,6 +43,15 @@ Yoki **advises you use PNPM** due to it's monorepo setup. You can use npm, but i
 - `pnpm run knex:init`
 - `pnpm run start:bot` 
     
+2. Docker
+> Requires [docker](https://docs.docker.com/get-started/overview/) and [docker-compose](https://docs.docker.com/compose/)
+
+- `git clone https://github.com/zaida04/Yoki.git`
+- `cd yoki`
+- Change `knexfile.example.js` => `knexfile.js`  
+- supply ENV variables in a `bot.env` file in the root.  
+- `docker-compose up -d`
+
 ## Commands
 Coming soon.
 
