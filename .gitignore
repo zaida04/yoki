@@ -4,5 +4,4 @@ dist/
 
 *.sqlite3
 *.env
-knexfile.json
 knexfile.js
