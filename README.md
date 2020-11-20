@@ -39,7 +39,7 @@ Yoki **advises you use PNPM** due to it's monorepo setup. You can use npm, but i
 - supply ENV variables in a `bot.env` file in the root.  
 - `pnpm run build`  
 - `pnpm run knex:init`
-- `pnpm run start::bot` 
+- `pnpm run start:bot` 
     
 ## Commands
 Coming soon.
