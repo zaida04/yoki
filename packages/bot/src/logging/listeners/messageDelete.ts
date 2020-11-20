@@ -23,6 +23,12 @@ export default class messageDelete extends Listener {
                 **Content:** ${message.content ? `\`\`\`${message.content}\`\`\`` : "`No detectable content`"}`
             )
             .setTimestamp();
+
+        if (
+            message.attachments.size > 0 &&
+            ["gif", "jpg", "png", "jpeg"].some((x) => message.attachments.first()?.name?.endsWith(x))
+        )
+            embed.setImage(message.attachments.first()!.url);
         void logChannel.send(embed);
     }
 }

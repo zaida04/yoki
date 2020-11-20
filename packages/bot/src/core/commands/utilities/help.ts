@@ -72,7 +72,11 @@ export default class Help extends Command {
         );
         for (const category of this.client.commandHandler.categories
             .filter((x: Category<string, Command>) => !ignoredCategories.includes(x.id))
-            .sort((a, b) => Number(b.reduce((acc, val) => acc + val)) - Number(a.reduce((acc, val) => acc + val)))
+            .sort(
+                (a, b) =>
+                    Number(b.reduce((acc: number, val) => acc + val.aliases.length)) -
+                    Number(a.reduce((acc: number, val) => acc + val.aliases.length))
+            )
             .values()) {
             embed.addField(
                 `❯ ${category.id.replace(/(\b\w)/gi, (lc) => lc.toUpperCase())}`,
