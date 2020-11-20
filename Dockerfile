@@ -7,6 +7,7 @@ WORKDIR /usr/src/yoki
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node
 COPY pnpm-workspace.yml tsconfig.json package.json ./libs/logger/package.json ./packages/bot/package.json ./
 RUN pnpm i --recursive --frozen-lockfile --filter sqlite3
+RUN pnpm i rimraf -g
 COPY . .
 
 RUN pnpm run build && pnpm prune --prod
