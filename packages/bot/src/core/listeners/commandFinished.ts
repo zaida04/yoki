@@ -13,11 +13,9 @@ export default class CommandFinishedListener extends Listener {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public exec(message: Message, command: Command, args: any) {
         this.client.Logger.log(
-            `Finished ${command.id} on ${
-                message.guild
-                    ? `${message.guild.name} (${message.guild.id})`
-                    : `DM (${message.author.tag} - ${message.author.id})`
-            }${Object.keys(args).length && !args.command ? ` with arguments ${JSON.stringify(args)}` : ""}`
+            `Command ${command.id} executed by: ${message.author.tag} (${message.author.id}) on ${
+                message.guild ? `${message.guild.name} (${message.guild.id})` : `DM`
+            }`
         );
     }
 }

@@ -1,5 +1,8 @@
-import { LoggerOptions } from "./typings/LoggerOptions";
 import colors from "./colors";
+
+export interface LoggerOptions {
+    name?: string;
+}
 
 export default class Logger {
     private readonly name?: string;

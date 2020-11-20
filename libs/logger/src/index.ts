@@ -1,6 +1,5 @@
-import Logger from "./Logger";
+import Logger, {LoggerOptions} from "./Logger";
 import colors from "./colors";
-import { LoggerOptions } from "./typings/LoggerOptions";
 
 export default Logger;
 export { colors, LoggerOptions };
