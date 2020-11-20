@@ -4,7 +4,6 @@ dependencies:
   discord.js: 12.3.1
   dotenv: 8.2.0
   knex: 0.21.12
-  moment: 2.29.1
   tslib: 2.0.3
 devDependencies:
   '@types/node': 14.11.8
@@ -802,10 +801,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==
-  /moment/2.29.1:
-    dev: false
-    resolution:
-      integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
   /ms/2.0.0:
     dev: false
     resolution:
@@ -1227,6 +1222,5 @@ specifiers:
   discord.js: ^12.3.1
   dotenv: ^8.2.0
   knex: ^0.21.12
-  moment: ^2.29.0
   tslib: ^2.0.1
   typescript: ^4.0.2
