@@ -12,7 +12,6 @@ devDependencies:
   eslint-plugin-unused-imports: 0.1.3_@typescript-eslint+parser@4.4.0
   nodemon: 2.0.4
   prettier: 2.1.2
-  rimraf: 3.0.2
   sqlite3: 5.0.0
   typescript: 3.9.7
 lockfileVersion: 5.1
@@ -3419,13 +3418,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
-  /rimraf/3.0.2:
-    dependencies:
-      glob: 7.1.6
-    dev: true
-    hasBin: true
-    resolution:
-      integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
   /run-async/2.4.1:
     dev: true
     engines:
@@ -4206,6 +4198,5 @@ specifiers:
   mysql: ^2.18.1
   nodemon: ^2.0.4
   prettier: ^2.1.1
-  rimraf: ^3.0.2
   sqlite3: ^5.0.0
   typescript: ^3.8.3
