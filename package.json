@@ -6,8 +6,10 @@
   "private": true,
   "scripts": {
     "start:bot": "npm run build && node ./packages/bot/dist/index.js --trace-warnings",
+    "start:dev": "npm run precheck && npm run start:bot",
     "start:dash": "node dist/packages/dashboard/index.js",
-    "build": "rimraf packages/bot/dist && rimraf libs/logger/dist && rimraf packages/bot/dist && pnpm recursive run build --filter @yoki/*",
+    "precheck": "rimraf packages/bot/dist && rimraf libs/logger/dist && rimraf packages/bot/dist",
+    "build": "pnpm recursive run build --filter @yoki/*",
     "preinstall": "npx only-allow pnpm",
     "knex:init": "knex migrate:latest production",
     "lint": "npx eslint packages/ libs/ --fix"
