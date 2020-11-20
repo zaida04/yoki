@@ -9,7 +9,7 @@
     "start:dash": "node dist/packages/dashboard/index.js",
     "build": "rimraf packages/bot/dist && rimraf libs/logger/dist && rimraf packages/bot/dist && pnpm recursive run build --filter @yoki/*",
     "preinstall": "npx only-allow pnpm",
-    "knex:init": "knex migrate:latest",
+    "knex:init": "knex migrate:latest production",
     "lint": "npx eslint packages/ libs/ --fix"
   },
   "repository": {

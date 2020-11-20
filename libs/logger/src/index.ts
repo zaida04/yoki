@@ -1,4 +1,4 @@
-import Logger, {LoggerOptions} from "./Logger";
+import Logger, { LoggerOptions } from "./Logger";
 import colors from "./colors";
 
 export default Logger;
