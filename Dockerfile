@@ -2,8 +2,7 @@ FROM node:14-alpine
 LABEL name "Yoki BOT"
 LABEL version "0.0.1"
 ENV TOKEN= \
-    DEFAULTPREFIX= \
-    NODE_ENV= 
+    DEFAULTPREFIX= 
 
 WORKDIR /usr/yoki
 
@@ -24,4 +23,5 @@ COPY packages/bot ./packages/bot
 
 RUN pnpm run build && pnpm prune --prod && pnpm run knex:init
 
+ENV NODE_ENV= 
 CMD [ "node", "packages/bot/dist/index.js"]
