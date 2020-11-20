@@ -4,7 +4,7 @@
     "description": "Bot related files of Yoki",
     "main": "./dist/index.js",
     "scripts": {
-        "build": "tsc"
+        "build": "npx tsc"
     },
     "dependencies": {
         "@yoki/logger": "1.0.0",
