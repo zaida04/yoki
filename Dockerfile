@@ -16,13 +16,13 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yml tsconfig.json ./
 COPY libs/logger/package.json ./libs/logger/
 COPY packages/bot/package.json ./packages/bot/
 
-RUN pnpm i --recursive --frozen-lockfile --filter sqlite3
+RUN pnpm i --recursive
 
 COPY libs/logger ./libs/logger
 COPY packages/bot ./packages/bot
-
-RUN pnpm run build && pnpm prune --prod && pnpm run knex:init
+RUN pnpm run build && pnpm prune --prod
 
 ENV NODE_ENV=
+COPY . .
+RUN pnpm run knex:init
 CMD [ "node", "packages/bot/dist/index.js"]
-
