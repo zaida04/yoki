@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:14
 
 RUN mkdir -p /user/src/yoki
 WORKDIR /usr/src/yoki
