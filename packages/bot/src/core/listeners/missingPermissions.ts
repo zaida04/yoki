@@ -12,12 +12,12 @@ export default class missingPermissions extends Listener {
         });
     }
 
-    public exec(message: Message, command: Command, type: "client" | "user", missing: string[]) {
+    public exec(message: Message, command: Command, type: "client" | "user", missing: string[] | string) {
         if (!message.guild) return;
         this.client.Logger.error(
             `${
                 type === "user" ? `User ${message.author.tag} (${message.author.id})` : "Client"
-            } is missing permissions "${missing.join(", ")}" when executing command "${command.id}" in guild "${
+            } is "${Array.isArray(missing) ? `missing permissions ${missing.map(x => `\`${x}\``).join(", ")}` : missing}" when executing command "${command.id}" in guild "${
                 message.guild.name
             }" (${message.guild.id})`
         );
@@ -26,24 +26,24 @@ export default class missingPermissions extends Listener {
             : this.clientMissingPermissions(message, missing);
     }
 
-    private async userMissingPermissions(message: Message, missing: string[]) {
+    private async userMissingPermissions(message: Message, missing: string[] | string) {
         return message.channel.send(
             new MessageEmbed()
                 .setTitle("You are missing permissions!")
                 .setColor(YokiColors.RED)
                 .setDescription(
-                    `You are missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}`
+                    `You are ${Array.isArray(missing) ? `missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}` : missing}`
                 )
         );
     }
 
-    private async clientMissingPermissions(message: Message, missing: string[]) {
+    private async clientMissingPermissions(message: Message, missing: string[] | string) {
         return message.channel.send(
             new MessageEmbed()
                 .setTitle("I am missing permissions!")
                 .setColor(YokiColors.RED)
                 .setDescription(
-                    `I am missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}`
+                    `I am ${Array.isArray(missing) ? `missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}` : missing}`
                 )
         );
     }

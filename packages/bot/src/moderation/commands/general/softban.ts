@@ -71,13 +71,14 @@ export default class SoftBan extends Command {
             await target
                 .send(
                     `
-                You have been \`softbanned\` in **${message.guild!.name}**\n\nReason: **${reason}**
+                You have been \`softbanned\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}
                 `
                 )
                 .catch((e) => e);
 
         await message.guild!.members.ban(target, {
             reason: `Softban case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`,
+            days: 1
         });
         await message.guild!.members.unban(target, `Softban case: ${createdCase.id} | ${reason}`);
 

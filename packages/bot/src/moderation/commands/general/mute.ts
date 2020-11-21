@@ -69,7 +69,7 @@ export default class Mute extends Command {
             await target
                 .send(
                     `
-                You have been \`muted\` in **${message.guild!.name}**\n\nReason: **${reason}**
+                You have been \`muted\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}
                 `
                 )
                 .catch((e) => e);

@@ -11,8 +11,8 @@ export default class CommandBlockedListener extends Listener {
     }
 
     public async exec(message: Message) {
-        const prefix = message.guild ? await message.guild.settings.get<string>("prefix") : null;
-        if (!prefix) return;
+        if (!message.guild) return;
+        const prefix = await message.guild.settings.get<string>("prefix") ?? this.client.config.defaultPrefix
         return message.content.startsWith(prefix) ? this.runTag(message, prefix) : null;
     }
 

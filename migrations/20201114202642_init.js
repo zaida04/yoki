@@ -8,8 +8,9 @@ exports.up = async function (knex) {
         table.string("modLogChannel");
         table.string("memberLog");
         table.string("muteRole");
+        table.string("joinRoles");
         table.string("prefix");
-        table.string("welcomeChannel");
+        table.string("welcomeChannel")
         table.string("welcomeMessage");
         table.string("leaveMessage");
         table.string("ticketCategory");

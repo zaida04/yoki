@@ -14,7 +14,7 @@ export default class SettingsManager {
         this.db = db;
     }
 
-    private baseGuildSettings<T>(): QueryBuilder {
+    public baseGuildSettings<T>(): QueryBuilder {
         return this.db.api<T>("settings").where("guild", this.guild.id);
     }
 
