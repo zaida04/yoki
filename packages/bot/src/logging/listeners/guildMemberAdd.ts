@@ -13,8 +13,11 @@ export default class guildMemberAdd extends Listener {
     }
 
     public async exec(member: GuildMember) {
+        if (member.partial) await member.fetch();
+
         const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberLog", "text");
         if (memberLogChannel) {
+            this.client.Logger.log(`${member.user.tag} logged!`);
             void memberLogChannel.send(new JoinEmbed(member));
         }
 

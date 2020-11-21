@@ -19,7 +19,7 @@ export default class messageDelete extends Listener {
             .setColor("GREEN")
             .setTitle("Message Deleted")
             .setDescription(
-                `**Author:** ${message.author.tag}
+                `**Author:** ${message.author?.tag}
                 **Content:** ${message.content ? `\`\`\`${message.content}\`\`\`` : "`No detectable content`"}`
             )
             .setTimestamp();
