@@ -13,10 +13,16 @@ Dockerfile
 docker-compose.yml
 .dockerignore
 
-.env
+*.env
 .env.example
 
 LICENSE
+
+.eslintrc.json
+.eslintignore
+.npmrc
+.prettierrc.json
+knexfile.example.js
 
 .github
 .git
