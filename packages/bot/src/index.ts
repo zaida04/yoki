@@ -15,10 +15,7 @@ void (async () => {
     if (!process.env.DEFAULTPREFIX) throw new Error("Must provide a prefix!");
     if (!process.env.TOKEN) throw new Error("Must provide a token");
 
-    const dbEnv: Config =
-        process.env.NODE_ENV === "production"
-            ? DBEnviroment.production
-            : DBEnviroment.development ?? DBEnviroment.production;
+    const dbEnv: Config = DBEnviroment;
 
     const options: ClientOptions = {
         dbEnv: dbEnv,
