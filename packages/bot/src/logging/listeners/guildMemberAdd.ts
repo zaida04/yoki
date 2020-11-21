@@ -18,6 +18,12 @@ export default class guildMemberAdd extends Listener {
             void memberLogChannel.send(new JoinEmbed(member));
         }
 
+        const joinRoles = await member.guild.settings.get<string>("joinRoles");
+        if (joinRoles) {
+            const parsedjoinRoles = joinRoles.split(", ");
+            member.roles.add(parsedjoinRoles, "Auto role add");
+        }
+
         const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomeChannel", "text");
         if (welcomeChannel) {
             const welcomeChannelMessage = await member.guild.settings.get<string>("welcomeMessage");

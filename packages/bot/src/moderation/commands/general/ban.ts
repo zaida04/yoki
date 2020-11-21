@@ -85,13 +85,14 @@ export default class Ban extends Command {
             await target
                 .send(
                     `
-                You have been \`banned\` in **${message.guild!.name}**\n\nReason: **${reason}**
+                You have been \`banned\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}
                 `
                 )
                 .catch((e) => e);
 
         await message.guild!.members.ban(target, {
             reason: `Ban case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`,
+            days: 7
         });
 
         const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");

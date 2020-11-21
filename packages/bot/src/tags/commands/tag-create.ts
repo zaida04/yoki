@@ -26,6 +26,7 @@ export default class tagCreate extends Command {
                     prompt: {
                         start: "Please provide the content for this tag! (BE AWARE MENTIONS WONT WORK)",
                     },
+                    match: "rest",
                     type: "string",
                 },
             ],

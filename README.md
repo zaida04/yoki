@@ -80,10 +80,10 @@ Yoki is structured as a monorepo
 
 `lib/` - Custom libraries  
 `packages/` - Main applications     
-`packages/bot` - Where the bot part of Yoki lives
+`packages/bot` - Where the bot part of Yoki lives  
 `packages/bot/src/core/` - Being the core of Yoki  
 `packages/bot/src/common/` - Being things that more than one folder share in dependency  
-`packages/bot/**` - Most of the other dirs are modules (such as audit logging, moderation, etc)
+`packages/bot/**` - Most of the other dirs are modules (such as audit logging, moderation, etc)  
 `packages/dashboard` - Dashboard for Yoki
 
 ## TODO
