@@ -10,6 +10,7 @@ General usage discord bot aimed at cutting down the amount of bots needed in a s
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
+  * [Features](#features)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -17,6 +18,16 @@ General usage discord bot aimed at cutting down the amount of bots needed in a s
 * [Contributing](#contributing)
 * [TODO](#todo)
 * [License](#licensing)
+
+## Features
+* Moderation
+* Audit Logging
+* Message Filtering
+* Reaction Roles
+* Custom Commands (tags)
+* Ticketing
+* Giveaways
+* Private Voice Channels
 
 ## About the Project  
 Yoki was built out of a desire to cut down the amount of bots that had to be invited to a discord server. It's original purpose was to allow sub-guilds in a guild, but was later repurposed to be a general usage discord bot.
