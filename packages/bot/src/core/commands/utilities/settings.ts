@@ -81,6 +81,7 @@ export default class Settings extends Command {
                     "Settings Options",
                     `Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(", ")}. 
                         
+                    You can see all the current settings for your server by putting \`list\` as the option
                     If you want to set a setting to nothing, pass the word \`none\``
                 ).setColor("GOLD")
             );
@@ -90,7 +91,7 @@ export default class Settings extends Command {
                 const value = all_settings[ x ];
                 const possible_channel = message.guild!.channels.cache.get(value)
                 return `**${x}:** ${value ? possible_channel instanceof GuildChannel ? `#${possible_channel.name}` : `\`${value}\`` : `\`none\``}`;
-            })}`)
+            }).join("\n")}`)
         }
         if (!settingsKeys.includes(setting))
             return message.channel.send(
