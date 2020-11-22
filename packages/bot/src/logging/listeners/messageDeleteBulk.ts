@@ -29,7 +29,7 @@ export default class messageDeleteBulk extends Listener {
         const embed = new MessageEmbed()
             .setColor("GREEN")
             .setTitle("Messages Deleted in bulk")
-            .setDescription(`Attached file contains deleted messages`)
+            .setDescription(`Attached file contains deleted messages from ${messages.first()?.channel}`)
             .setTimestamp();
         void logChannel.send({
             embed,

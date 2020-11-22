@@ -17,11 +17,14 @@ export default class CommandBlockedListener extends Listener {
     }
 
     private async runTag(message: Message, prefix: string) {
-        const tag_show = this.client.commandHandler.modules.get("tag-show");
-        return tag_show
-            ? this.client.commandHandler.runCommand(message, tag_show, {
-                  name: message.content.slice(prefix.length),
-              })
-            : null;
+        const tag = await this.client.tagHandler.fetch(message.guild!.id, { name: message.content.slice(prefix.length) });
+        if (tag) {
+            const tag_show = this.client.commandHandler.modules.get("tag-show");
+            return tag_show
+                ? this.client.commandHandler.runCommand(message, tag_show, {
+                    tag: tag
+                })
+                : null;
+        }
     }
 }

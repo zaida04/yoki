@@ -84,6 +84,14 @@ export default class Settings extends Command {
                     If you want to set a setting to nothing, pass the word \`none\``
                 ).setColor("GOLD")
             );
+        if (setting.toLowerCase() === "list") {
+            const all_settings = await this.client.db.api("settings").where("guild", message.guild!.id).first();
+            return message.channel.send(`The settings for your guild are: ${Object.keys(all_settings).map(x => {
+                const value = all_settings[ x ];
+                const possible_channel = message.guild!.channels.cache.get(value)
+                return `**${x}:** ${value ? possible_channel instanceof GuildChannel ? `#${possible_channel.name}` : `\`${value}\`` : `\`none\``}`;
+            })}`)
+        }
         if (!settingsKeys.includes(setting))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
@@ -122,6 +130,7 @@ export default class Settings extends Command {
                         return message.channel.send(
                             `Sorry, but that is not the proper argument. Expected a valid \`text channel\``
                         );
+                    if(!value.permissionsFor(value.guild.me!)?.has("SEND_MESSAGES"))
                     break;
                 }
                 case "voiceChannel": {
@@ -168,6 +177,10 @@ export default class Settings extends Command {
                             return message.channel.send("Invalid option, please use either `enable` or `disable`");
                         }
                     }
+                    break;
+                }
+                case "string": {
+                    if ((value as String).length > 1000) return message.channel.send("Too big! Max. Character amount is 1000");
                     break;
                 }
                 default: {

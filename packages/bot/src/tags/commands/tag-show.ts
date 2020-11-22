@@ -2,6 +2,7 @@ import { Command } from "discord-akairo";
 import { Util } from "discord.js";
 
 import { Message } from "discord.js";
+import { DatabaseTagEntry } from '../typings/tag';
 
 export default class tagInfo extends Command {
     public constructor() {
@@ -25,13 +26,15 @@ export default class tagInfo extends Command {
         });
     }
 
-    public async exec(message: Message, { name }: { name?: string }) {
-        if (!name) return;
-        name = Util.cleanContent(name, message);
+    public async exec(message: Message, { name, tag }: { name?: string, tag?: DatabaseTagEntry; }) {
+        if (!tag) {
+            if (!name) return;
+            const tagname = Util.cleanContent(name, message);
+            const fetchTag = await this.client.tagHandler.fetch(message.guild!, { name: tagname });
+            if (!fetchTag) return;
+            return message.channel.send(fetchTag.content);
+        }
 
-        const fetchTag = await this.client.tagHandler.fetch(message.guild!, { name: name });
-        if (!fetchTag) return;
-
-        return message.channel.send(fetchTag.content);
+        return message.channel.send(tag.content);
     }
 }

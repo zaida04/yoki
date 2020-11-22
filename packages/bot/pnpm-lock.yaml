@@ -1,14 +1,14 @@
 dependencies:
   '@yoki/logger': 'link:../../libs/logger'
   discord-akairo: 8.1.0
-  discord.js: 12.3.1
+  discord.js: 12.4.1
   dotenv: 8.2.0
   knex: 0.21.12
   tslib: 2.0.3
 devDependencies:
   '@types/node': 14.11.8
   typescript: 4.0.3
-lockfileVersion: 5.1
+lockfileVersion: 5.2
 packages:
   /@discordjs/collection/0.1.6:
     dev: false
@@ -243,7 +243,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-INWYmHo6NgyYx1ZKGSCmgznVfvkXpWGj4fGCGjO8IPkZ06Bidb9YKr4rXy2lwG0kprCjvqY0qbbhcw6N050abQ==
-  /discord.js/12.3.1:
+  /discord.js/12.4.1:
     dependencies:
       '@discordjs/collection': 0.1.6
       '@discordjs/form-data': 3.0.1
@@ -257,7 +257,7 @@ packages:
     engines:
       node: '>=12.0.0'
     resolution:
-      integrity: sha512-mSFyV/mbvzH12UXdS4zadmeUf8IMQOo/YdunubG1wWt1xjWvtaJz/s9CGsFD2B5pTw1W/LXxxUbrQjIZ/xlUdw==
+      integrity: sha512-KxOB8LOAN3GmrvkD6a6Fr1nlfArIFZ+q7Uqg4T/5duB90GZy9a0/Py2E+Y+eHKP6ZUCR2mbNMLCcHGjahiaNqA==
   /dotenv/8.2.0:
     dev: false
     engines:
@@ -1219,7 +1219,7 @@ specifiers:
   '@types/node': ^14.11.8
   '@yoki/logger': 1.0.0
   discord-akairo: ^8.1.0
-  discord.js: ^12.3.1
+  discord.js: ^12.4.1
   dotenv: ^8.2.0
   knex: ^0.21.12
   tslib: ^2.0.1
