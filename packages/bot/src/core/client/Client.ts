@@ -24,6 +24,7 @@ import Tags from "../../tags/tags";
 import MessageFilter from "../../messageFilter/messageFilter";
 import Ticketing from "../../ticketing/ticketing";
 import RR from "../../reaction-roles/rr";
+import { Intents } from 'discord.js';
 
 export default class YokiClient extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -32,8 +33,15 @@ export default class YokiClient extends AkairoClient {
                 ownerID: ["500765481788112916"],
             },
             {
-                disableMentions: "everyone",
-                partials: ["MESSAGE", "CHANNEL", "REACTION"],
+                "disableMentions": "everyone",
+                "partials": [ "MESSAGE", "CHANNEL", "REACTION" ],
+                "messageCacheMaxSize": 25,
+                "messageCacheLifetime": 86400,
+                "messageSweepInterval": 43200,
+                "messageEditHistoryMaxSize": 2,
+                "ws": {
+                    "intents": [Intents.NON_PRIVILEGED, Intents.FLAGS.GUILD_MEMBERS]
+                }
             }
         );
 
@@ -48,7 +56,7 @@ export default class YokiClient extends AkairoClient {
 
         this.commandHandler = new CommandHandler(this, {
             directory: `${__dirname}/../commands/`,
-            prefix: async (message: Message) => (await message.guild?.prefix()) ?? this.config.defaultPrefix,
+            prefix: async (message: Message) => (await message.guild?.prefix().catch()) ?? this.config.defaultPrefix,
             allowMention: true,
             defaultCooldown: 5000,
             commandUtil: false,

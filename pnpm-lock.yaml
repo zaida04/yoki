@@ -15,7 +15,7 @@ devDependencies:
   rimraf: 3.0.2
   sqlite3: 5.0.0
   typescript: 3.9.7
-lockfileVersion: 5.1
+lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.4:
     dependencies:

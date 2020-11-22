@@ -73,8 +73,7 @@ export default class Clear extends Command {
             } catch (e) {
                 return message.channel.send(
                     "Some or all of these messages are older than 14 days and cannot be deleted."
-                );
-                console.log(e);
+                ).then(x => x.delete({timeout: 5000}));
             }
         } else {
             const lastMessage = await message.channel.messages.fetch({

@@ -1,5 +1,4 @@
 export type CustomizableSettings =
-    | "prefix"
     | "log-channel"
     | "mute-role"
     | "welcome-channel"
@@ -10,10 +9,6 @@ export type CustomizableSettings =
     | "leave-message"
     | "ticket-category";
 export const CustomizableSettingsArr = {
-    prefix: {
-        mappedName: "prefix",
-        type: "string",
-    },
     "log-channel": {
         mappedName: "logChannel",
         type: "textChannel",
@@ -43,7 +38,7 @@ export const CustomizableSettingsArr = {
         type: "string",
     },
     "leave-message": {
-        mappedName: "leave-message",
+        mappedName: "leaveMessage",
         type: "string",
     },
     "ticket-category": {
