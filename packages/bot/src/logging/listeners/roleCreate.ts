@@ -2,6 +2,8 @@ import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import { Role } from "discord.js";
 import { TextChannel } from "discord.js";
+import { handleMissingSend } from "../../common/PermissionUtil";
+import { YokiColors } from "../../common/YokiColors";
 
 export default class roleCreate extends Listener {
     public constructor() {
@@ -16,10 +18,10 @@ export default class roleCreate extends Listener {
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
-            .setColor("GREEN")
+            .setColor(YokiColors.LIGHT_ORANGE)
             .setTitle("Role Created")
             .setDescription(`${role} \`(${role.id})\``)
             .setTimestamp();
-        void logChannel.send(embed);
+        logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, role.guild));
     }
 }

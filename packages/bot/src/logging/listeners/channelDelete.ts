@@ -3,6 +3,8 @@ import { MessageEmbed } from "discord.js";
 import { TextChannel } from "discord.js";
 import { DMChannel } from "discord.js";
 import { GuildChannel } from "discord.js";
+import { handleMissingSend } from "../../common/PermissionUtil";
+import { YokiColors } from "../../common/YokiColors";
 
 export default class channelDelete extends Listener {
     public constructor() {
@@ -18,7 +20,7 @@ export default class channelDelete extends Listener {
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
-            .setColor("RED")
+            .setColor(YokiColors.RED)
             .setTitle("Channel Deleted")
             .setDescription(
                 `
@@ -26,6 +28,6 @@ export default class channelDelete extends Listener {
             ID: \`(${channel.id})\``
             )
             .setTimestamp();
-        void logChannel.send(embed);
+        logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, channel.guild));
     }
 }

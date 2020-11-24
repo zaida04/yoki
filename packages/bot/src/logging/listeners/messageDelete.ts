@@ -2,6 +2,8 @@ import { Listener } from "discord-akairo";
 import { TextChannel } from "discord.js";
 import { Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
+import { handleMissingSend } from "../../common/PermissionUtil";
+import { YokiColors } from "../../common/YokiColors";
 
 export default class messageDelete extends Listener {
     public constructor() {
@@ -12,14 +14,15 @@ export default class messageDelete extends Listener {
     }
 
     public async exec(message: Message) {
-        const logChannel = await message.guild?.settings.channel<TextChannel>("logChannel", "text");
+        if (!message.guild) return;
+        const logChannel = await message.guild.settings.channel<TextChannel>("logChannel", "text");
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
-            .setColor("GREEN")
+            .setColor(YokiColors.GREEN)
             .setTitle("Message Deleted")
             .setDescription(
-                `**Author:** ${message.author?.tag}
+                `**Author:** ${message.author.tag}
                 **Content:** ${message.content ? `\`\`\`${message.content}\`\`\`` : "`No detectable content`"}`
             )
             .setTimestamp();
@@ -29,6 +32,6 @@ export default class messageDelete extends Listener {
             ["gif", "jpg", "png", "jpeg"].some((x) => message.attachments.first()?.name?.endsWith(x))
         )
             embed.setImage(message.attachments.first()!.url);
-        void logChannel.send(embed);
+        logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, message.guild!));
     }
 }

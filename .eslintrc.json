@@ -2,7 +2,8 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 11
+        "ecmaVersion": 11,
+        "project": "./tsconfig.json"
     },
     "extends": [
         "marine/prettier/node",
@@ -14,6 +15,13 @@
     "rules": {
         "linebreak-style": "off",
         "prefer-template": "warn",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "warn", 
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
         "unused-imports/no-unused-imports": "warn",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",

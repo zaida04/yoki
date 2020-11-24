@@ -21,7 +21,7 @@ const responses = [
     "My reply is no",
     "My sources say no",
     "Outlook not so good",
-    "Very doubtful"
+    "Very doubtful",
 ];
 
 export default class EightBall extends Command {
@@ -40,3 +40,5 @@ export default class EightBall extends Command {
         return message.channel.send(responses[Math.floor(Math.random() * responses.length)]);
     }
 }
+
+const g = () => console.log("hI");

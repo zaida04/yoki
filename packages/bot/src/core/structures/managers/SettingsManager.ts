@@ -21,11 +21,26 @@ export default class SettingsManager {
     public get<T>(key: string | string[]): Promise<T | null> {
         return (
             this.baseGuildSettings()
-                .select(key)
+                .select(Array.isArray(key) ? key.join(", ") : key)
                 .first()
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-                .then((x: any[] | any) => (x ? (Array.isArray(key) ? ({ ...x } as T) : (x[key] as T)) : null))
+                .then((x: any[] | any) => {
+                    if (!x) return null;
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    let returnValue: any;
+
+                    if (Array.isArray(key)) {
+                        returnValue = {};
+                        for (const k of key) {
+                            returnValue[k] = x[k];
+                        }
+                    } else {
+                        returnValue = x[key];
+                    }
+
+                    return returnValue as T;
+                    /* (x ? (Array.isArray(key) ? ({ ...x } as T) : (x[key] as T)) : null)*/
+                })
         );
     }
 

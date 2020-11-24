@@ -10,7 +10,7 @@ export default class ReactionRoles extends SubCommand {
             description: {
                 content: "Interact with this server's reaction roles",
                 usage: "<subcommand> [...args]",
-                example: [],
+                example: ["reaction add 779060485718016013 :custom_reaction: 732716995761668209"],
             },
             subCommands: [
                 ["reaction-add", "add"],

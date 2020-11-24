@@ -4,6 +4,8 @@ import { MessageAttachment } from "discord.js";
 import { TextChannel } from "discord.js";
 import { Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
+import { handleMissingSend } from "../../common/PermissionUtil";
+import { YokiColors } from "../../common/YokiColors";
 
 export default class messageDeleteBulk extends Listener {
     public constructor() {
@@ -27,13 +29,15 @@ export default class messageDeleteBulk extends Listener {
             );
 
         const embed = new MessageEmbed()
-            .setColor("GREEN")
+            .setColor(YokiColors.GREEN)
             .setTitle("Messages Deleted in bulk")
             .setDescription(`Attached file contains deleted messages from ${messages.first()?.channel}`)
             .setTimestamp();
-        void logChannel.send({
-            embed,
-            files: [new MessageAttachment(Buffer.from(deletion_content.join("\n")), `${Date.now()}-MESSAGES.txt`)],
-        });
+        logChannel
+            .send({
+                embed,
+                files: [new MessageAttachment(Buffer.from(deletion_content.join("\n")), `${Date.now()}-MESSAGES.txt`)],
+            })
+            .catch((e) => handleMissingSend(e, logChannel, messages.first()!.guild!));
     }
 }

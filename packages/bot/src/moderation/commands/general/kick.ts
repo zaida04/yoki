@@ -72,7 +72,9 @@ export default class Kick extends Command {
         });
         if (!hidden)
             await target
-                .send(`You have been \`kicked\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}`)
+                .send(
+                    `You have been \`kicked\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}`
+                )
                 .catch((e) => e);
 
         await target.kick(`Kick case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`);

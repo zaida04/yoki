@@ -6,9 +6,24 @@ import { CategoryChannel } from "discord.js";
 import { GuildChannel } from "discord.js";
 import { TextChannel, VoiceChannel } from "discord.js";
 import { Message } from "discord.js";
+import { YokiColors } from "../../../common/YokiColors";
 
 import { CustomizableSettings, CustomizableSettingsArr } from "../../typings/CustomizableSettings";
 const settingsKeys = Object.keys(CustomizableSettingsArr);
+const viewableSettings = [
+    "logChannel",
+    "modLogChannel",
+    "memberLog",
+    "muteRole",
+    "joinRoles",
+    "prefix",
+    "welcomeChannel",
+    "welcomeMessage",
+    "leaveMessage",
+    "ticketCategory",
+    "messageFilterEnabled",
+    "autoModEnabled",
+];
 
 export default class Settings extends Command {
     public constructor() {
@@ -79,25 +94,36 @@ export default class Settings extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Settings Options",
-                    `Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(", ")}. 
+                    `Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(" ")}. 
                         
                     You can see all the current settings for your server by putting \`list\` as the option
                     If you want to set a setting to nothing, pass the word \`none\``
-                ).setColor("GOLD")
+                ).setColor(YokiColors.LIGHT_ORANGE)
             );
         if (setting.toLowerCase() === "list") {
             const all_settings = await this.client.db.api("settings").where("guild", message.guild!.id).first();
-            return message.channel.send(`The settings for your guild are: ${Object.keys(all_settings).map(x => {
-                const value = all_settings[ x ];
-                const possible_channel = message.guild!.channels.cache.get(value)
-                return `**${x}:** ${value ? possible_channel instanceof GuildChannel ? `#${possible_channel.name}` : `\`${value}\`` : `\`none\``}`;
-            }).join("\n")}`)
+            return message.channel.send(
+                `The settings for your guild are: ${Object.keys(all_settings)
+                    .filter((x) => viewableSettings.includes(x))
+                    .map((x) => {
+                        const value = all_settings[x];
+                        const possible_channel = message.guild!.channels.cache.get(value);
+                        return `**${x}:** ${
+                            value
+                                ? possible_channel instanceof GuildChannel
+                                    ? `${possible_channel}`
+                                    : `\`${value}\``
+                                : `\`none\``
+                        }`;
+                    })
+                    .join("\n")}`
+            );
         }
         if (!settingsKeys.includes(setting))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Incorrect Setting!",
-                    `That is not a valid setting. Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(", ")}
+                    `That is not a valid setting. Your options are: \n${settingsKeys.map((x) => `\`${x}\``).join(" ")}
                         
                     You can also use our dashboard to change these settings.
                     `
@@ -131,8 +157,7 @@ export default class Settings extends Command {
                         return message.channel.send(
                             `Sorry, but that is not the proper argument. Expected a valid \`text channel\``
                         );
-                    if(!value.permissionsFor(value.guild.me!)?.has("SEND_MESSAGES"))
-                    break;
+                    if (!value.permissionsFor(value.guild.me!)?.has("SEND_MESSAGES")) break;
                 }
                 case "voiceChannel": {
                     if (!(value instanceof VoiceChannel))
@@ -181,7 +206,8 @@ export default class Settings extends Command {
                     break;
                 }
                 case "string": {
-                    if ((value as String).length > 1000) return message.channel.send("Too big! Max. Character amount is 1000");
+                    if ((value as string).length > 1000)
+                        return message.channel.send("Too big! Max. Character amount is 1000");
                     break;
                 }
                 default: {

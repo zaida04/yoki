@@ -60,7 +60,7 @@ export default class CaseHistory extends Command {
                             ? actions
                                   .filter((x) => x.type === "kick")
                                   .map((x) => `\`#${x.id}\``)
-                                  .join(", ")
+                                  .join(" ")
                             : "`none`"
                     }
                     **Bans:** ${
@@ -68,7 +68,7 @@ export default class CaseHistory extends Command {
                             ? actions
                                   .filter((x) => x.type === "ban")
                                   .map((x) => `\`#${x.id}\``)
-                                  .join(", ")
+                                  .join(" ")
                             : "`none`"
                     }
                     **Mutes:** ${
@@ -76,7 +76,7 @@ export default class CaseHistory extends Command {
                             ? actions
                                   .filter((x) => x.type === "mute")
                                   .map((x) => `\`#${x.id}\``)
-                                  .join(", ")
+                                  .join(" ")
                             : "`none`"
                     }
                     **Warnings:** ${
@@ -84,7 +84,7 @@ export default class CaseHistory extends Command {
                             ? actions
                                   .filter((x) => x.type === "warn")
                                   .map((x) => `\`#${x.id}\``)
-                                  .join(", ")
+                                  .join(" ")
                             : "`none`"
                     }
                     **Softbans:** ${
@@ -92,7 +92,7 @@ export default class CaseHistory extends Command {
                             ? actions
                                   .filter((x) => x.type === "softban")
                                   .map((x) => `\`#${x.id}\``)
-                                  .join(", ")
+                                  .join(" ")
                             : "`none`"
                     }
                 `

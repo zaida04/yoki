@@ -54,14 +54,20 @@ export default class ReactionRole extends Command {
             guild_id: message.guild!.id,
             role_id: role.id,
         });
-        void msg.react(emoji.id ?? emoji.name);
-        const embed = new this.client.Embeds.SuccessEmbed(
-            "Reaction Role Added",
-            `[This Message](${msg.url}) will now give the ${role} when someone reacts with`,
-            message
-        ).setFooter(`RR ID: ${id}`);
-        emoji instanceof GuildEmoji ? embed.setImage(emoji.url) : void 0;
+        try {
+            await msg.react(emoji.id ?? emoji.name);
+            const embed = new this.client.Embeds.SuccessEmbed(
+                "Reaction Role Added",
+                `[This Message](${msg.url}) will now give the ${role} when someone reacts with`,
+                message
+            ).setFooter(`RR ID: ${id}`);
+            emoji instanceof GuildEmoji ? embed.setImage(emoji.url) : void 0;
 
-        return message.channel.send(embed);
+            return message.channel.send(embed);
+        } catch (e) {
+            return message.channel.send(
+                "There was an error adding a reaction to that message! Please ensure I have proper permissions!"
+            );
+        }
     }
 }
