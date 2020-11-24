@@ -11,7 +11,7 @@ export function hasAnyPermission(member: GuildMember, permissions: PermissionRes
     return missing.length ? `missing any of these permissions: ${missing.map((x) => `\`${x}\``).join(" ")}` : null;
 }
 
-export function handleMissingSend(e, target: TextChannel, guild: Guild) {
+export function handleMissingSend(e: Error, target: TextChannel, guild: Guild) {
     return (guild.channels.cache
         .filter((x) => x.type === "text")
         .find((x) =>

@@ -27,7 +27,6 @@ General usage discord bot aimed at cutting down the amount of bots needed in a s
 * Custom Commands (tags)
 * Ticketing
 * Giveaways
-* Private Voice Channels
 
 ## About the Project  
 Yoki was built out of a desire to cut down the amount of bots that had to be invited to a discord server. It's original purpose was to allow sub-guilds in a guild, but was later repurposed to be a general usage discord bot.
