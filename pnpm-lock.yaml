@@ -10,6 +10,7 @@ devDependencies:
   eslint-plugin-import: 2.22.1_eslint@7.11.0
   eslint-plugin-prettier: 3.1.4_eslint@7.11.0+prettier@2.1.2
   eslint-plugin-unused-imports: 0.1.3_@typescript-eslint+parser@4.4.0
+  husky: 5.0.4
   nodemon: 2.0.4
   prettier: 2.1.2
   rimraf: 3.0.2
@@ -1906,6 +1907,13 @@ packages:
     optional: true
     resolution:
       integrity: sha1-muzZJRFHcvPZW2WmCruPfBj7rOE=
+  /husky/5.0.4:
+    dev: true
+    engines:
+      node: '>= 10'
+    hasBin: true
+    resolution:
+      integrity: sha512-35tdr4zrmJrpMconZggELF8zzNuddp2NEpPc4AjplPoYJauPZU6WuvCCrJYOTZv5UUj9C15ikQWCcTXk4jJj9Q==
   /iconv-lite/0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -4202,6 +4210,7 @@ specifiers:
   eslint-plugin-import: ^2.22.0
   eslint-plugin-prettier: ^3.1.4
   eslint-plugin-unused-imports: ^0.1.3
+  husky: ^5.0.4
   knex: ^0.21.12
   mysql: ^2.18.1
   nodemon: ^2.0.4
