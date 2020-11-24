@@ -2,6 +2,8 @@ import { Listener } from "discord-akairo";
 import { TextChannel } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import { Message } from "discord.js";
+import { handleMissingSend } from "../../common/PermissionUtil";
+import { YokiColors } from "../../common/YokiColors";
 
 export default class messageUpdate extends Listener {
     public constructor() {
@@ -25,7 +27,7 @@ export default class messageUpdate extends Listener {
 
         const embed = new MessageEmbed()
             .setTitle("Message Updated!")
-            .setColor("GOLD")
+            .setColor(YokiColors.LIGHT_ORANGE)
             .setDescription(
                 `
                 **Old Message:** 
@@ -41,7 +43,7 @@ export default class messageUpdate extends Listener {
             )
             .setTimestamp();
 
-        void logChannel.send(embed);
+        logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, oldMessage.guild));
 
         return diff;
     }

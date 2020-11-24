@@ -15,11 +15,9 @@ export default class missingPermissions extends Listener {
     public exec(message: Message, command: Command, type: "client" | "user", missing: string[] | string) {
         if (!message.guild) return;
         this.client.Logger.error(
-            `${
-                type === "user" ? `User ${message.author.tag} (${message.author.id})` : "Client"
-            } is "${Array.isArray(missing) ? `missing permissions ${missing.map(x => `\`${x}\``).join(", ")}` : missing}" when executing command "${command.id}" in guild "${
-                message.guild.name
-            }" (${message.guild.id})`
+            `${type === "user" ? `User ${message.author.tag} (${message.author.id})` : "Client"} is "${
+                Array.isArray(missing) ? `missing permissions ${missing.map((x) => `\`${x}\``).join(", ")}` : missing
+            }" when executing command "${command.id}" in guild "${message.guild.name}" (${message.guild.id})`
         );
         return type === "user"
             ? this.userMissingPermissions(message, missing)
@@ -32,7 +30,11 @@ export default class missingPermissions extends Listener {
                 .setTitle("You are missing permissions!")
                 .setColor(YokiColors.RED)
                 .setDescription(
-                    `You are ${Array.isArray(missing) ? `missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}` : missing}`
+                    `You are ${
+                        Array.isArray(missing)
+                            ? `missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}`
+                            : missing
+                    }`
                 )
         );
     }
@@ -43,7 +45,11 @@ export default class missingPermissions extends Listener {
                 .setTitle("I am missing permissions!")
                 .setColor(YokiColors.RED)
                 .setDescription(
-                    `I am ${Array.isArray(missing) ? `missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}` : missing}`
+                    `I am ${
+                        Array.isArray(missing)
+                            ? `missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}`
+                            : missing
+                    }`
                 )
         );
     }

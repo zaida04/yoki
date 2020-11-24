@@ -3,6 +3,8 @@ import { MessageEmbed } from "discord.js";
 import { TextChannel } from "discord.js";
 import { DMChannel } from "discord.js";
 import { GuildChannel } from "discord.js";
+import { handleMissingSend } from "../../common/PermissionUtil";
+import { YokiColors } from "../../common/YokiColors";
 
 export default class channelUpdate extends Listener {
     public constructor() {
@@ -30,10 +32,10 @@ export default class channelUpdate extends Listener {
 
         if (!changes.length) return;
         const embed = new MessageEmbed()
-            .setColor("GOLD")
+            .setColor(YokiColors.LIGHT_ORANGE)
             .setTitle("Channel Updated")
             .setDescription(changes.join("\n"))
             .setTimestamp();
-        void logChannel.send(embed);
+        logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, oldChannel.guild));
     }
 }

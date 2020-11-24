@@ -3,6 +3,7 @@ import { GuildMember } from "discord.js";
 import JoinEmbed from "../util/JoinEmbed";
 
 import { TextChannel } from "discord.js";
+import { handleMissingSend } from "../../common/PermissionUtil";
 
 export default class guildMemberAdd extends Listener {
     public constructor() {
@@ -13,26 +14,27 @@ export default class guildMemberAdd extends Listener {
     }
 
     public async exec(member: GuildMember) {
-        if (member.partial) await member.fetch();
-
         const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberLog", "text");
         if (memberLogChannel) {
-            this.client.Logger.log(`${member.user.tag} logged!`);
-            void memberLogChannel.send(new JoinEmbed(member));
+            memberLogChannel
+                .send(new JoinEmbed(member))
+                .catch((e) => handleMissingSend(e, memberLogChannel, member.guild));
         }
 
         const joinRoles = await member.guild.settings.get<string>("joinRoles");
         if (joinRoles) {
             const parsedjoinRoles = joinRoles.split(", ");
-            member.roles.add(parsedjoinRoles, "Auto role add");
+            void member.roles.add(parsedjoinRoles, "Auto role add");
         }
 
         const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomeChannel", "text");
         if (welcomeChannel) {
             const welcomeChannelMessage = await member.guild.settings.get<string>("welcomeMessage");
-            void welcomeChannel.send(
-                welcomeChannelMessage ? welcomeChannelMessage : `${member.user} has joined! Welcome to the server!`
-            );
+            welcomeChannel
+                .send(
+                    welcomeChannelMessage ? welcomeChannelMessage : `${member.user} has joined! Welcome to the server!`
+                )
+                .catch((e) => handleMissingSend(e, welcomeChannel, member.guild));
         }
     }
 }

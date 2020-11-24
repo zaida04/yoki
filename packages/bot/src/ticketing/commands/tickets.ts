@@ -10,7 +10,7 @@ export default class Tickets extends SubCommand {
             description: {
                 content: "Interact with this server's tickets",
                 usage: "<subcommand> [...args]",
-                example: ["tag create", "tags close", "tags close #channel"],
+                example: ["ticket open", "ticket close", "ticket close #channel"],
             },
             subCommands: [
                 ["ticket-close", "close"],

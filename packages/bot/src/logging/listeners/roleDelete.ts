@@ -2,6 +2,8 @@ import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import { Role } from "discord.js";
 import { TextChannel } from "discord.js";
+import { handleMissingSend } from "../../common/PermissionUtil";
+import { YokiColors } from "../../common/YokiColors";
 
 export default class roleDelete extends Listener {
     public constructor() {
@@ -16,10 +18,10 @@ export default class roleDelete extends Listener {
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
-            .setColor("RED")
+            .setColor(YokiColors.LIGHT_ORANGE)
             .setTitle("Role Deleted")
             .setDescription(`${role.name} \`(${role.id})\``)
             .setTimestamp();
-        void logChannel.send(embed);
+        logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, role.guild));
     }
 }

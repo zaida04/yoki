@@ -92,7 +92,7 @@ export default class Ban extends Command {
 
         await message.guild!.members.ban(target, {
             reason: `Ban case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`,
-            days: 7
+            days: 7,
         });
 
         const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");

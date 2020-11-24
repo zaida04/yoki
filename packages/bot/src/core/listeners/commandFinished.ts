@@ -11,7 +11,7 @@ export default class CommandFinishedListener extends Listener {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public exec(message: Message, command: Command, args: any) {
+    public exec(message: Message, command: Command) {
         this.client.Logger.log(
             `Command ${command.id} executed by: ${message.author.tag} (${message.author.id}) on ${
                 message.guild ? `${message.guild.name} (${message.guild.id})` : `DM`

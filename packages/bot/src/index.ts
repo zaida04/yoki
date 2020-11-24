@@ -23,5 +23,9 @@ void (async () => {
     };
     console.log(options);
     const BotClient = new Client(options);
-    void BotClient.login(process.env.TOKEN);
+    try {
+        await BotClient.login(process.env.TOKEN);
+    } catch (e) {
+        throw new Error(`Error logging in with provided token! ${e}`);
+    }
 })();

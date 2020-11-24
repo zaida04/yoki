@@ -4,19 +4,27 @@ exports.up = async function (knex) {
         table.boolean("left");
         table.boolean("premium");
         table.string("guild");
+        table.string("prefix");
+        table.date("joinedDate");
+
+        // roles
+        table.string("muteRole");
+        table.string("joinRoles");
+
+        // channels
+        table.string("suggestionChannel");
         table.string("logChannel");
         table.string("modLogChannel");
         table.string("memberLog");
-        table.string("muteRole");
-        table.string("joinRoles");
-        table.string("prefix");
-        table.string("welcomeChannel")
+        table.string("welcomeChannel");
+        table.string("ticketCategory");
+
+        //  messages
+        table.string("suggestionMessage");
         table.string("welcomeMessage");
         table.string("leaveMessage");
-        table.string("ticketCategory");
-        table.date("joinedDate");
 
-        /* Enabled */
+        /* Bools */
         table.boolean("messageFilterEnabled");
         table.boolean("autoModEnabled");
     });

@@ -1,12 +1,13 @@
 import { MessageEmbed } from "discord.js";
 import { GuildMember } from "discord.js";
+import { YokiColors } from "../../common/YokiColors";
 import { FormatDate } from "./FormatDate";
 
 export default class LeaveEmbed extends MessageEmbed {
     public constructor(member: GuildMember) {
         super();
         super
-            .setColor("ff3300")
+            .setColor(YokiColors.ORANGE_RED)
             .setAuthor(member.user.tag, member.user.displayAvatarURL())
             .setDescription(
                 `

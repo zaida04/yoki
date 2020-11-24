@@ -62,9 +62,9 @@ export default class Warn extends Command {
             void target
                 .send(
                     `
-                You have been \`warned\` in **${
-                    message.guild!.name
-                }**\n${reason ? `Reason: **${reason}**\n` : ""}**\n*Please ensure you comply with this servers rules*
+                You have been \`warned\` in **${message.guild!.name}**\n${
+                        reason ? `Reason: **${reason}**\n` : ""
+                    }**\n*Please ensure you comply with this servers rules*
                 `
                 )
                 .catch((e) => e);

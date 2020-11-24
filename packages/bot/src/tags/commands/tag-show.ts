@@ -2,7 +2,7 @@ import { Command } from "discord-akairo";
 import { Util } from "discord.js";
 
 import { Message } from "discord.js";
-import { DatabaseTagEntry } from '../typings/tag';
+import { DatabaseTagEntry } from "../typings/tag";
 
 export default class tagInfo extends Command {
     public constructor() {
@@ -26,7 +26,7 @@ export default class tagInfo extends Command {
         });
     }
 
-    public async exec(message: Message, { name, tag }: { name?: string, tag?: DatabaseTagEntry; }) {
+    public async exec(message: Message, { name, tag }: { name?: string; tag?: DatabaseTagEntry }) {
         if (!tag) {
             if (!name) return;
             const tagname = Util.cleanContent(name, message);

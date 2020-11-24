@@ -8,7 +8,7 @@ export default class SubCommandEmbed extends MessageEmbed {
         super.setDescription(
             `Options for this command are: ${command.subCommands
                 .map((x: string[]) => `\`${x[1]}\``)
-                .join(", ")}.\n Example: \`${command.aliases[0]} ${command.subCommands[0][1]} [...args]\``
+                .join(" ")}.\n Example: \`${command.aliases[0]} ${command.subCommands[0][1]} [...args]\``
         );
         super.setColor(YokiColors.LIGHT_ORANGE);
     }
