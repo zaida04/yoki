@@ -43,7 +43,7 @@ export default class messageUpdate extends Listener {
             )
             .setTimestamp();
 
-        logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, oldMessage.guild));
+        logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, oldMessage.guild!));
 
         return diff;
     }
