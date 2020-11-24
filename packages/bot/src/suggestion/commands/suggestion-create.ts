@@ -18,5 +18,7 @@ export default class suggestionCreate extends Command {
         });
     }
 
-    public async exec(message: Message) {}
+    public exec(message: Message) {
+        return void 0;
+    }
 }
