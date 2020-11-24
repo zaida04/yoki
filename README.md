@@ -92,12 +92,6 @@ Yoki is structured as a monorepo
   * cancelation
   * prompt creation
 
-* Private Voice Channels
-  * +new session
-  * on join, create channel ${id} and corresponding text channel
-  * lock channel (only accessible by add command)
-  * once everyone leaves, archive text channel and delete voice channel
-  * rename channel command
 
 ## LICENSING  
 > **Yoki** © [zaida04](https://github.com/zaida04), Released under the [MIT](https://github.com/zaida04/Yoki/blob/master/LICENSE) License.  
