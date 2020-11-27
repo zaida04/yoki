@@ -41,7 +41,6 @@
     "pinst": "^2.1.1",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2",
-    "sqlite3": "^5.0.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
