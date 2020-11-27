@@ -24,7 +24,7 @@ export default class SettingsManager {
                 .select(Array.isArray(key) ? key.join(", ") : key)
                 .first()
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                .then((x: any[] | any) => {
+                .then((x: Record<string, any> | undefined) => {
                     if (!x) return null;
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     let returnValue: any;
@@ -65,8 +65,8 @@ export default class SettingsManager {
         return this.baseGuildSettings<string>()
             .select(key)
             .first()
-            .then((x: Record<string, string>) => {
-                return key in x
+            .then((x: Record<string, string> | undefined) => {
+                return x && key in x
                     ? this.guild.channels.cache.filter((x) => x.type === type).has(x[key])
                         ? (this.guild.channels.cache.filter((x) => x.type === type).get(x[key]) as T)
                         : null

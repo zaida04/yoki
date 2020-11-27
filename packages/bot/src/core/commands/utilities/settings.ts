@@ -23,6 +23,7 @@ const viewableSettings = [
     "ticketCategory",
     "messageFilterEnabled",
     "autoModEnabled",
+    "suggestionChannel",
 ];
 
 export default class Settings extends Command {
@@ -157,7 +158,9 @@ export default class Settings extends Command {
                         return message.channel.send(
                             `Sorry, but that is not the proper argument. Expected a valid \`text channel\``
                         );
-                    if (!value.permissionsFor(value.guild.me!)?.has("SEND_MESSAGES")) break;
+                    if (!value.permissionsFor(value.guild.me!)?.has("SEND_MESSAGES"))
+                        return message.channel.send("I don't have permission to speak in that channel!");
+                    break;
                 }
                 case "voiceChannel": {
                     if (!(value instanceof VoiceChannel))

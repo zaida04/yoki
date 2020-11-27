@@ -42,7 +42,10 @@ Yoki was built out of a desire to cut down the amount of bots that had to be inv
 Yoki **requires Node.js >=12** due to the dependency on discord.js.  
 Yoki **advises you use PNPM** due to it's monorepo setup. You can use npm, but it will be much more of a hassle.
 
+**You must enable the SERVER MEMBERS intent in https://discord.com/developers/applications**
+
 ### Installation 
+
 1. Normal
 - `git clone https://github.com/zaida04/Yoki.git`  
 - `cd yoki`

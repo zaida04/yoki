@@ -7,7 +7,8 @@ export type CustomizableSettings =
     | "member-log"
     | "welcome-message"
     | "leave-message"
-    | "ticket-category";
+    | "ticket-category"
+    | "suggestion-channel";
 export const CustomizableSettingsArr = {
     "log-channel": {
         mappedName: "logChannel",
@@ -44,5 +45,9 @@ export const CustomizableSettingsArr = {
     "ticket-category": {
         mappedName: "ticketCategory",
         type: "categoryChannel",
+    },
+    "suggestion-channel": {
+        mappedName: "suggestionChannel",
+        type: "textChannel",
     },
 };

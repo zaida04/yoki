@@ -5,9 +5,9 @@ exports.up = function (knex) {
         table.string("guild_id");
         table.string("message_id");
         table.string("channel_id");
-        table.description("description");
+        table.string("description");
         table.string("status");
-        table.string("comments");
+        table.string("comment");
     });
 };
 
