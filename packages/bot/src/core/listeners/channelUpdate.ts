@@ -11,6 +11,7 @@ export default class channelUpdate extends Listener {
 
     public exec(oldChannel: DMChannel | GuildChannel, newChannel: DMChannel | GuildChannel) {
         if (oldChannel instanceof DMChannel || newChannel instanceof DMChannel) return;
+        if (oldChannel.position !== newChannel.position) return;
         this.client.Logger.log(
             `Channel ${oldChannel.name} (${oldChannel.id}) updated ${
                 oldChannel.name === newChannel.name ? "" : `name => ${newChannel.name} `

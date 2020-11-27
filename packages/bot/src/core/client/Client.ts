@@ -1,7 +1,7 @@
 /* Main Dependencies */
 import { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } from "discord-akairo";
 import { join } from "path";
-import { Message, Collection, MessageEmbed } from "discord.js";
+import { Message, Collection, MessageEmbed, Intents } from "discord.js";
 
 /* Typings */
 import "../typings/Akairo";
@@ -18,13 +18,16 @@ import { YokiColors } from "../../common/YokiColors";
 
 /* Yoki Modules */
 import YokiModule from "../../common/YokiModule";
-import Moderation from "../../moderation/moderation";
-import Logging from "../../logging/logging";
-import Tags from "../../tags/tags";
-import MessageFilter from "../../messageFilter/messageFilter";
-import Ticketing from "../../ticketing/ticketing";
-import RR from "../../reaction-roles/rr";
-import { Intents } from "discord.js";
+import {
+    Moderation,
+    Logging,
+    Tags,
+    Suggestion,
+    ReactionRoles,
+    MessageFilter,
+    Ticketing,
+    Giveaway,
+} from "../../plugins";
 
 export default class YokiClient extends AkairoClient {
     public constructor(config: ClientOptions) {
@@ -111,7 +114,9 @@ export default class YokiClient extends AkairoClient {
         this.Modules.set("messageFilter", await new MessageFilter(this).load());
         this.Modules.set("tags", await new Tags(this).load());
         this.Modules.set("ticketing", await new Ticketing(this).load());
-        this.Modules.set("reaction-roles", await new RR(this).load());
+        this.Modules.set("reaction-roles", await new ReactionRoles(this).load());
+        this.Modules.set("suggestions", await new Suggestion(this).load());
+        this.Modules.set("giveaways", await new Giveaway(this).load());
         return 0;
     }
 
