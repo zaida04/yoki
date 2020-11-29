@@ -17,7 +17,7 @@ COPY libs/logger/package.json ./libs/logger/
 COPY packages/bot/package.json ./packages/bot/
 
 RUN pnpm i --recursive
-COPY knexfile.js migrations/ ./
+COPY knexfile.js migrations ./
 RUN pnpm run knex:init
 
 ENV NODE_ENV=
