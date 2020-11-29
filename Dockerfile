@@ -17,12 +17,11 @@ COPY libs/logger/package.json ./libs/logger/
 COPY packages/bot/package.json ./packages/bot/
 
 RUN pnpm i --recursive
-COPY knexfile.js migrations ./
-RUN pnpm run knex:init
 
 ENV NODE_ENV=
 
 COPY . .
 RUN pnpm run build && pnpm prune --prod
+RUN pnpm run knex:init
 
 CMD [ "node", "packages/bot/dist/index.js"]
