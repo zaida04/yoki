@@ -20,7 +20,6 @@ export default class ActionManager extends BaseManager<Action> {
                     target_id: data.target.id,
                     executor_id: data.executor.id,
                     reason: data.reason,
-                    createdAt: new Date().getTime(),
                     message_id: data.message ? data.message.id : null,
                     channel_id: data.message ? data.message.channel.id : null,
                     type: data.type,
