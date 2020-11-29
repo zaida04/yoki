@@ -23,7 +23,6 @@ export default class tagInfo extends Command {
                 },
             ],
             channel: "guild",
-            userPermissions: ["MANAGE_GUILD"],
         });
     }
 
@@ -32,6 +31,9 @@ export default class tagInfo extends Command {
         const fetch_tag = await this.client.tagHandler.fetch(message.guild!, { name });
         if (!fetch_tag)
             return message.channel.send(new this.client.Embeds.ErrorEmbed("Invalid!", "That tag doesn't exist!"));
+
+        if (fetch_tag.creator_id !== message.author.id && !message.member!.hasPermission("MANAGE_GUILD"))
+            return message.channel.send("This either isn't your tag, or you don't have the `MANAGE_GUILD` permission");
 
         void this.client.tagHandler.delete(message.guild!, fetch_tag.id);
         return message.channel.send("Tag is scheduled for deletion.");
