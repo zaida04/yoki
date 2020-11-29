@@ -57,7 +57,7 @@ export default class suggestionCreate extends Command {
         const suggestion_message: Message | undefined = await message.channel
             .awaitMessages((m) => m.author.id === message.author.id, {
                 max: 1,
-                time: 60000,
+                time: 300000,
                 errors: ["time"],
             })
             .then((collected) => collected.first())
@@ -75,7 +75,7 @@ export default class suggestionCreate extends Command {
 
         const sent_message = await suggestion_channel
             .send(new SuggestionEmbed({ opener: message.author, ...created_suggestion }), {
-                files: message.attachments.array().map((x) => {
+                files: suggestion_message.attachments.array().map((x) => {
                     return { name: x.name ?? Date.now().toString(), attachment: x.attachment };
                 }),
             })
