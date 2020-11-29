@@ -41,7 +41,7 @@ export default class CaseDelete extends Command {
                 new this.client.Embeds.ErrorEmbed("Invalid ID", "That ID does not belong to a case in this guild.")
             );
         await this.client.caseActions.delete(message.guild!.id, id);
-        if (fetchCase.message && !fetchCase.message.deleted) void fetchCase.message.delete();
+        if (fetchCase.message?.deletable) void fetchCase.message.delete();
 
         switch (fetchCase.type) {
             case "ban": {

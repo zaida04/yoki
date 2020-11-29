@@ -83,7 +83,7 @@ export default class Clear extends Command {
                 limit: 2,
             });
             void lastMessage.first(2)[1].delete();
-            void message.delete();
+            if (message.deletable) void message.delete();
         }
         return message.channel
             .send(new this.client.Embeds.SuccessEmbed(null, this.client.Responses.PURGE_RESPONSE(amount, 5), message))

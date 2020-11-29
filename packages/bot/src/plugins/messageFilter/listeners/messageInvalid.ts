@@ -25,7 +25,7 @@ export default class messageFilterMessageInvalid extends Listener {
 
         if (await message.guild.settings.get("autoModEnabled"))
             if (discordRegex.test(sanitizedContent)) {
-                void message.delete();
+                if (message.deletable) void message.delete();
                 const createdCase = await this.client.caseActions.create({
                     executor: this.client.user!,
                     reason: `\`Links to other Discord Servers\``,
@@ -52,28 +52,30 @@ export default class messageFilterMessageInvalid extends Listener {
             this.client.Logger.log(
                 `${message.author.tag} (${message.author.id}) has tripped the message filter in ${message.guild.id}`
             );
-            return message.delete().then(async (_) => {
-                void message.reply("You have said a banned word in this server!");
-                const createdCase = await this.client.caseActions.create({
-                    executor: this.client.user!,
-                    reason: `\`Triggered the message filter\``,
-                    type: "warn",
-                    message: null,
-                    target: message.author,
-                    guild: message.guild!,
-                });
-                const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
-                if (logChannel) {
-                    const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
-                    void this.client.caseActions.updateMessage(createdCase, logMessage);
-                    this.client.caseActions.cache.delete(createdCase.id);
-                    void message.author.send(
-                        `You have been \`warned\` in **${
-                            message.guild!.name
-                        }**\nReason: \`You have said a forbidden word in this server.\`\n\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment`
-                    );
-                }
-            });
+            return message.deletable
+                ? message.delete().then(async (_) => {
+                      void message.reply("You have said a banned word in this server!");
+                      const createdCase = await this.client.caseActions.create({
+                          executor: this.client.user!,
+                          reason: `\`Triggered the message filter\``,
+                          type: "warn",
+                          message: null,
+                          target: message.author,
+                          guild: message.guild!,
+                      });
+                      const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
+                      if (logChannel) {
+                          const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
+                          void this.client.caseActions.updateMessage(createdCase, logMessage);
+                          this.client.caseActions.cache.delete(createdCase.id);
+                          void message.author.send(
+                              `You have been \`warned\` in **${
+                                  message.guild!.name
+                              }**\nReason: \`You have said a forbidden word in this server.\`\n\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment`
+                          );
+                      }
+                  })
+                : void 0;
         }
         return null;
     }

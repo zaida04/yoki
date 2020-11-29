@@ -25,11 +25,8 @@ export default class Ban extends Command {
                     Created and maintained by iCrawl <icrawltogo@gmail.com>
                     */
                     type: Argument.union("member", "user", async (_, phrase) => {
-                        try {
-                            return await this.client.users.fetch(phrase);
-                        } catch (e) {
-                            return null;
-                        }
+                        const u = await this.client.users.fetch(phrase).catch(() => null);
+                        return u ?? null;
                     }),
                 },
                 {
