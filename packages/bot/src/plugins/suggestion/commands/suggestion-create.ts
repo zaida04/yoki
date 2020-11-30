@@ -74,7 +74,8 @@ export default class suggestionCreate extends Command {
         });
 
         const sent_message = await suggestion_channel
-            .send(new SuggestionEmbed({ opener: message.author, ...created_suggestion }), {
+            .send({
+                embed: new SuggestionEmbed({ opener: message.author, ...created_suggestion }),
                 files: suggestion_message.attachments.array().map((x) => {
                     return { name: x.name ?? Date.now().toString(), attachment: x.attachment };
                 }),
