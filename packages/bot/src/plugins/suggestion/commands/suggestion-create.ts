@@ -64,6 +64,8 @@ export default class suggestionCreate extends Command {
             .catch((collected: Collection<string, Message>) => collected.first());
 
         if (!suggestion_message) return message.channel.send("You didn't provide a proper response in time!");
+        if (suggestion_message.content.length > 1500)
+            return message.channel.send("Your response is too long. Please try again.");
 
         const created_suggestion = await this.client.suggestionHandler.create({
             creator_id: message.author.id,
