@@ -38,7 +38,6 @@ export default class FilterHandler {
             guild_id: data.guild_id,
             creator_id: data.creator_id,
             content: data.content,
-            createdAt: new Date().getTime(),
         });
         const existing = await this.get(data.guild_id);
         return this.guilds.set(data.guild_id, new Set([...existing, data.content]));
