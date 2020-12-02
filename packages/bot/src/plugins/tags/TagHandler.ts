@@ -34,8 +34,7 @@ export default class TagHandler {
             guild_id: guild instanceof Guild ? guild.id : guild,
             name: data.name,
             creator_id: data.creator.id,
-            content: data.content,
-            createdAt: new Date().getTime(),
+            content: data.content
         };
 
         return this.client.db
