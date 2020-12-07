@@ -29,7 +29,8 @@ export default class ReactionRole extends Command {
                     id: "emoji",
                     type: "emoji",
                     prompt: {
-                        start: "Please say the Emoji Reaction that you wish to trigger the role giving",
+                        start:
+                            "Please say the Emoji Reaction that you wish to trigger the role giving.\n**Ensure this emoji is IN THIS SERVER**",
                     },
                 },
                 {
@@ -49,6 +50,10 @@ export default class ReactionRole extends Command {
         message: Message,
         { msg, emoji, role }: { msg: Message; emoji: GuildEmoji | ReactionEmoji; role: Role }
     ) {
+        if (role.comparePositionTo(message.member!.roles.highest) >= 0)
+            return message.channel.send(
+                "That role is higher than you! I can't let you make a reaction role with that!"
+            );
         const [id] = await this.client.rrHandler.create({
             message_id: msg.id,
             reaction: emoji.id ?? emoji.name,
