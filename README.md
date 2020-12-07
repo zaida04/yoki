@@ -90,14 +90,6 @@ Yoki is structured as a monorepo
 `packages/bot/**` - Most of the other dirs are modules (such as audit logging, moderation, etc)  
 `packages/dashboard` - Dashboard for Yoki
 
-## TODO
-* Giveaway system
-  * reroll
-  * time from now expiration
-  * cancelation
-  * prompt creation
-
-
 ## LICENSING  
 > **Yoki** © [zaida04](https://github.com/zaida04), Released under the [MIT](https://github.com/zaida04/Yoki/blob/master/LICENSE) License.  
 

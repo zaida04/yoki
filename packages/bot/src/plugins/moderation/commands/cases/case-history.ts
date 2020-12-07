@@ -7,6 +7,7 @@ import { hasAnyPermission } from "../../../../common/PermissionUtil";
 import { ActionDatabaseData } from "../../typings/Action";
 
 export default class CaseHistory extends Command {
+    private readonly caseTypes = ["kick", "ban", "mute", "warn", "softban"];
     public constructor() {
         super("case-history", {
             aliases: ["history"],
@@ -55,46 +56,19 @@ export default class CaseHistory extends Command {
                     `
                     Case IDs against this person:
 
-                    **Kicks:** ${
-                        actions.filter((x) => x.type === "kick").length > 0
-                            ? actions
-                                  .filter((x) => x.type === "kick")
-                                  .map((x) => `\`#${x.id}\``)
-                                  .join(" ")
-                            : "`none`"
-                    }
-                    **Bans:** ${
-                        actions.filter((x) => x.type === "ban").length > 0
-                            ? actions
-                                  .filter((x) => x.type === "ban")
-                                  .map((x) => `\`#${x.id}\``)
-                                  .join(" ")
-                            : "`none`"
-                    }
-                    **Mutes:** ${
-                        actions.filter((x) => x.type === "mute").length > 0
-                            ? actions
-                                  .filter((x) => x.type === "mute")
-                                  .map((x) => `\`#${x.id}\``)
-                                  .join(" ")
-                            : "`none`"
-                    }
-                    **Warnings:** ${
-                        actions.filter((x) => x.type === "warn").length > 0
-                            ? actions
-                                  .filter((x) => x.type === "warn")
-                                  .map((x) => `\`#${x.id}\``)
-                                  .join(" ")
-                            : "`none`"
-                    }
-                    **Softbans:** ${
-                        actions.filter((x) => x.type === "softban").length > 0
-                            ? actions
-                                  .filter((x) => x.type === "softban")
-                                  .map((x) => `\`#${x.id}\``)
-                                  .join(" ")
-                            : "`none`"
-                    }
+                    ${this.caseTypes
+                        .map(
+                            (x) =>
+                                `**${x}:** ${
+                                    actions.filter((y) => y.type === x).length > 0
+                                        ? actions
+                                              .filter((z) => z.type === x)
+                                              .map((t) => `\`#${t.id}\``)
+                                              .join(" ")
+                                        : "none"
+                                }`
+                        )
+                        .join("\n")}
                 `
                 )
                 .setTimestamp()

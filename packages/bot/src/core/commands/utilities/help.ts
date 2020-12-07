@@ -72,13 +72,12 @@ export default class Help extends Command {
 					A list of available commands.
                     For additional info on a command, type \`${prefix}help [command]\`
                     
-                    **Arguments:**
-                    \`<>\` - required.
-                    \`[]\` - optional.
+                    **Legend:**
+                    \`<arg>\` - required.
+                    \`[arg]\` - optional.
                     
 					`
         );
-        const modules = [];
 
         for (const cat of this.client.commandHandler.categories
             .filter((x: Category<string, Command>) => !ignoredCategories.includes(x.id))
@@ -88,7 +87,29 @@ export default class Help extends Command {
                     Number(a.reduce((acc: number, val) => acc + val.aliases.length))
             )
             .values()) {
-            if (cat.filter((cmd) => cmd.aliases.length > 0).size === 1)
+            const isModule = Boolean(cat.filter((cmd) => cmd.aliases.length > 0).size === 1);
+
+            if (isModule) {
+                embed.addField(
+                    `❯ ${cat.id.replace(/(\b\w)/gi, (lc) => lc.toUpperCase())}`,
+                    cat
+                        .filter((x) => x instanceof SubCommand)
+                        .first()!
+                        .subCommands!.map((subCommand) => `\`${subCommand[1]}\``)
+                        .join(" "),
+                    true
+                );
+            } else {
+                embed.addField(
+                    `❯ ${cat.id.replace(/(\b\w)/gi, (lc) => lc.toUpperCase())}`,
+                    `${cat
+                        .filter((cmd) => cmd.aliases.length > 0)
+                        .map((cmd) => `\`${cmd.aliases[0]}\``)
+                        .join(" ")}`,
+                    cat.filter((cmd) => cmd.aliases.length > 0).map((cmd) => `\`${cmd.aliases[0]}\``).length < 3
+                );
+            }
+            /* if (cat.filter((cmd) => cmd.aliases.length > 0).size === 1)
                 modules.push(cat.filter((cmd) => cmd.aliases.length > 0).first()!.aliases[0]);
             else {
                 embed.addField(
@@ -99,9 +120,9 @@ export default class Help extends Command {
                         .join(" ")}`,
                     cat.filter((cmd) => cmd.aliases.length > 0).map((cmd) => `\`${cmd.aliases[0]}\``).length < 3
                 );
-            }
+            } */
         }
-        if (modules.length) embed.addField("❯ Modules", modules.map((x) => `\`${x}\``).join(" "));
+        // if (modules.length) embed.addField("❯ Modules", modules.map((x) => `\`${x}\``).join(" "));
 
         return message.channel.send(embed);
     }
