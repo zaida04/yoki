@@ -41,6 +41,7 @@ export default class ReactionRole extends Command {
                 },
             ],
             channel: "guild",
+            userPermissions: ["MANAGE_ROLES"],
         });
     }
 

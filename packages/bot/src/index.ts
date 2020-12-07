@@ -21,7 +21,6 @@ void (async () => {
         dbEnv: dbEnv,
         defaultPrefix: process.env.DEFAULTPREFIX,
     };
-    console.log(options);
     const BotClient = new Client(options);
     try {
         await BotClient.login(process.env.TOKEN);

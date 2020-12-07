@@ -19,7 +19,6 @@ export default class ticketCreate extends Command {
                     match: "rest",
                 },
             ],
-            userPermissions: ["MANAGE_MESSAGES"],
             clientPermissions: ["EMBED_LINKS"],
             channel: "guild",
             ratelimit: 50000,
