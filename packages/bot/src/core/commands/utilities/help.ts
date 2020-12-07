@@ -76,6 +76,8 @@ export default class Help extends Command {
                     \`<arg>\` - required.
                     \`[arg]\` - optional.
                     
+                    Commands marked with **\*** are sub commands, with the main command being the name of the category.
+                    For example: "tags create"
 					`
         );
 
@@ -88,10 +90,9 @@ export default class Help extends Command {
             )
             .values()) {
             const isModule = Boolean(cat.filter((cmd) => cmd.aliases.length > 0).size === 1);
-
             if (isModule) {
                 embed.addField(
-                    `❯ ${cat.id.replace(/(\b\w)/gi, (lc) => lc.toUpperCase())}`,
+                    `❯ ${cat.first()!.aliases[0]}*`,
                     cat
                         .filter((x) => x instanceof SubCommand)
                         .first()!

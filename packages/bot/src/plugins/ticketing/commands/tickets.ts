@@ -14,7 +14,7 @@ export default class Tickets extends SubCommand {
             },
             subCommands: [
                 ["ticket-close", "close"],
-                ["ticket-open", "open"],
+                ["ticket-reopen", "reopen"],
                 ["ticket-fetch", "fetch"],
                 ["ticket-create", "create"],
                 ["ticket-add", "add"],

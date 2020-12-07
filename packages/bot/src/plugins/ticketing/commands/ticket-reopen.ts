@@ -3,7 +3,7 @@ import { Message } from "discord.js";
 
 export default class ticketOpen extends Command {
     public constructor() {
-        super("ticket-open", {
+        super("ticket-reopen", {
             category: "ticketing",
             module: "ticketing",
             description: {
