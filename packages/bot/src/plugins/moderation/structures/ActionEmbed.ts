@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { MessageEmbed } from "discord.js";
 import { YokiColors } from "../../../common/YokiColors";
 import Action from "./Action";
@@ -6,7 +7,7 @@ export default class ActionEmbed extends MessageEmbed {
     public constructor(action: Action) {
         super();
         super.setAuthor(`${action.executor.tag}`, action.executor.displayAvatarURL());
-        super.setDescription(`
+        super.setDescription(stripIndents`
         **Target:** ${action.target} \`(${action.target.id})\`
         **Type:** \`${action.type}\`
         **Reason:** ${action.reason ? `\`${action.reason}\`` : "`not set`"}`);

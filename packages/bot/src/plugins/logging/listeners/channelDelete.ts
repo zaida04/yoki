@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import { TextChannel } from "discord.js";
@@ -23,7 +24,7 @@ export default class channelDelete extends Listener {
             .setColor(YokiColors.RED)
             .setTitle("Channel Deleted")
             .setDescription(
-                `
+                stripIndents`
             Name: \`${channel.name}\` 
             ID: \`(${channel.id})\``
             )

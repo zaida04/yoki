@@ -1,4 +1,5 @@
 dependencies:
+  '@types/common-tags': 1.8.0
   knex: 0.21.12_mysql@2.18.1
   mysql: 2.18.1
 devDependencies:
@@ -91,6 +92,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-XIB2XbzHTN6ieIjfIMV9hlVcfPU26s2vafYWQcZHWXHOxiaRZYEDKEwdl129Zyg50+foYV2jCgtrqSA6qNuNSA==
+  /@types/common-tags/1.8.0:
+    dev: false
+    resolution:
+      integrity: sha512-htRqZr5qn8EzMelhX/Xmx142z218lLyGaeZ3YR8jlze4TATRU9huKKvuBmAJEW4LCC4pnY1N6JAm6p85fMHjhg==
   /@types/json-schema/7.0.6:
     dev: true
     resolution:
@@ -3925,6 +3930,7 @@ packages:
     resolution:
       integrity: sha512-WOkpgNhPTlE73h4VFAFsOnomJVaovO8VqLDzy5saChRBFQFBoMYirowyW+Q9HB4HFF4Z7VZTiG3iSzJJA29yRA==
 specifiers:
+  '@types/common-tags': ^1.8.0
   '@typescript-eslint/eslint-plugin': ^4.1.0
   '@typescript-eslint/parser': ^4.1.0
   eslint: ^7.8.1

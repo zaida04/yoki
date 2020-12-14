@@ -44,6 +44,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@types/common-tags": "^1.8.0",
     "knex": "^0.21.12",
     "mysql": "^2.18.1"
   }

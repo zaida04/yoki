@@ -1,6 +1,7 @@
 import { Category } from "discord-akairo";
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
+import { stripIndents } from "common-tags";
 import { MessageEmbed } from "discord.js";
 import SubCommand from "../../../common/SubCommand";
 import { YokiColors } from "../../../common/YokiColors";
@@ -68,7 +69,7 @@ export default class Help extends Command {
             return message.channel.send(embed);
         }
         embed.setTitle("Commands").setDescription(
-            `
+            stripIndents`
 					A list of available commands.
                     For additional info on a command, type \`${prefix}help [command]\`
                     
@@ -76,7 +77,7 @@ export default class Help extends Command {
                     \`<arg>\` - required.
                     \`[arg]\` - optional.
                     
-                    Commands marked with **\*** are sub commands, with the main command being the name of the category.
+                    Commands marked with * are sub commands, with the main command being the name of the category.
                     For example: "tags create"
 					`
         );
@@ -90,9 +91,11 @@ export default class Help extends Command {
             )
             .values()) {
             const isModule = Boolean(cat.filter((cmd) => cmd.aliases.length > 0).size === 1);
+            const filteredCommands = cat.filter((cmd) => cmd.aliases.length > 0);
             if (isModule) {
+                const category_name = filteredCommands.first()!.aliases[0];
                 embed.addField(
-                    `❯ ${cat.first()!.aliases[0]}*`,
+                    `❯ ${category_name.charAt(0).toUpperCase() + category_name.slice(1)}*`,
                     cat
                         .filter((x) => x instanceof SubCommand)
                         .first()!
@@ -103,10 +106,7 @@ export default class Help extends Command {
             } else {
                 embed.addField(
                     `❯ ${cat.id.replace(/(\b\w)/gi, (lc) => lc.toUpperCase())}`,
-                    `${cat
-                        .filter((cmd) => cmd.aliases.length > 0)
-                        .map((cmd) => `\`${cmd.aliases[0]}\``)
-                        .join(" ")}`,
+                    `${filteredCommands.map((cmd) => `\`${cmd.aliases[0]}\``).join(" ")}`,
                     cat.filter((cmd) => cmd.aliases.length > 0).map((cmd) => `\`${cmd.aliases[0]}\``).length < 3
                 );
             }

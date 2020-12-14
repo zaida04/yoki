@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { User } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import { YokiColors } from "../../../common/YokiColors";
@@ -25,22 +26,20 @@ export default class SuggestionEmbed extends MessageEmbed {
             case "ACCEPTED": {
                 super.setTitle("Accepted!").setColor(YokiColors.GREEN);
                 if (data.comment)
-                    super.setDescription(
-                        `
+                    super.setDescription(stripIndents`
                     ${this.description}
 
                     **Staff Comments:** ${data.comment}
-                    `
-                    );
+                    `);
                 break;
             }
             case "REJECTED": {
                 super.setTitle("Rejected!").setColor(YokiColors.ORANGE_RED);
                 if (data.comment)
-                    super.setDescription(`
-                ${this.description}
-                **Staff Comments:** ${data.comment}
-                \n
+                    super.setDescription(stripIndents`
+                    ${this.description}
+                    **Staff Comments:** ${data.comment}
+                    \n
                 `);
                 break;
             }
