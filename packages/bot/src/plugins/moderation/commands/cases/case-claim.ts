@@ -4,6 +4,7 @@ import { Message } from "discord.js";
 import { hasAnyPermission } from "../../../../common/PermissionUtil";
 import { ActionType } from "../../typings/Action";
 import ActionEmbed from "../../structures/ActionEmbed";
+import { TextChannel } from "discord.js";
 
 export default class CaseClaim extends Command {
     public constructor() {
@@ -19,6 +20,11 @@ export default class CaseClaim extends Command {
                 {
                     id: "fetchMessage",
                     type: "guildMessage",
+                    default: async (message: Message) => {
+                        return (
+                            await message.guild?.settings.channel<TextChannel>("modLogChannel", "text")
+                        )?.messages.fetch({ limit: 1 });
+                    },
                     prompt: {
                         start:
                             "Please provide the id of a message in this guild that is an `Unknown Executor` Embed *(say it below)*",

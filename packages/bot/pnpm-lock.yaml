@@ -1,5 +1,6 @@
 dependencies:
   '@yoki/logger': 'link:../../libs/logger'
+  common-tags: 1.8.0
   discord-akairo: 8.1.0
   discord.js: 12.4.1
   knex: 0.21.12
@@ -174,6 +175,12 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
+  /common-tags/1.8.0:
+    dev: false
+    engines:
+      node: '>=4.0.0'
+    resolution:
+      integrity: sha512-6P6g0uetGpW/sdyUy/iQQCbFF0kWVMSIVSyYz7Zgjcgh8mgw8PQzDNZeyZ5DQ2gM7LBoZPHmnjz8rUthkBG5tw==
   /component-emitter/1.3.0:
     dev: false
     resolution:
@@ -1218,6 +1225,7 @@ packages:
 specifiers:
   '@types/node': ^14.11.8
   '@yoki/logger': 1.0.0
+  common-tags: ^1.8.0
   discord-akairo: ^8.1.0
   discord.js: ^12.4.1
   dotenv: ^8.2.0

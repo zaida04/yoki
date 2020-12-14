@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { Listener } from "discord-akairo";
 import { TextChannel } from "discord.js";
 import { MessageEmbed } from "discord.js";
@@ -29,7 +30,7 @@ export default class messageUpdate extends Listener {
             .setTitle("Message Updated!")
             .setColor(YokiColors.LIGHT_ORANGE)
             .setDescription(
-                `
+                stripIndents`
                 **Old Message:** 
                 \`\`\`${
                     oldMessage.content.length > 900 ? `${oldMessage.content.slice(0, 900)}...` : oldMessage.content

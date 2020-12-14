@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { MessageEmbed } from "discord.js";
 import { GuildMember } from "discord.js";
 import { YokiColors } from "../../../common/YokiColors";
@@ -11,7 +12,7 @@ export default class JoinEmbed extends MessageEmbed {
         super
             .setAuthor(member.user.tag, member.user.displayAvatarURL())
             .setDescription(
-                `
+                stripIndents`
                 ❯ ID: ${member.user} \`(${member.user.id})\` ${suspicious ? "⚠️" : ""}
                 ❯ Account Creation Date: \`${FormatDate(member.user.createdAt)} ${suspicious ? "(recent)" : ""}\`
                 ❯ Join Date: \`${member.joinedAt ? FormatDate(member.joinedAt) : "unknown"}\`

@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { Listener } from "discord-akairo";
 import { TextChannel } from "discord.js";
 import { Message } from "discord.js";
@@ -22,7 +23,7 @@ export default class messageDelete extends Listener {
             .setColor(YokiColors.GREEN)
             .setTitle("Message Deleted")
             .setDescription(
-                `**Author:** ${message.author.tag}
+                stripIndents`**Author:** ${message.author.tag}
                 **Content:** ${message.content ? `\`\`\`${message.content}\`\`\`` : "`No detectable content`"}`
             )
             .setTimestamp();

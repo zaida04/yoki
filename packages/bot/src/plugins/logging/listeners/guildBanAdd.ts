@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import { TextChannel } from "discord.js";
@@ -28,7 +29,7 @@ export default class guildBanAdd extends Listener {
             new MessageEmbed()
                 .setAuthor("Unknown Executor")
                 .setDescription(
-                    `
+                    stripIndents`
                     **Target:** ${user} \`(${user.id})\`
                     **Type:** \`ban\`
                     `

@@ -5,6 +5,7 @@ import { User } from "discord.js";
 import Action from "../../moderation/structures/Action";
 
 import { TextChannel } from "discord.js";
+import { stripIndents } from "common-tags";
 
 export default class guildBanRemove extends Listener {
     public constructor() {
@@ -29,7 +30,7 @@ export default class guildBanRemove extends Listener {
             new MessageEmbed()
                 .setAuthor("Unknown Executor")
                 .setDescription(
-                    `
+                    stripIndents`
                     **Target:** ${user} \`(${user.id})\`
                     **Type:** \`unban\`
                     `

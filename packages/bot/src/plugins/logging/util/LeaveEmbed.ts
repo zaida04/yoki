@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { MessageEmbed } from "discord.js";
 import { GuildMember } from "discord.js";
 import { YokiColors } from "../../../common/YokiColors";
@@ -10,7 +11,7 @@ export default class LeaveEmbed extends MessageEmbed {
             .setColor(YokiColors.ORANGE_RED)
             .setAuthor(member.user.tag, member.user.displayAvatarURL())
             .setDescription(
-                `
+                stripIndents`
                 ❯ User: ${member.user} \`(${member.user.id})\`
                 ❯ Join Date: \`${member.joinedAt ? FormatDate(member.joinedAt) : "unknown"}\`
                 ❯ Leave Date: \`${FormatDate(new Date())}\`

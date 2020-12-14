@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import { TextChannel } from "discord.js";
@@ -24,7 +25,7 @@ export default class channelCreate extends Listener {
             .setColor(YokiColors.GREEN)
             .setTitle("Channel Created")
             .setDescription(
-                `
+                stripIndents`
             Name: \`${channel.name}\` 
             ID: \`(${channel.id})\`
             `
