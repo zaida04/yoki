@@ -34,7 +34,7 @@ export default class filterList extends Command {
         return message.channel.send(
             guild_filter_words.length > 0
                 ? `The banned words for this server are: ${guild_filter_words
-                      .map((x) => `||${x.content}||`)
+                      .map((x) => `||\`${x.content}\`||`)
                       .join(", ")}`
                 : "This server does not have any banned words.\nYou can add one using the `filter add <word>` command"
         );
