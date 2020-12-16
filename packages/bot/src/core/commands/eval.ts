@@ -1,3 +1,4 @@
+import { stripIndents } from "common-tags";
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
 import { inspect } from "util";
@@ -20,23 +21,62 @@ export default class Eval extends Command {
         });
     }
 
-    public async exec(message: Message, { code }: { code: string }) {
-        if (message.author.id !== "500765481788112916") return message.reply("no");
-        try {
-            // eslint-disable-next-line no-eval
-            let evaled = eval(code);
-            if (typeof evaled !== "string") evaled = inspect(evaled);
-            return message.channel.send(this.clean(evaled).slice(0, 1850), {
-                code: "xl",
-            });
-        } catch (e) {
-            return message.reply(`Eval failed. ${e}`);
-        }
+    // Borrowed from didinele, https://github.com/weeb-cafe/MewChan/blob/master/packages/bot/src/commands/dev/eval.ts
+
+    private async _clean(text: any) {
+        if (text?.then && text.catch) text = await text;
+        if (typeof text !== "string") text = inspect(text, { depth: 0 });
+
+        return (text as string)
+            .replace(/`/g, `\`${String.fromCharCode(8203)}`)
+            .replace(/@/g, `@${String.fromCharCode(8203)}`)
+            .replace(process.env.TOKEN!, "this is supposed to be the bot's token");
     }
 
-    private clean(text: string) {
-        if (typeof text === "string")
-            return text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
-        return text;
+    private _tooLong(body: string): Promise<string> {
+        return fetch("https://paste.discord.land/documents", { method: "POST", body }).then((d) =>
+            d.json().then((v) => v.key)
+        );
+    }
+
+    public async exec(msg: Message, { code }: { code: string }) {
+        if (!code) return msg.channel.send("Gotta give me something to eval there chief.");
+        const codeblock = (content: string) => `\`\`\`js\n${content}\`\`\``;
+        try {
+            const evaled = eval(code); // eslint-disable-line no-eval
+            const clean = await this._clean(evaled);
+            const final = stripIndents`
+                📥 **Input**
+                ${codeblock(code)}
+                📤 **Output**
+                ${codeblock(clean)}
+                `;
+
+            if (final.length > 2000) {
+                const key = await this._tooLong(clean);
+                return msg.util!.send(
+                    `Output exceeded 2000 characters (${final.length}). https://paste.discord.land/${key}.js`
+                );
+            }
+
+            await msg.channel.send(final);
+        } catch (e) {
+            const clean = await this._clean(e);
+            const final = stripIndents`
+                📥 **Input**
+                ${codeblock(code)}
+                📤 **Error**
+                ${codeblock(clean)}
+                `;
+
+            if (final.length > 2000) {
+                const key = await this._tooLong(clean);
+                return msg.channel.send(
+                    `Error exceeded 2000 characters (${final.length}). https://paste.discord.land/${key}.js`
+                );
+            }
+
+            await msg.channel.send(final);
+        }
     }
 }
