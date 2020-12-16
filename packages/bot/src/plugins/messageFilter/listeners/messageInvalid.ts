@@ -15,6 +15,7 @@ export default class messageFilterMessageInvalid extends Listener {
 
     public async exec(message: Message) {
         if (!message.guild) return;
+        if (message.member?.hasPermission("MANAGE_GUILD")) return;
         if (message.guild.messageFilter === undefined) {
             message.guild.messageFilter = (await message.guild.settings.get<boolean>("messageFilterEnabled")) ?? false;
         }
@@ -71,7 +72,7 @@ export default class messageFilterMessageInvalid extends Listener {
                           void message.author.send(
                               `You have been \`warned\` in **${
                                   message.guild!.name
-                              }**\nReason: \`You have said a forbidden word in this server.\`\n\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment`
+                              }**\nReason: \`You have said a forbidden word in this server.\`\n\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment\n`
                           );
                       }
                   })
