@@ -16,6 +16,14 @@ export default class messageDelete extends Listener {
 
     public async exec(message: Message) {
         if (!message.guild) return;
+        if (message.author.id === message.client.user!.id) return;
+        const possibleCase = this.client.caseActions.cache.find(
+            (x) => x.executor.id === message.author.id && x.reason === "`Triggered the message filter`"
+        );
+        if (possibleCase) {
+            this.client.caseActions.cache.delete(possibleCase.id);
+            return;
+        }
         const logChannel = await message.guild.settings.channel<TextChannel>("logChannel", "text");
         if (!logChannel) return;
 
