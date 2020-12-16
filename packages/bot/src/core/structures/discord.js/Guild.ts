@@ -5,7 +5,7 @@ import SettingsManager from "../managers/SettingsManager";
 Structures.extend("Guild", (Guild) => {
     return class extends Guild {
         public settings: SettingsManager;
-        public messageFilter?: boolean;
+        public messageFilter?: boolean = undefined;
         public _prefix?: string;
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -43,7 +43,7 @@ export default class Eval extends Command {
         if (!code) return msg.channel.send("Gotta give me something to eval there chief.");
         const codeblock = (content: string) => `\`\`\`js\n${content}\`\`\``;
         try {
-            const evaled = eval(code); // eslint-disable-line no-eval
+            const evaled = eval(`(async () => {${code}})()`); // eslint-disable-line no-eval
             const clean = await this._clean(evaled);
             const final = stripIndents`
                 📥 **Input**
