@@ -5,14 +5,14 @@
   "main": "./dist/index.js",
   "private": true,
   "scripts": {
-    "start:bot": "npm run build && node ./packages/bot/dist/index.js --trace-warnings",
+    "start:bot": "npm run build && node ./src/bot/dist/index.js --trace-warnings",
     "start:dev": "npm run precheck && npm run start:bot",
-    "start:dash": "node dist/packages/dashboard/index.js",
-    "precheck": "rimraf packages/bot/dist && rimraf libs/logger/dist && rimraf packages/bot/dist",
+    "start:dash": "node dist/src/dashboard/index.js",
+    "precheck": "rimraf src/bot/dist && rimraf libs/logger/dist && rimraf src/bot/dist",
     "build": "pnpm recursive run build --filter @yoki/*",
     "preinstall": "npx only-allow pnpm",
     "knex:init": "knex migrate:latest production",
-    "lint": "npx eslint packages/ libs/ --fix",
+    "lint": "npx eslint src/ libs/ --fix",
     "postinstall": "husky install"
   },
   "repository": {
