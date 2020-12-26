@@ -37,7 +37,7 @@ export default class tagList extends Command {
                 .setTitle(`Tags for that User`)
                 .setDescription(
                     `
-                    ${user_tags.length < 0 ? "No Tags" : user_tags.map((x) => `\`${x.content}\``).join(", ")}
+                    ${user_tags.length < 0 ? "No Tags" : user_tags.map((x) => `\`${x.name}\``).join(", ")}
                     `
                 );
         } else {
@@ -49,7 +49,7 @@ export default class tagList extends Command {
                 .setTitle(`Tags for this server`)
                 .setDescription(
                     `
-                ${guild_tags.length < 0 ? "No Tags" : guild_tags.map((x) => `\`${x.content}\``).join(", ")}
+                ${guild_tags.length < 0 ? "No Tags" : guild_tags.map((x) => `\`${x.name}\``).join(", ")}
                 `
                 );
         }

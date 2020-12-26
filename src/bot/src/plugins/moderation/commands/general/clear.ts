@@ -52,6 +52,7 @@ export default class Clear extends Command {
                                 `
                         **Amount:** ${deleted_messages.size} 
                         **In:** ${message.channel}
+                        **Purged By:** ${message.author.toString()}
                         `
                             )
                             .setColor(YokiColors.LIGHT_ORANGE),
