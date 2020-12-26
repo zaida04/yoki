@@ -34,6 +34,7 @@ export default class ActionManager extends BaseManager<Action> {
             data.executor,
             null,
             data.type,
+            data.expiration_date,
             data.reason ? data.reason : null
         );
         this.cache.set(action.id, action);
@@ -86,6 +87,7 @@ export default class ActionManager extends BaseManager<Action> {
                                 )
                               : null,
                           x.type,
+                          x.expiration_date ? new Date(x.expiration_date) : null,
                           x.reason
                       )
                     : null

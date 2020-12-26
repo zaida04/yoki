@@ -54,6 +54,7 @@ export default class Warn extends Command {
             reason: reason,
             executor: message.author,
             message: null,
+            expiration_date: null,
             type: "warn",
             target: target.user,
         });

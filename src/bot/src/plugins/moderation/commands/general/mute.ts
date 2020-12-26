@@ -1,7 +1,7 @@
 import { Command } from "discord-akairo";
 import { TextChannel } from "discord.js";
 import { GuildMember } from "discord.js";
-
+import ms from "@naval-base/ms";
 import { Message } from "discord.js";
 
 import ActionEmbed from "../../structures/ActionEmbed";
@@ -23,6 +23,16 @@ export default class Mute extends Command {
                     type: "member",
                 },
                 {
+                    // Taken from https://github.com/Naval-Base/yuudachi/blob/master/src/bot/commands/mod/mute.ts#L31
+                    id: "duration",
+                    type: (_, str): number | null => {
+                        if (!str) return null;
+                        const duration = ms(str);
+                        if (duration && duration >= 100000 && !isNaN(duration)) return duration;
+                        return null;
+                    },
+                },
+                {
                     id: "reason",
                     match: "rest",
                     type: "string",
@@ -41,11 +51,17 @@ export default class Mute extends Command {
 
     public async exec(
         message: Message,
-        { target, reason, hidden }: { target?: GuildMember; reason?: string; hidden?: boolean }
+        {
+            target,
+            duration,
+            reason,
+            hidden,
+        }: { target?: GuildMember; duration?: number | null; reason?: string; hidden?: boolean }
     ) {
         if (!target)
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
         if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("mute"));
+        if (!duration) return message.channel.send("Please input a time longer than 100 seconds");
 
         const mutedRoleID = await message.guild!.settings.get<string>("muteRole");
         if (!mutedRoleID)
@@ -61,6 +77,7 @@ export default class Mute extends Command {
             reason: reason,
             executor: message.author,
             message: null,
+            expiration_date: new Date(Date.now() + duration),
             type: "mute",
             target: target.user,
         });

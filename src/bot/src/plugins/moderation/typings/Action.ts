@@ -11,6 +11,7 @@ export interface ActionDatabaseData {
     type: ActionType;
     executor_id: string;
     message_id: string | null;
+    expiration_date: string | null;
     channel_id: string | null;
     createdAt: Date;
 }
@@ -19,6 +20,7 @@ export interface ActionData {
     target: User;
     type: ActionType;
     reason?: string;
+    expiration_date: Date | null;
     executor: User;
     message: Message | null;
 }

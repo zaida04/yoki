@@ -9,6 +9,7 @@
     "dependencies": {
         "@yoki/logger": "workspace:1.0.0",
         "common-tags": "^1.8.0",
+        "@naval-base/ms": "^3.1.0",
         "discord-akairo": "^8.1.0",
         "discord.js": "^12.5.1",
         "knex": "^0.21.14",
