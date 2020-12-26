@@ -11,6 +11,7 @@ export default class Action {
         public executor: User,
         public message: Message | null,
         public type: ActionType,
+        public expiration_date: Date | null,
         public reason: string | null
     ) {}
 }

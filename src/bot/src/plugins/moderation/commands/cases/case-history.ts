@@ -56,19 +56,7 @@ export default class CaseHistory extends Command {
                     `
                     Case IDs against this person:
 
-                    ${this.caseTypes
-                        .map(
-                            (x) =>
-                                `**${x}:** ${
-                                    actions.filter((y) => y.type === x).length > 0
-                                        ? actions
-                                              .filter((z) => z.type === x)
-                                              .map((t) => `\`#${t.id}\``)
-                                              .join(" ")
-                                        : "none"
-                                }`
-                        )
-                        .join("\n")}
+                    ${actions.map((x) => `\`ID: #${x.id} TYPE: ${x.type} REASON: ${x.reason}\``)}
                 `
                 )
                 .setTimestamp()
