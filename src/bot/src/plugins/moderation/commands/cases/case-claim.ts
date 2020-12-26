@@ -91,6 +91,7 @@ export default class CaseClaim extends Command {
                 .trim() as ActionType,
             executor: message.author,
             reason: reason,
+            expiration_date: null,
             message: fetchMessage,
         });
 

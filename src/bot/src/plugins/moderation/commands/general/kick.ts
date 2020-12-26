@@ -67,6 +67,7 @@ export default class Kick extends Command {
             reason: reason,
             executor: message.author,
             message: null,
+            expiration_date: null,
             type: "kick",
             target: target.user,
         });

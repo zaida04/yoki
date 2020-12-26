@@ -32,6 +32,7 @@ export default class messageFilterMessageInvalid extends Listener {
                     reason: `\`Links to other Discord Servers\``,
                     type: "warn",
                     message: null,
+                    expiration_date: null,
                     target: message.author,
                     guild: message.guild,
                 });
@@ -61,6 +62,7 @@ export default class messageFilterMessageInvalid extends Listener {
                           reason: `\`Triggered the message filter\``,
                           type: "warn",
                           message: null,
+                          expiration_date: null,
                           target: message.author,
                           guild: message.guild!,
                       });

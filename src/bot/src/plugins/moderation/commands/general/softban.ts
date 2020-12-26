@@ -63,6 +63,7 @@ export default class SoftBan extends Command {
             guild: message.guild!,
             reason: reason,
             executor: message.author,
+            expiration_date: null,
             message: null,
             type: "softban",
             target: target instanceof GuildMember ? target.user : target,

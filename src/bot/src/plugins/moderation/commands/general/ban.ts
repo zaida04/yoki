@@ -72,6 +72,7 @@ export default class Ban extends Command {
         const createdCase = await this.client.caseActions.create({
             guild: message.guild!,
             reason: reason,
+            expiration_date: null,
             executor: message.author,
             message: null,
             type: "ban",

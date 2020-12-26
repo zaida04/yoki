@@ -1,4 +1,5 @@
 dependencies:
+  '@naval-base/ms': 3.1.0
   '@yoki/logger': 'link:../../libs/logger'
   common-tags: 1.8.0
   discord-akairo: 8.1.0
@@ -25,6 +26,10 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-ZfFsbgEXW71Rw/6EtBdrP5VxBJy4dthyC0tpQKGKmYFImlmmrykO14Za+BiIVduwjte0jXEBlhSKf0MWbFp9Eg==
+  /@naval-base/ms/3.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-3xSG3J2f9xSEgni7liDFBNnlhOf6/sLedCMaEtWv3iaJkeaWvyfdWBYhd2bTko3BLMcQfY4MgICoUGRla1bXiQ==
   /@types/node/14.14.14:
     dev: true
     resolution:
@@ -1230,6 +1235,7 @@ packages:
     resolution:
       integrity: sha512-pTsP8UAfhy3sk1lSk/O/s4tjD0CRwvMnzvwr4OKGX7ZvqZtUyx4KIJB5JWbkykPoc55tixMGgTNoh3k4FkNGFQ==
 specifiers:
+  '@naval-base/ms': ^3.1.0
   '@types/node': ^14.14.14
   '@yoki/logger': 'workspace:1.0.0'
   common-tags: ^1.8.0
