@@ -12,7 +12,7 @@ export default abstract class YokiModule {
     public load() {
         if (this.options.commandDirectory) this.client.commandHandler.loadAll(this.options.commandDirectory);
         if (this.options.listenerDirectory) this.client.listenerHandler.loadAll(this.options.listenerDirectory);
-        this.client.Logger.log(`${this.options.name} (${this.options.id}) Module Loaded`, colors.YELLOW);
+        this.client.Logger.log(`Module ${this.options.name} (${this.options.id}) Loaded`, colors.YELLOW);
         this.commands = this.client.commandHandler.modules.filter((x) => x.module === this.options.id);
         this.listeners = this.client.listenerHandler.modules.filter((x) => x.module === this.options.id);
         return this;

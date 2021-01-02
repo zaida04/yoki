@@ -50,24 +50,24 @@ export default class CaseClaim extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Provide an ID!",
-                    "Please provide an ID pointing to a valid message sent by this bot of an unclaimed action"
-                )
+                    "Please provide an ID pointing to a valid message sent by this bot of an unclaimed action",
+                ),
             );
 
         if (fetchMessage.author.id !== this.client.user!.id)
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Invalid ID!",
-                    "That message was not sent by me, and as such can not be an unclaimed case from my system!"
-                )
+                    "That message was not sent by me, and as such can not be an unclaimed case from my system!",
+                ),
             );
         const existingData = fetchMessage.embeds[0];
         if (existingData.author?.name !== "Unknown Executor")
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Error!",
-                    "Could not parse message. Make sure this message has an embed that starts with **Unknown Executor** and was sent by me!"
-                )
+                    "Could not parse message. Make sure this message has an embed that starts with **Unknown Executor** and was sent by me!",
+                ),
             );
         const rows = existingData.description!.split("\n");
 
@@ -81,7 +81,7 @@ export default class CaseClaim extends Command {
                     .replace("<@", "")
                     .replace(">", "")
                     .split(" ")[0]!
-                    .trim()
+                    .trim(),
             ),
             type: rows
                 .find((x) => x.trim().startsWith("**Type:**"))!
@@ -98,7 +98,7 @@ export default class CaseClaim extends Command {
         void fetchMessage.edit({ embed: new ActionEmbed(createdCase) });
 
         return message.channel.send(
-            new this.client.Embeds.SuccessEmbed("Success!", "You have successfully claimed this case.", message)
+            new this.client.Embeds.SuccessEmbed("Success!", "You have successfully claimed this case.", message),
         );
     }
 }

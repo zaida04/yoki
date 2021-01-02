@@ -18,8 +18,8 @@ export default class CommandErrorListener extends Listener {
         return message.channel.send(
             new this.client.Embeds.ErrorEmbed(
                 "An Internal Error occured.",
-                "Please join our support server by doing the `support` command and report this problem to us if it continues."
-            )
+                "Please join our support server by doing the `support` command and report this problem to us if it continues.",
+            ),
         );
     }
 }

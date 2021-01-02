@@ -46,7 +46,7 @@ export default class suggestionReject extends Command {
 
             void (
                 await (message.guild!.channels.cache.get(suggestion.channel_id!) as TextChannel).messages.fetch(
-                    suggestion.message_id!
+                    suggestion.message_id!,
                 )
             ).edit(new SuggestionEmbed({ ...suggestion, opener }));
 
@@ -54,8 +54,8 @@ export default class suggestionReject extends Command {
                 new this.client.Embeds.SuccessEmbed(
                     "Suggestion Rejected!",
                     "Successfully rejected this suggestion!",
-                    message
-                )
+                    message,
+                ),
             );
         } catch (e) {
             this.client.Logger.error(e);

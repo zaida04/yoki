@@ -48,11 +48,11 @@ export default class ReactionRole extends Command {
 
     public async exec(
         message: Message,
-        { msg, emoji, role }: { msg: Message; emoji: GuildEmoji | ReactionEmoji; role: Role }
+        { msg, emoji, role }: { msg: Message; emoji: GuildEmoji | ReactionEmoji; role: Role },
     ) {
         if (role.comparePositionTo(message.member!.roles.highest) >= 0)
             return message.channel.send(
-                "That role is higher than you! I can't let you make a reaction role with that!"
+                "That role is higher than you! I can't let you make a reaction role with that!",
             );
         const [id] = await this.client.rrHandler.create({
             message_id: msg.id,
@@ -65,14 +65,14 @@ export default class ReactionRole extends Command {
             const embed = new this.client.Embeds.SuccessEmbed(
                 "Reaction Role Added",
                 `[This Message](${msg.url}) will now give the ${role} when someone reacts with`,
-                message
+                message,
             ).setFooter(`RR ID: ${id}`);
             emoji instanceof GuildEmoji ? embed.setImage(emoji.url) : void 0;
 
             return message.channel.send(embed);
         } catch (e) {
             return message.channel.send(
-                "There was an error adding a reaction to that message! Please ensure I have proper permissions!"
+                "There was an error adding a reaction to that message! Please ensure I have proper permissions!",
             );
         }
     }

@@ -18,7 +18,7 @@ export default class guildBanRemove extends Listener {
     public async exec(guild: Guild, user: User) {
         if (
             this.client.caseActions.cache.some(
-                (x: Action) => x.target.id === user.id && (x.type === "unban" || x.type === "softban")
+                (x: Action) => x.target.id === user.id && (x.type === "unban" || x.type === "softban"),
             )
         )
             return;
@@ -33,9 +33,9 @@ export default class guildBanRemove extends Listener {
                     stripIndents`
                     **Target:** ${user} \`(${user.id})\`
                     **Type:** \`unban\`
-                    `
+                    `,
                 )
-                .setTimestamp()
+                .setTimestamp(),
         );
     }
 }

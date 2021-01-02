@@ -16,6 +16,6 @@ export function handleMissingSend(e: Error, target: TextChannel, guild: Guild) {
     return (guild.channels.cache
         .filter((x) => x.type === "text")
         .find((x) =>
-            guild.me ? Boolean(x.permissionsFor(guild.me)?.has("SEND_MESSAGES")) : false
+            guild.me ? Boolean(x.permissionsFor(guild.me)?.has("SEND_MESSAGES")) : false,
         ) as TextChannel).send(`**Warning!:** I am missing permissions to send messages in ${target}!`);
 }

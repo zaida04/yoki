@@ -60,14 +60,17 @@ export default class UnBan extends Command {
                 new this.client.Embeds.SuccessEmbed(
                     "User Successfully Unbanned",
                     this.client.Responses.NEW_MODACTION_RESPONSE("unbanned", target, reason),
-                    message
-                ).setFooter(`Case-ID: ${createdCase.id}`)
+                    message,
+                ).setFooter(`Case-ID: ${createdCase.id}`),
             );
         } catch (e) {
             if (e instanceof DiscordAPIError) {
                 if (e.message === "Unknown Ban")
                     return message.channel.send(
-                        new this.client.Embeds.ErrorEmbed("Incorrect Usage", "That person is not banned in this guild!")
+                        new this.client.Embeds.ErrorEmbed(
+                            "Incorrect Usage",
+                            "That person is not banned in this guild!",
+                        ),
                     );
                 else if (e.message === "Unknown Member") return;
             }

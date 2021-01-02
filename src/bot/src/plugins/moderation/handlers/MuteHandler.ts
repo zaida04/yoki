@@ -19,7 +19,7 @@ export default class MuteHandler extends Scheduler<Action> {
                         const guild_mute_role = await action.guild.settings.get<string>("muteRole");
                         if (!member) return;
                         if (guild_mute_role) void member.roles.remove(guild_mute_role);
-                    }, new Date(action.expiration_date!).getTime() - Date.now())
+                    }, new Date(action.expiration_date!).getTime() - Date.now()),
                 );
             }
         }, this.checkRate);

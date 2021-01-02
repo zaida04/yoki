@@ -32,7 +32,7 @@ export default class guildMemberAdd extends Listener {
             const welcomeChannelMessage = await member.guild.settings.get<string>("welcomeMessage");
             welcomeChannel
                 .send(
-                    welcomeChannelMessage ? welcomeChannelMessage : `${member.user} has joined! Welcome to the server!`
+                    welcomeChannelMessage ? welcomeChannelMessage : `${member.user} has joined! Welcome to the server!`,
                 )
                 .catch((e) => handleMissingSend(e, welcomeChannel, member.guild));
         }

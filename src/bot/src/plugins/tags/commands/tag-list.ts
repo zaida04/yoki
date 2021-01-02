@@ -38,7 +38,7 @@ export default class tagList extends Command {
                 .setDescription(
                     `
                     ${user_tags.length < 0 ? "No Tags" : user_tags.map((x) => `\`${x.name}\``).join(", ")}
-                    `
+                    `,
                 );
         } else {
             const guild_tags: DatabaseTagEntry[] = await this.client.db
@@ -50,7 +50,7 @@ export default class tagList extends Command {
                 .setDescription(
                     `
                 ${guild_tags.length < 0 ? "No Tags" : guild_tags.map((x) => `\`${x.name}\``).join(", ")}
-                `
+                `,
                 );
         }
 

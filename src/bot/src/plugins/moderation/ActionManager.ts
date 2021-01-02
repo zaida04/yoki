@@ -35,7 +35,7 @@ export default class ActionManager extends BaseManager<Action> {
             null,
             data.type,
             data.expiration_date,
-            data.reason ? data.reason : null
+            data.reason ? data.reason : null,
         );
         this.cache.set(action.id, action);
         return action;
@@ -83,14 +83,14 @@ export default class ActionManager extends BaseManager<Action> {
                           await this.client.users.fetch(x.executor_id),
                           x.channel_id && x.message_id
                               ? await ((await this.client.channels.fetch(x.channel_id)) as TextChannel).messages.fetch(
-                                    x.message_id
+                                    x.message_id,
                                 )
                               : null,
                           x.type,
                           x.expiration_date ? new Date(x.expiration_date) : null,
-                          x.reason
+                          x.reason,
                       )
-                    : null
+                    : null,
             );
     }
 }

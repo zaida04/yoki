@@ -6,7 +6,7 @@ export default class TagHandler {
     public constructor(public client: AkairoClient) {}
     public fetch(
         guild: Guild | string,
-        { id, name }: { id?: string; name?: string }
+        { id, name }: { id?: string; name?: string },
     ): Promise<DatabaseTagEntry | null> {
         const guild_id = guild instanceof Guild ? guild.id : guild;
         const identifier: Record<string, string | number> = {};
@@ -34,7 +34,7 @@ export default class TagHandler {
             guild_id: guild instanceof Guild ? guild.id : guild,
             name: data.name,
             creator_id: data.creator.id,
-            content: data.content
+            content: data.content,
         };
 
         return this.client.db

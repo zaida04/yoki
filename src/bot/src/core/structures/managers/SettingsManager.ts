@@ -60,7 +60,7 @@ export default class SettingsManager {
 
     public channel<T extends TextChannel | VoiceChannel | CategoryChannel>(
         key: string,
-        type: "text" | "voice" | "category"
+        type: "text" | "voice" | "category",
     ): Promise<T | null> {
         return this.baseGuildSettings<string>()
             .select(key)

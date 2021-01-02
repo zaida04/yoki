@@ -38,8 +38,8 @@ export default class CaseHistory extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Please provide a person!",
-                    "Please ensure they are a member of this server"
-                )
+                    "Please ensure they are a member of this server",
+                ),
             );
 
         const actions: ActionDatabaseData[] = await this.client.db.api("actions").where({
@@ -57,9 +57,9 @@ export default class CaseHistory extends Command {
                     Case IDs against this person:
 
                     ${actions.map((x) => `\`ID: #${x.id} TYPE: ${x.type} REASON: ${x.reason}\``)}
-                `
+                `,
                 )
-                .setTimestamp()
+                .setTimestamp(),
         );
     }
 }

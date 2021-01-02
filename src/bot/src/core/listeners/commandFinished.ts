@@ -15,7 +15,7 @@ export default class CommandFinishedListener extends Listener {
         this.client.Logger.log(
             `Command ${command.id} executed by: ${message.author.tag} (${message.author.id}) on ${
                 message.guild ? `${message.guild.name} (${message.guild.id})` : `DM`
-            }`
+            }`,
         );
     }
 }

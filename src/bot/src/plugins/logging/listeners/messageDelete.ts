@@ -18,7 +18,7 @@ export default class messageDelete extends Listener {
         if (!message.guild) return;
         if (message.author.id === message.client.user!.id) return;
         const possibleCase = this.client.caseActions.cache.find(
-            (x) => x.executor.id === message.author.id && x.reason === "`Triggered the message filter`"
+            (x) => x.executor.id === message.author.id && x.reason === "`Triggered the message filter`",
         );
         if (possibleCase) {
             this.client.caseActions.cache.delete(possibleCase.id);
@@ -32,7 +32,7 @@ export default class messageDelete extends Listener {
             .setTitle("Message Deleted")
             .setDescription(
                 stripIndents`**Author:** ${message.author.tag}
-                **Content:** ${message.content ? `\`\`\`${message.content}\`\`\`` : "`No detectable content`"}`
+                **Content:** ${message.content ? `\`\`\`${message.content}\`\`\`` : "`No detectable content`"}`,
             )
             .setTimestamp();
 

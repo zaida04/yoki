@@ -28,9 +28,10 @@ import {
     Ticketing,
     Giveaway,
 } from "../../plugins";
+import API from "../../plugins/api";
 
 export default class YokiClient extends AkairoClient {
-    public constructor(config: ClientOptions) {
+    public constructor(public readonly config: ClientOptions) {
         super(
             {
                 ownerID: ["500765481788112916"],
@@ -45,10 +46,9 @@ export default class YokiClient extends AkairoClient {
                 ws: {
                     intents: [Intents.NON_PRIVILEGED, Intents.FLAGS.GUILD_MEMBERS],
                 },
-            }
+            },
         );
 
-        this.config = config;
         this.Embeds = Responses;
         this.Responses = Constants;
         this.Modules = new Collection<string, YokiModule>();
@@ -117,6 +117,10 @@ export default class YokiClient extends AkairoClient {
         this.Modules.set("reaction-roles", await new ReactionRoles(this).load());
         this.Modules.set("suggestions", await new Suggestion(this).load());
         this.Modules.set("giveaways", await new Giveaway(this).load());
+        this.external_api = API(this);
+        this.external_api.listen(this.config.api_port, "0.0.0.0", () =>
+            this.Logger.log(`[API] Server started at port ${this.config.api_port}`),
+        );
         return 0;
     }
 

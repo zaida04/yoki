@@ -74,7 +74,7 @@ export default class Settings extends Command {
                             const role = phrase ? await message.guild?.roles.fetch(phrase) : null;
                             if (role) return role;
                             return null;
-                        }
+                        },
                     ),
                 },
             ],
@@ -89,7 +89,7 @@ export default class Settings extends Command {
         }: {
             setting?: CustomizableSettings;
             value?: TextChannel | VoiceChannel | CategoryChannel | Role | boolean | null | string;
-        }
+        },
     ) {
         if (!setting)
             return message.channel.send(
@@ -98,8 +98,8 @@ export default class Settings extends Command {
                     `Your options are: ${settingsKeys.map((x) => `\`${x}\``).join(" ")}. 
                         
                     You can see all the current settings for your server by putting \`list\` as the option
-                    If you want to set a setting to nothing, pass the word \`none\``
-                ).setColor(YokiColors.LIGHT_ORANGE)
+                    If you want to set a setting to nothing, pass the word \`none\``,
+                ).setColor(YokiColors.LIGHT_ORANGE),
             );
         if (setting.toLowerCase() === "list") {
             const all_settings = await this.client.db.api("settings").where("guild", message.guild!.id).first();
@@ -117,7 +117,7 @@ export default class Settings extends Command {
                                 : `\`none\``
                         }`;
                     })
-                    .join("\n")}`
+                    .join("\n")}`,
             );
         }
         if (!settingsKeys.includes(setting))
@@ -127,12 +127,12 @@ export default class Settings extends Command {
                     `That is not a valid setting. Your options are: \n${settingsKeys.map((x) => `\`${x}\``).join(" ")}
                         
                     You can also use our dashboard to change these settings.
-                    `
-                )
+                    `,
+                ),
             );
         if (!value) {
             const current_value = await message.guild!.settings.get<string>(
-                CustomizableSettingsArr[setting].mappedName
+                CustomizableSettingsArr[setting].mappedName,
             );
             const possible_channel = current_value ? message.guild?.channels.cache.get(current_value) : null;
             return message.channel.send(
@@ -144,19 +144,18 @@ export default class Settings extends Command {
                             ? possible_channel
                             : `\`${current_value}\``
                         : `\`none\``
-                }`
+                }`,
             );
         }
 
         const matched_setting = CustomizableSettingsArr[setting];
         if (value === "none") value = null;
         else {
-            console.log(matched_setting.type);
             switch (matched_setting.type) {
                 case "textChannel": {
                     if (!(value instanceof TextChannel))
                         return message.channel.send(
-                            `Sorry, but that is not the proper argument. Expected a valid \`text channel\``
+                            `Sorry, but that is not the proper argument. Expected a valid \`text channel\``,
                         );
                     if (!value.permissionsFor(value.guild.me!)?.has("SEND_MESSAGES"))
                         return message.channel.send("I don't have permission to speak in that channel!");
@@ -165,22 +164,21 @@ export default class Settings extends Command {
                 case "voiceChannel": {
                     if (!(value instanceof VoiceChannel))
                         return message.channel.send(
-                            `Sorry, but that is not the proper argument. Expected a valid \`voice channel\``
+                            `Sorry, but that is not the proper argument. Expected a valid \`voice channel\``,
                         );
                     break;
                 }
                 case "categoryChannel": {
-                    console.log("test2");
                     if (!(value instanceof CategoryChannel))
                         return message.channel.send(
-                            `Sorry, but that is not the proper argument. Expected a valid \`category channel\``
+                            `Sorry, but that is not the proper argument. Expected a valid \`category channel\``,
                         );
                     break;
                 }
                 case "role": {
                     if (!(value instanceof Role))
                         return message.channel.send(
-                            `Sorry, but that is not the proper argument. Expected a valid \`role\``
+                            `Sorry, but that is not the proper argument. Expected a valid \`role\``,
                         );
                     break;
                 }
@@ -220,7 +218,7 @@ export default class Settings extends Command {
         }
         await message.guild!.settings.update(
             matched_setting.mappedName,
-            value instanceof GuildChannel || value instanceof Role ? value.id : value
+            value instanceof GuildChannel || value instanceof Role ? value.id : value,
         );
 
         return message.channel.send(
@@ -242,8 +240,8 @@ export default class Settings extends Command {
                         ? `\`none\``
                         : `\`${value}\``
                 }`,
-                message
-            )
+                message,
+            ),
         );
     }
 }

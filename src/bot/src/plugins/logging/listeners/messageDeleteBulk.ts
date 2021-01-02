@@ -25,7 +25,7 @@ export default class messageDeleteBulk extends Listener {
             .map((x: Message) =>
                 x.author.bot
                     ? "MESSAGE FROM BOT"
-                    : `Author: ${x.author.tag} (${x.author.id}) | Content: ${x.content ? x.content : "No Content"}`
+                    : `Author: ${x.author.tag} (${x.author.id}) | Content: ${x.content ? x.content : "No Content"}`,
             );
 
         const embed = new MessageEmbed()

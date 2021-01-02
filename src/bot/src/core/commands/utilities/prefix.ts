@@ -29,7 +29,7 @@ export default class Prefix extends Command {
             return message.channel.send(
                 `The prefix for this guild is: \`${
                     (await message.guild!.settings.get<string>("prefix")) ?? this.client.config.defaultPrefix
-                }\``
+                }\``,
             );
         await message.guild!.settings.update("prefix", newPrefix);
         message.guild!._prefix = newPrefix;
@@ -37,8 +37,8 @@ export default class Prefix extends Command {
             new this.client.Embeds.SuccessEmbed(
                 "Prefix Successfully Changed",
                 `Your prefix has now been changed to \`${newPrefix}\``,
-                message
-            )
+                message,
+            ),
         );
     }
 }

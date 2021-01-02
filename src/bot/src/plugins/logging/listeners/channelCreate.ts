@@ -28,7 +28,7 @@ export default class channelCreate extends Listener {
                 stripIndents`
             Name: \`${channel.name}\` 
             ID: \`(${channel.id})\`
-            `
+            `,
             )
             .setTimestamp();
         logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, channel.guild));

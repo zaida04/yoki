@@ -40,7 +40,7 @@ export default class SoftBan extends Command {
 
     public async exec(
         message: Message,
-        { target, reason, hidden }: { target?: GuildMember; reason?: string; hidden?: boolean }
+        { target, reason, hidden }: { target?: GuildMember; reason?: string; hidden?: boolean },
     ) {
         if (!target)
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
@@ -48,15 +48,15 @@ export default class SoftBan extends Command {
 
         if (!target.bannable)
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed(null, this.client.Responses.NOT_ACTIONABLE("softbann"))
+                new this.client.Embeds.ErrorEmbed(null, this.client.Responses.NOT_ACTIONABLE("softbann")),
             );
 
         if (message.member!.roles.highest.position < target.roles.highest.position)
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     this.client.Responses.INSUFFICENT_PERMISSIONS_HEADING,
-                    this.client.Responses.INSUFFICENT_PERMISSIONS_BODY
-                )
+                    this.client.Responses.INSUFFICENT_PERMISSIONS_BODY,
+                ),
             );
 
         const createdCase = await this.client.caseActions.create({
@@ -73,7 +73,7 @@ export default class SoftBan extends Command {
                 .send(
                     `
                 You have been \`softbanned\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}
-                `
+                `,
                 )
                 .catch((e) => e);
 
@@ -96,10 +96,10 @@ export default class SoftBan extends Command {
                 this.client.Responses.NEW_MODACTION_RESPONSE(
                     "softbanned",
                     target instanceof GuildMember ? target.user : target,
-                    reason
+                    reason,
                 ),
-                message
-            ).setFooter(`Case-ID ${createdCase.id}`)
+                message,
+            ).setFooter(`Case-ID ${createdCase.id}`),
         );
     }
 }

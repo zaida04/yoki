@@ -16,7 +16,7 @@ export default class messageDeleteBulk extends Listener {
             .api("reaction_roles")
             .whereIn(
                 "message_id",
-                messages.map((x) => x.id)
+                messages.map((x) => x.id),
             )
             .del();
     }

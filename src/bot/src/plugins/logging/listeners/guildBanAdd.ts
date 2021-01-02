@@ -17,7 +17,7 @@ export default class guildBanAdd extends Listener {
     public async exec(guild: Guild, user: User) {
         if (
             this.client.caseActions.cache.some(
-                (x: Action) => x.target.id === user.id && (x.type === "ban" || x.type === "softban")
+                (x: Action) => x.target.id === user.id && (x.type === "ban" || x.type === "softban"),
             )
         )
             return;
@@ -32,9 +32,9 @@ export default class guildBanAdd extends Listener {
                     stripIndents`
                     **Target:** ${user} \`(${user.id})\`
                     **Type:** \`ban\`
-                    `
+                    `,
                 )
-                .setTimestamp()
+                .setTimestamp(),
         );
     }
 }

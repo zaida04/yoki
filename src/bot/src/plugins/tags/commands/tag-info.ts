@@ -47,8 +47,8 @@ export default class tagInfo extends Command {
                     hour: "2-digit",
                     minute: "2-digit",
                 })}
-                `
-                )
+                `,
+                ),
         );
     }
 }

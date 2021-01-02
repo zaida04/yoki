@@ -38,7 +38,7 @@ export default class CaseDelete extends Command {
 
         if (!fetchCase)
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed("Invalid ID", "That ID does not belong to a case in this guild.")
+                new this.client.Embeds.ErrorEmbed("Invalid ID", "That ID does not belong to a case in this guild."),
             );
         await this.client.caseActions.delete(message.guild!.id, id);
         if (fetchCase.message?.deletable) void fetchCase.message.delete();
@@ -63,15 +63,15 @@ export default class CaseDelete extends Command {
                     new this.client.Embeds.SuccessEmbed(
                         "User Successfully unmuted",
                         this.client.Responses.NEW_MODACTION_RESPONSE("unmuted", fetchCase.target, reason),
-                        message
-                    ).setFooter(`Case-ID: ${fetchCase.id}`)
+                        message,
+                    ).setFooter(`Case-ID: ${fetchCase.id}`),
                 );
             }
 
             default: {
                 return message.channel.send(
                     `\`Deleted case ${id} for you! Here it is for reference.\``,
-                    new ActionEmbed(fetchCase)
+                    new ActionEmbed(fetchCase),
                 );
             }
         }

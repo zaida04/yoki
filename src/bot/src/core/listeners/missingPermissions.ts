@@ -17,7 +17,7 @@ export default class missingPermissions extends Listener {
         this.client.Logger.error(
             `${type === "user" ? `User ${message.author.tag} (${message.author.id})` : "Client"} is "${
                 Array.isArray(missing) ? `missing permissions ${missing.map((x) => `\`${x}\``).join(", ")}` : missing
-            }" when executing command "${command.id}" in guild "${message.guild.name}" (${message.guild.id})`
+            }" when executing command "${command.id}" in guild "${message.guild.name}" (${message.guild.id})`,
         );
         return type === "user"
             ? this.userMissingPermissions(message, missing)
@@ -34,8 +34,8 @@ export default class missingPermissions extends Listener {
                         Array.isArray(missing)
                             ? `missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}`
                             : missing
-                    }`
-                )
+                    }`,
+                ),
         );
     }
 
@@ -49,8 +49,8 @@ export default class missingPermissions extends Listener {
                         Array.isArray(missing)
                             ? `missing the following permissions: ${missing.map((x: string) => `\`${x}\``).join(", ")}`
                             : missing
-                    }`
-                )
+                    }`,
+                ),
         );
     }
 }

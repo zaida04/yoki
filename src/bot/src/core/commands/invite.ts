@@ -15,7 +15,7 @@ export default class Help extends Command {
         return message.channel.send(
             `You can invite me at this link: https://discord.com/oauth2/authorize?client_id=${
                 this.client.user!.id
-            }&scope=bot&permissions=2111171830`
+            }&scope=bot&permissions=2111171830`,
         );
     }
 }

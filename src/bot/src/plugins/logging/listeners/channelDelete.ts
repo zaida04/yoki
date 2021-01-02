@@ -26,7 +26,7 @@ export default class channelDelete extends Listener {
             .setDescription(
                 stripIndents`
             Name: \`${channel.name}\` 
-            ID: \`(${channel.id})\``
+            ID: \`(${channel.id})\``,
             )
             .setTimestamp();
         logChannel.send(embed).catch((e) => handleMissingSend(e, logChannel, channel.guild));

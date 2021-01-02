@@ -11,7 +11,7 @@ export default class GuildMemberAddListener extends Listener {
 
     public exec(member: GuildMember) {
         this.client.Logger.log(
-            `Member ${member.user.tag} (${member.id}) joined guild ${member.guild.name} (${member.guild.id})`
+            `Member ${member.user.tag} (${member.id}) joined guild ${member.guild.name} (${member.guild.id})`,
         );
     }
 }

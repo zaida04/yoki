@@ -1,6 +1,13 @@
 {
     "root": true,
     "parser": "@typescript-eslint/parser",
+    "ignorePatterns": [
+        "__tests__/**",
+        "node_modules/**",
+        "dist/**",
+        "types/**",
+        "*.js"
+    ],
     "parserOptions": {
         "ecmaVersion": 11,
         "project": "./tsconfig.json"
