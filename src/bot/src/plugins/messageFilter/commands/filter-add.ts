@@ -28,8 +28,8 @@ export default class filterAdd extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Message filter is not enabled!",
-                    "You can enable it by doing the `settings message-filter enable` command"
-                )
+                    "You can enable it by doing the `settings message-filter enable` command",
+                ),
             );
         if (!word) return message.channel.send(new this.client.Embeds.ErrorEmbed("Must provide a word!"));
         if (await (await this.client.messageFilter.get(message.guild!.id)).has(word))

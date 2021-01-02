@@ -9,7 +9,7 @@ export default class Giveaway extends YokiModule {
                 name: "giveaway",
                 // commandDirectory: `${__dirname}/commands/`,
             },
-            client
+            client,
         );
     }
 }

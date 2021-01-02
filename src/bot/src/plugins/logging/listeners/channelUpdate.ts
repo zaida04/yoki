@@ -27,7 +27,7 @@ export default class channelUpdate extends Listener {
             changes.push(
                 `**Channel Parent:** \`${oldChannel.parent?.name ?? "None"}\` => \`${
                     newChannel.parent?.name ?? "None"
-                }\``
+                }\``,
             );
 
         if (!changes.length) return;

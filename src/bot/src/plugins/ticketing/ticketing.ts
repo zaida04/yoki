@@ -12,7 +12,7 @@ export default class Ticketing extends YokiModule {
                 commandDirectory: `${__dirname}/commands/`,
                 // listenerDirectory: `${__dirname}/listeners/`,
             },
-            client
+            client,
         );
         this.client.tickets = new TicketManager(client);
     }

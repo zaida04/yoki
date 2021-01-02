@@ -15,7 +15,7 @@ export default class LeaveEmbed extends MessageEmbed {
                 ❯ User: ${member.user} \`(${member.user.id})\`
                 ❯ Join Date: \`${member.joinedAt ? FormatDate(member.joinedAt) : "unknown"}\`
                 ❯ Leave Date: \`${FormatDate(new Date())}\`
-                `
+                `,
             )
             .setFooter("Left Server")
             .setTimestamp();

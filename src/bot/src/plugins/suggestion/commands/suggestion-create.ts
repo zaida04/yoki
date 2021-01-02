@@ -50,8 +50,8 @@ export default class suggestionCreate extends Command {
                 .setDescription(
                     `Make sure you follow guidelines regarding using this if your guild has any. ${
                         suggestion_description ? `\n\n${suggestion_description}` : ""
-                    }`
-                )
+                    }`,
+                ),
         );
 
         const suggestion_message: Message | undefined = await message.channel

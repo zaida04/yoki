@@ -43,7 +43,7 @@ export default class messageFilterMessageInvalid extends Listener {
                     this.client.caseActions.cache.delete(createdCase.id);
                     void message.author
                         .send(
-                            `You have been \`warned\` in **${message.guild.name}**\n\nReason: \`You have sent a link to another discord server which is forbidden.\`\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment`
+                            `You have been \`warned\` in **${message.guild.name}**\n\nReason: \`You have sent a link to another discord server which is forbidden.\`\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment`,
                         )
                         .catch((e) => e);
                 }
@@ -52,7 +52,7 @@ export default class messageFilterMessageInvalid extends Listener {
 
         if (Array.from(words).some((x) => sanitizedContent.includes(x))) {
             this.client.Logger.log(
-                `${message.author.tag} (${message.author.id}) has tripped the message filter in ${message.guild.id}`
+                `${message.author.tag} (${message.author.id}) has tripped the message filter in ${message.guild.id}`,
             );
             return message.deletable
                 ? message.delete().then(async (_) => {
@@ -74,7 +74,7 @@ export default class messageFilterMessageInvalid extends Listener {
                           void message.author.send(
                               `You have been \`warned\` in **${
                                   message.guild!.name
-                              }**\nReason: \`You have said a forbidden word in this server.\`\n\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment\n`
+                              }**\nReason: \`You have said a forbidden word in this server.\`\n\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment\n`,
                           );
                       }
                   })

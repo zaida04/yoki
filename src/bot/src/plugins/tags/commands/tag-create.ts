@@ -39,11 +39,11 @@ export default class tagCreate extends Command {
     public async exec(message: Message, { name, content }: { name?: string; content?: string }) {
         if (!name)
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed("No Name Provided", "Please provide a valid name for this tag")
+                new this.client.Embeds.ErrorEmbed("No Name Provided", "Please provide a valid name for this tag"),
             );
         if (!content)
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed("No Content Provided", "Please provide the content for this tag")
+                new this.client.Embeds.ErrorEmbed("No Content Provided", "Please provide the content for this tag"),
             );
 
         name = Util.cleanContent(name.toLowerCase(), message);
@@ -54,8 +54,8 @@ export default class tagCreate extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "That tag already exists!",
-                    "Please choose a different name for your tag or delete the existing one"
-                )
+                    "Please choose a different name for your tag or delete the existing one",
+                ),
             );
 
         await this.client.tagHandler.create(message.guild!, {
@@ -65,7 +65,7 @@ export default class tagCreate extends Command {
         });
 
         return message.channel.send(
-            new this.client.Embeds.SuccessEmbed("Tag Successfully Added", `Tag \`${name}\` has been added!`, message)
+            new this.client.Embeds.SuccessEmbed("Tag Successfully Added", `Tag \`${name}\` has been added!`, message),
         );
     }
 }

@@ -39,7 +39,7 @@ export default class Help extends Command {
                     "❯ Usage",
                     `\`${prefix}${command.aliases[0]}${
                         command.description.usage ? ` ${command.description.usage}` : ""
-                    }\``
+                    }\``,
                 );
 
             if (command instanceof SubCommand)
@@ -48,13 +48,13 @@ export default class Help extends Command {
             if (command.description.example.length > 0)
                 embed.addField(
                     "❯ Examples",
-                    command.description.example.map((x: string[]) => `\`${prefix}${x}\``).join("\n")
+                    command.description.example.map((x: string[]) => `\`${prefix}${x}\``).join("\n"),
                 );
 
             if (command.aliases.filter((x: string) => x !== command.id).length > 1) {
                 embed.addField(
                     "❯ Aliases",
-                    `\`${command.aliases.filter((x: string) => x !== command.id).join("`, `")}\``
+                    `\`${command.aliases.filter((x: string) => x !== command.id).join("`, `")}\``,
                 );
             }
 
@@ -79,7 +79,7 @@ export default class Help extends Command {
                     
                     Commands marked with * are sub commands, with the main command being the name of the category.
                     For example: "tags create"
-					`
+					`,
         );
 
         for (const cat of this.client.commandHandler.categories
@@ -87,7 +87,7 @@ export default class Help extends Command {
             .sort(
                 (a, b) =>
                     Number(b.reduce((acc: number, val) => acc + val.aliases.length)) -
-                    Number(a.reduce((acc: number, val) => acc + val.aliases.length))
+                    Number(a.reduce((acc: number, val) => acc + val.aliases.length)),
             )
             .values()) {
             const isModule = Boolean(cat.filter((cmd) => cmd.aliases.length > 0).size === 1);
@@ -101,13 +101,13 @@ export default class Help extends Command {
                         .first()!
                         .subCommands!.map((subCommand) => `\`${subCommand[1]}\``)
                         .join(" "),
-                    true
+                    true,
                 );
             } else {
                 embed.addField(
                     `❯ ${cat.id.replace(/(\b\w)/gi, (lc) => lc.toUpperCase())}`,
                     `${filteredCommands.map((cmd) => `\`${cmd.aliases[0]}\``).join(" ")}`,
-                    cat.filter((cmd) => cmd.aliases.length > 0).map((cmd) => `\`${cmd.aliases[0]}\``).length < 3
+                    cat.filter((cmd) => cmd.aliases.length > 0).map((cmd) => `\`${cmd.aliases[0]}\``).length < 3,
                 );
             }
             /* if (cat.filter((cmd) => cmd.aliases.length > 0).size === 1)

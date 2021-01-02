@@ -14,7 +14,7 @@ export default class Moderation extends YokiModule {
                 name: "moderation",
                 commandDirectory: `${__dirname}/commands/`,
             },
-            client
+            client,
         );
         client.caseActions = new ActionManager(client);
         client.moderation = this;

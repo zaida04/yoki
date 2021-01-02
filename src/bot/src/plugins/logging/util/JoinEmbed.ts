@@ -16,7 +16,7 @@ export default class JoinEmbed extends MessageEmbed {
                 ❯ ID: ${member.user} \`(${member.user.id})\` ${suspicious ? "⚠️" : ""}
                 ❯ Account Creation Date: \`${FormatDate(member.user.createdAt)} ${suspicious ? "(recent)" : ""}\`
                 ❯ Join Date: \`${member.joinedAt ? FormatDate(member.joinedAt) : "unknown"}\`
-                `
+                `,
             )
             .setFooter("Joined Server")
             .setTimestamp();

@@ -11,7 +11,7 @@ export default class MessageFilter extends YokiModule {
                 commandDirectory: `${__dirname}/commands/`,
                 listenerDirectory: `${__dirname}/listeners/`,
             },
-            client
+            client,
         );
         client.messageFilter = new FilterManager(client);
     }

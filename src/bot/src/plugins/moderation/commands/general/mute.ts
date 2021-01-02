@@ -56,7 +56,7 @@ export default class Mute extends Command {
             duration,
             reason,
             hidden,
-        }: { target?: GuildMember; duration?: number | null; reason?: string; hidden?: boolean }
+        }: { target?: GuildMember; duration?: number | null; reason?: string; hidden?: boolean },
     ) {
         if (!target)
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
@@ -68,8 +68,8 @@ export default class Mute extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "No mute role set!",
-                    `You can set one by doing the command \`settings mute-role @role\``
-                )
+                    `You can set one by doing the command \`settings mute-role @role\``,
+                ),
             );
 
         const createdCase = await this.client.caseActions.create({
@@ -87,7 +87,7 @@ export default class Mute extends Command {
                 .send(
                     `
                 You have been \`muted\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}
-                `
+                `,
                 )
                 .catch((e) => e);
 
@@ -105,8 +105,8 @@ export default class Mute extends Command {
             new this.client.Embeds.SuccessEmbed(
                 "User Successfully Muted",
                 this.client.Responses.NEW_MODACTION_RESPONSE("muted", target.user, reason),
-                message
-            ).setFooter(`Case-ID: ${createdCase.id}`)
+                message,
+            ).setFooter(`Case-ID: ${createdCase.id}`),
         );
     }
 }

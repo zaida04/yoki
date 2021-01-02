@@ -45,7 +45,7 @@ export default class suggestionAccept extends Command {
 
             void (
                 await (message.guild!.channels.cache.get(suggestion.channel_id!) as TextChannel).messages.fetch(
-                    suggestion.message_id!
+                    suggestion.message_id!,
                 )
             ).edit(new SuggestionEmbed({ opener, ...suggestion }));
 
@@ -53,8 +53,8 @@ export default class suggestionAccept extends Command {
                 new this.client.Embeds.SuccessEmbed(
                     "Suggestion Accepted!",
                     "Successfully accepted this suggestion!",
-                    message
-                )
+                    message,
+                ),
             );
         } catch (e) {
             return message.channel.send("There was an error accepting that suggestion");

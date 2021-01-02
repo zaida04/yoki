@@ -31,8 +31,8 @@ export default class ticketCreate extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Unable to create ticket",
-                    "This server does not have ticketing enabled."
-                )
+                    "This server does not have ticketing enabled.",
+                ),
             );
 
         if (

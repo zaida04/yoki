@@ -14,7 +14,7 @@ export default class CommandBlockedListener extends Listener {
         this.client.Logger.warn(
             `Blocked ${command.id} on ${message.guild ? `${message.guild.name} (${message.guild.id})` : "DM"} from ${
                 message.author.id
-            } with reason ${reason}`
+            } with reason ${reason}`,
         );
         let output = "";
         switch (reason) {

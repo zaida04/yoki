@@ -20,6 +20,7 @@ void (async () => {
     const options: ClientOptions = {
         dbEnv: dbEnv,
         defaultPrefix: process.env.DEFAULTPREFIX,
+        api_port: Number(process.env.API_PORT ?? 80),
     };
     const BotClient = new Client(options);
     try {

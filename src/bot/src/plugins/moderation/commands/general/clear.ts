@@ -36,7 +36,7 @@ export default class Clear extends Command {
     public async exec(message: Message, { amount }: { amount: number }) {
         if (!amount || amount < 1)
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed(this.client.Responses.INVALID_MESSAGE_AMOUNT, null)
+                new this.client.Embeds.ErrorEmbed(this.client.Responses.INVALID_MESSAGE_AMOUNT, null),
             );
         if (!(message.channel instanceof TextChannel)) return;
         if (amount > 1) {
@@ -53,7 +53,7 @@ export default class Clear extends Command {
                         **Amount:** ${deleted_messages.size} 
                         **In:** ${message.channel}
                         **Purged By:** ${message.author.toString()}
-                        `
+                        `,
                             )
                             .setColor(YokiColors.LIGHT_ORANGE),
                         files: [
@@ -64,10 +64,10 @@ export default class Clear extends Command {
                                             (x) =>
                                                 `AUTHOR: ${x.author.tag} (${x.author.id}); CONTENT: ${x.content.replace(
                                                     /\n/g,
-                                                    " "
-                                                )}; EMBEDS: ${x.embeds.length > 0 ? "YES" : "NO"}`
+                                                    " ",
+                                                )}; EMBEDS: ${x.embeds.length > 0 ? "YES" : "NO"}`,
                                         )
-                                        .join("\n")
+                                        .join("\n"),
                                 ),
                                 name: `PURGE-${new Date().toISOString().slice(0, 10)}.txt`,
                             },
@@ -91,7 +91,7 @@ export default class Clear extends Command {
             .then((x) =>
                 x.delete({
                     timeout: 5000,
-                })
+                }),
             );
     }
 }

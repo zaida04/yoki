@@ -40,7 +40,7 @@ export default class ticketClose extends Command {
         return channel.id === message.channel.id
             ? message.channel.send("Ticket has been closed")
             : void ticket.channel?.send(
-                  `**This ticket has been closed and archived. To reopen it, please do the **\`ticket open ${ticket.id}\``
+                  `**This ticket has been closed and archived. To reopen it, please do the **\`ticket open ${ticket.id}\``,
               );
     }
 }

@@ -11,7 +11,7 @@ export default class Tags extends YokiModule {
                 commandDirectory: `${__dirname}/commands/`,
                 listenerDirectory: `${__dirname}/listeners/`,
             },
-            client
+            client,
         );
         this.client.tagHandler = new TagHandler(client);
     }

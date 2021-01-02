@@ -31,7 +31,7 @@ export default class CaseFetch extends Command {
         const fetchCase = await this.client.caseActions.fetch(message.guild!.id, id);
         if (!fetchCase)
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed("Invalid ID", "That ID does not belong to a case in this guild.")
+                new this.client.Embeds.ErrorEmbed("Invalid ID", "That ID does not belong to a case in this guild."),
             );
 
         return message.channel.send(`\`Retrived case ${id} for you!\``, new ActionEmbed(fetchCase));

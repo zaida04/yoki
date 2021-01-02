@@ -41,25 +41,25 @@ export default class Kick extends Command {
 
     public async exec(
         message: Message,
-        { target, reason, hidden }: { target?: GuildMember; reason: string; hidden?: boolean }
+        { target, reason, hidden }: { target?: GuildMember; reason: string; hidden?: boolean },
     ) {
         if (!target)
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_MEMBER, null)
+                new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_MEMBER, null),
             );
         if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("kick"));
 
         if (!target.kickable)
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed(null, this.client.Responses.NOT_ACTIONABLE("kick"))
+                new this.client.Embeds.ErrorEmbed(null, this.client.Responses.NOT_ACTIONABLE("kick")),
             );
 
         if (message.member!.roles.highest.position < target.roles.highest.position)
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     this.client.Responses.INSUFFICENT_PERMISSIONS_HEADING,
-                    this.client.Responses.INSUFFICENT_PERMISSIONS_BODY
-                )
+                    this.client.Responses.INSUFFICENT_PERMISSIONS_BODY,
+                ),
             );
 
         const createdCase = await this.client.caseActions.create({
@@ -74,7 +74,9 @@ export default class Kick extends Command {
         if (!hidden)
             await target
                 .send(
-                    `You have been \`kicked\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}`
+                    `You have been \`kicked\` in **${message.guild!.name}**\n\n${
+                        reason ? `Reason: **${reason}**` : ""
+                    }`,
                 )
                 .catch((e) => e);
 
@@ -91,8 +93,8 @@ export default class Kick extends Command {
             new this.client.Embeds.SuccessEmbed(
                 "Member Successfully Kicked",
                 this.client.Responses.NEW_MODACTION_RESPONSE("kicked", target.user, reason),
-                message
-            ).setFooter(`Case-ID ${createdCase.id}`)
+                message,
+            ).setFooter(`Case-ID ${createdCase.id}`),
         );
     }
 }

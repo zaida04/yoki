@@ -15,7 +15,7 @@ export default class channelUpdate extends Listener {
         this.client.Logger.log(
             `Channel ${oldChannel.name} (${oldChannel.id}) updated ${
                 oldChannel.name === newChannel.name ? "" : `name => ${newChannel.name} `
-            }in guild ${oldChannel.guild.name} (${oldChannel.guild.id})`
+            }in guild ${oldChannel.guild.name} (${oldChannel.guild.id})`,
         );
     }
 }

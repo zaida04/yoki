@@ -13,7 +13,7 @@ export default class channelCreate extends Listener {
     public exec(channel: DMChannel | GuildChannel) {
         if (channel instanceof DMChannel) return;
         this.client.Logger.log(
-            `Channel ${channel.name} (${channel.id}) created in guild ${channel.guild.name} (${channel.guild.id})`
+            `Channel ${channel.name} (${channel.id}) created in guild ${channel.guild.name} (${channel.guild.id})`,
         );
     }
 }

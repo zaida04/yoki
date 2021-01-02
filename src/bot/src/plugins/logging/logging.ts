@@ -10,7 +10,7 @@ export default class Logging extends YokiModule {
                 name: "logging",
                 listenerDirectory: `${__dirname}/listeners`,
             },
-            client
+            client,
         );
     }
 }

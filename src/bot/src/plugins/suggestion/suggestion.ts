@@ -10,7 +10,7 @@ export default class Suggestion extends YokiModule {
                 name: "suggestions",
                 commandDirectory: `${__dirname}/commands/`,
             },
-            client
+            client,
         );
         this.client.suggestionHandler = new SuggestionHandler(client);
     }

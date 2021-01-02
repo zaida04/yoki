@@ -37,7 +37,7 @@ export default class ReactionRoleHandler {
                 guild_id: guild_id,
                 role_id: role_id,
             },
-            ["id"]
+            ["id"],
         );
     }
 }

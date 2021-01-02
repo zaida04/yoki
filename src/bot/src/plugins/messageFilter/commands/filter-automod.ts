@@ -28,12 +28,12 @@ export default class filterAutomod extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Message filter is not enabled!",
-                    "You can enable it by doing the `settings message-filter enable` command"
-                )
+                    "You can enable it by doing the `settings message-filter enable` command",
+                ),
             );
         if (!word || (word !== "enable" && word !== "disable"))
             return message.channel.send(
-                new this.client.Embeds.ErrorEmbed("You must pass either the word `enable` or `disable`")
+                new this.client.Embeds.ErrorEmbed("You must pass either the word `enable` or `disable`"),
             );
 
         const value = word === "enable" ? true : false;

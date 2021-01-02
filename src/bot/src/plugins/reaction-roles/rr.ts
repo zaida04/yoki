@@ -11,7 +11,7 @@ export default class ReactionRole extends YokiModule {
                 commandDirectory: `${__dirname}/commands/`,
                 listenerDirectory: `${__dirname}/listeners/`,
             },
-            client
+            client,
         );
         this.client.rrHandler = new ReactionRoleHandler(client);
     }

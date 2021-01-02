@@ -23,9 +23,9 @@ export default class Logger {
             colors.DIM
         }`.trim();
 
-        outputBuilder += `[${Math.round(used_mem * 100) / 100} MB]${this.name ? `[${this.name}]` : ""}[${type}]:${
-            colors.BRIGHT
-        }`.trim();
+        outputBuilder += `[${(Math.round(used_mem * 100) / 100).toFixed(2)} MB]${
+            this.name ? `[${this.name}]` : ""
+        }[${type}]:${colors.BRIGHT}`.trim();
 
         return console.log(outputBuilder, value, colors.RESET);
     }

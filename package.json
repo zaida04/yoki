@@ -6,14 +6,20 @@
   "private": true,
   "scripts": {
     "start:bot": "npm run build && node ./src/bot/dist/index.js --trace-warnings",
-    "start:dev": "npm run precheck && npm run start:bot",
     "start:dash": "node dist/src/dashboard/index.js",
-    "precheck": "rimraf src/bot/dist && rimraf libs/logger/dist && rimraf src/bot/dist",
+    "precheck": "rimraf src/bot/dist && rimraf libs/logger/dist",
     "build": "pnpm recursive run build --filter @yoki/*",
     "preinstall": "npx only-allow pnpm",
     "knex:init": "knex migrate:latest production",
-    "lint": "npx eslint src/ libs/ --fix",
-    "postinstall": "husky install"
+    "lint": "npx eslint src/ libs/",
+    "lint:fix": "npx eslint src/ libs/ --fix"
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "all",
+    "printWidth": 120,
+    "tabWidth": 4,
+    "endOfLine": "auto"
   },
   "repository": {
     "type": "git",
@@ -34,9 +40,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.0",
     "eslint-plugin-unused-imports": "^0.1.3",
-    "husky": "^5.0.6",
     "nodemon": "^2.0.6",
-    "pinst": "^2.1.1",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "typescript": "^3.9.7"

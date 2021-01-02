@@ -41,8 +41,8 @@ export default class ticketFetch extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Ticket does not exist!",
-                    "That ticket does not exist **in this server**"
-                )
+                    "That ticket does not exist **in this server**",
+                ),
             );
 
         const user = await this.client.users.fetch(ticket.opener_id);
@@ -53,7 +53,7 @@ export default class ticketFetch extends Command {
                 **Reason:** \`${ticket.reason}\`
                 **Closed?:** \`${ticket.closed ? "yes" : "no"}\`
                 **Channel (if still exists):** <#${ticket.channel_id}>
-            `)
+            `),
         );
     }
 }

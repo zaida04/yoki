@@ -28,8 +28,8 @@ export default class filterRemove extends Command {
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Message filter is not enabled!",
-                    "You can enable it by doing the `settings message-filter enable` command"
-                )
+                    "You can enable it by doing the `settings message-filter enable` command",
+                ),
             );
         if (!word) return message.channel.send(new this.client.Embeds.ErrorEmbed("Must proivde a word!"));
 
