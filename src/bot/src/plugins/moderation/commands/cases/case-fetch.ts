@@ -18,6 +18,9 @@ export default class CaseFetch extends Command {
                 {
                     id: "id",
                     type: "string",
+                    prompt: {
+                        start: "Give me the ID of a case to fetch for you",
+                    },
                 },
             ],
             userPermissions: (message) =>
@@ -28,7 +31,7 @@ export default class CaseFetch extends Command {
 
     public async exec(message: Message, { id }: { id?: string }) {
         if (!id) return message.channel.send(new this.client.Embeds.ErrorEmbed("Please provide a case ID."));
-        const fetchCase = await this.client.caseActions.fetch(message.guild!.id, id);
+        const fetchCase = await this.client.moderation.caseActions.fetch(message.guild!.id, id);
         if (!fetchCase)
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed("Invalid ID", "That ID does not belong to a case in this guild."),

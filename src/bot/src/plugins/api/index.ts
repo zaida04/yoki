@@ -18,9 +18,7 @@ export default (client: AkairoClient) => {
     const guilds = Router({ mergeParams: true });
 
     api.use((req: Request, res: Response, next: NextFunction) => {
-        http.bot_client.Logger.log(
-            `[API:${req.method.toUpperCase()}] Request at ${req.originalUrl} recieved by ${req.ip}`,
-        );
+        http.bot_client.Logger.log(`[API:${req.method.toUpperCase()}] Request at ${req.originalUrl} sent by ${req.ip}`);
         return next();
     });
     guilds.use(settings());

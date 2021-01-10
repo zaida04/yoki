@@ -1,14 +1,14 @@
 import { Listener } from "discord-akairo";
 
-export default class Ready extends Listener {
+export default class GiveawayReady extends Listener {
     public constructor() {
-        super("ready", {
+        super("giveaway-ready", {
             emitter: "client",
             event: "ready",
         });
     }
 
     public exec() {
-        this.client.Logger.log(`Bot logged in as ${this.client.user!.tag}`);
+        this.client.giveaways.scheduler.init();
     }
 }

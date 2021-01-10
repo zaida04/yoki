@@ -13,7 +13,9 @@ export interface ActionDatabaseData {
     message_id: string | null;
     expiration_date: string | null;
     channel_id: string | null;
-    createdAt: Date;
+    created_at: number;
+    updated_at: number;
+    expired: boolean;
 }
 export interface ActionData {
     guild: Guild;
@@ -23,4 +25,5 @@ export interface ActionData {
     expiration_date: Date | null;
     executor: User;
     message: Message | null;
+    expired?: boolean;
 }

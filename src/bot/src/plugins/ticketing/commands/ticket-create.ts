@@ -17,6 +17,9 @@ export default class ticketCreate extends Command {
                     id: "reason",
                     type: "string",
                     match: "rest",
+                    prompt: {
+                        start: "What's the reason you wish to create this ticket?",
+                    },
                 },
             ],
             clientPermissions: ["EMBED_LINKS"],

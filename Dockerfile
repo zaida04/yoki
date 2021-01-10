@@ -12,7 +12,7 @@ RUN apk add --update \
 
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node && apk del .build-deps
 
-COPY package.json pnpm-lock.yaml pnpm-workspace.yml tsconfig.json ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ./
 COPY libs/logger/package.json ./libs/logger/
 COPY packages/bot/package.json ./packages/bot/
 

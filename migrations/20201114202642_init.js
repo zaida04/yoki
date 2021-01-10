@@ -57,6 +57,9 @@ exports.up = async function (knex) {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-exports.down = function (knex) {
-    return knex.schema.dropTable("users");
+exports.down = async function (knex) {
+    await knex.schema.dropTable("settings");
+    await knex.schema.dropTable("actions");
+    await knex.schema.dropTable("messageFilter");
+    await knex.schema.dropTable("tags");
 };

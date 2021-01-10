@@ -27,7 +27,7 @@ export default class messageFilterMessageInvalid extends Listener {
         if (await message.guild.settings.get("autoModEnabled"))
             if (discordRegex.test(sanitizedContent)) {
                 if (message.deletable) void message.delete();
-                const createdCase = await this.client.caseActions.create({
+                const createdCase = await this.client.moderation.caseActions.create({
                     executor: this.client.user!,
                     reason: `\`Links to other Discord Servers\``,
                     type: "warn",
@@ -39,8 +39,8 @@ export default class messageFilterMessageInvalid extends Listener {
                 const logChannel = await message.guild.settings.channel<TextChannel>("modLogChannel", "text");
                 if (logChannel) {
                     const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
-                    void this.client.caseActions.updateMessage(createdCase, logMessage);
-                    this.client.caseActions.cache.delete(createdCase.id);
+                    void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);
+                    this.client.moderation.caseActions.cache.delete(createdCase.id);
                     void message.author
                         .send(
                             `You have been \`warned\` in **${message.guild.name}**\n\nReason: \`You have sent a link to another discord server which is forbidden.\`\nPlease make sure this doesn't happen again, otherwise you are subject to the servers punishment`,
@@ -57,7 +57,7 @@ export default class messageFilterMessageInvalid extends Listener {
             return message.deletable
                 ? message.delete().then(async (_) => {
                       void message.reply("You have said a banned word in this server!");
-                      const createdCase = await this.client.caseActions.create({
+                      const createdCase = await this.client.moderation.caseActions.create({
                           executor: this.client.user!,
                           reason: `\`Triggered the message filter\``,
                           type: "warn",
@@ -69,8 +69,8 @@ export default class messageFilterMessageInvalid extends Listener {
                       const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
                       if (logChannel) {
                           const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
-                          void this.client.caseActions.updateMessage(createdCase, logMessage);
-                          this.client.caseActions.cache.delete(createdCase.id);
+                          void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);
+                          this.client.moderation.caseActions.cache.delete(createdCase.id);
                           void message.author.send(
                               `You have been \`warned\` in **${
                                   message.guild!.name

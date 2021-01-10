@@ -49,7 +49,7 @@ export default class Warn extends Command {
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
         if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("warn"));
 
-        const createdCase = await this.client.caseActions.create({
+        const createdCase = await this.client.moderation.caseActions.create({
             guild: message.guild!,
             reason: reason,
             executor: message.author,
@@ -73,9 +73,9 @@ export default class Warn extends Command {
         const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
         const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
         if (logMessage) {
-            void this.client.caseActions.updateMessage(createdCase, logMessage);
+            void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);
         }
-        this.client.caseActions.cache.delete(createdCase.id);
+        this.client.moderation.caseActions.cache.delete(createdCase.id);
 
         return message.reply(
             new this.client.Embeds.SuccessEmbed(

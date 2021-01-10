@@ -15,6 +15,9 @@ export default class ticketOpen extends Command {
                 {
                     id: "id",
                     type: "string",
+                    prompt: {
+                        start: "What's the ID of the ticket you wish to reopen?",
+                    },
                 },
             ],
             userPermissions: ["MANAGE_MESSAGES"],

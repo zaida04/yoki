@@ -17,11 +17,17 @@ export default class suggestionReject extends Command {
                 {
                     id: "id",
                     type: "string",
+                    prompt: {
+                        start: "What's the ID of the suggestion?",
+                    },
                 },
                 {
                     id: "comment",
                     match: "rest",
                     type: "string",
+                    prompt: {
+                        start: "Any comments as to why?",
+                    },
                 },
             ],
             userPermissions: ["MANAGE_MESSAGES"],

@@ -53,6 +53,7 @@ export default class SettingsManager {
             : this.baseGuildSettings().insert({
                   guild: this.guild.id,
                   left: false,
+                  joinedDate: this.guild.me?.joinedAt,
                   ...update,
               });
     }

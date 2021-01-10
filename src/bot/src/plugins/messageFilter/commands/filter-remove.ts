@@ -15,6 +15,9 @@ export default class filterRemove extends Command {
                 {
                     id: "word",
                     type: "lowercase",
+                    prompt: {
+                        start: "What word would you like to remove from the filter?",
+                    },
                 },
             ],
             userPermissions: ["MANAGE_MESSAGES"],

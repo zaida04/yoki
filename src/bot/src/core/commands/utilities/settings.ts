@@ -103,6 +103,7 @@ export default class Settings extends Command {
             );
         if (setting.toLowerCase() === "list") {
             const all_settings = await this.client.db.api("settings").where("guild", message.guild!.id).first();
+            if (!all_settings) return message.channel.send("You don't have any settings setup on this server.");
             return message.channel.send(
                 `The settings for your guild are: ${Object.keys(all_settings)
                     .filter((x) => viewableSettings.includes(x))

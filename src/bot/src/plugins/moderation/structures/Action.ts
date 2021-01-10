@@ -13,5 +13,6 @@ export default class Action {
         public type: ActionType,
         public expiration_date: Date | null,
         public reason: string | null,
+        public expired: boolean,
     ) {}
 }

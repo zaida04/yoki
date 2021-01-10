@@ -69,7 +69,7 @@ export default class Ban extends Command {
                 );
         }
 
-        const createdCase = await this.client.caseActions.create({
+        const createdCase = await this.client.moderation.caseActions.create({
             guild: message.guild!,
             reason: reason,
             expiration_date: null,
@@ -77,6 +77,7 @@ export default class Ban extends Command {
             message: null,
             type: "ban",
             target: target instanceof GuildMember ? target.user : target,
+            expired: false,
         });
 
         if (!hidden)
@@ -86,7 +87,7 @@ export default class Ban extends Command {
                 You have been \`banned\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}
                 `,
                 )
-                .catch((e) => void 0);
+                .catch(() => void 0);
 
         try {
             await message.guild!.members.ban(target, {
@@ -100,9 +101,9 @@ export default class Ban extends Command {
         const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
         const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
         if (logMessage) {
-            void this.client.caseActions.updateMessage(createdCase, logMessage);
+            void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);
         }
-        this.client.caseActions.cache.delete(createdCase.id);
+        this.client.moderation.caseActions.cache.delete(createdCase.id);
 
         return message.reply(
             new this.client.Embeds.SuccessEmbed(

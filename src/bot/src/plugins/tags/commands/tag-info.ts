@@ -18,6 +18,9 @@ export default class tagInfo extends Command {
                     id: "name",
                     match: "content",
                     type: "string",
+                    prompt: {
+                        start: "What's the name of the tag you wish to fetch?",
+                    },
                 },
             ],
             channel: "guild",
@@ -40,7 +43,7 @@ export default class tagInfo extends Command {
                 **Name:** \`${fetch_tag.name}\`
                 **Content:** \`${fetch_tag.content}\`
                 **Created By:** ${await this.client.users.fetch(fetch_tag.creator_id)}
-                **Created On:** ${new Date(fetch_tag.createdAt).toLocaleDateString("en-US", {
+                **Created On:** ${new Date(fetch_tag.created_at).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",

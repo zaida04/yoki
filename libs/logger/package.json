@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Logging utilities for Yoki and it's related services",
   "main": "./dist/index.js",
-  "typings": "./types/index.d.ts",
+  "typings": "./dist/types/index.d.ts",
   "scripts": {
     "build": "tsc"
   },

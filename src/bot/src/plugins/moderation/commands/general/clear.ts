@@ -23,7 +23,7 @@ export default class Clear extends Command {
                     type: "integer",
                     prompt: {
                         optional: true,
-                        start: "Please provide an amount of messages to delete *(say it below)*",
+                        start: "Please provide an amount of messages to delete *(say your answers below)*",
                     },
                 },
             ],

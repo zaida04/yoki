@@ -7,6 +7,8 @@ export interface DatabaseSuggestionEntry {
     description: string;
     status: SuggestionStatus;
     comment: string | null;
+    created_at: number;
+    updated_at: number;
 }
 
 export type SuggestionStatus = "ACCEPTED" | "REJECTED" | "OPEN";

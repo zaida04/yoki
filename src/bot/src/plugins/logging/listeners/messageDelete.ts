@@ -16,14 +16,19 @@ export default class messageDelete extends Listener {
 
     public async exec(message: Message) {
         if (!message.guild) return;
-        if (message.author.id === message.client.user!.id) return;
-        const possibleCase = this.client.caseActions.cache.find(
-            (x) => x.executor.id === message.author.id && x.reason === "`Triggered the message filter`",
-        );
-        if (possibleCase) {
-            this.client.caseActions.cache.delete(possibleCase.id);
-            return;
+
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!message.partial) {
+            if (message.author.id === message.client.user!.id) return;
+            const possibleCase = this.client.moderation.caseActions.cache.find(
+                (x) => x.executor.id === message.author.id && x.reason === "`Triggered the message filter`",
+            );
+            if (possibleCase) {
+                this.client.moderation.caseActions.cache.delete(possibleCase.id);
+                return;
+            }
         }
+
         const logChannel = await message.guild.settings.channel<TextChannel>("logChannel", "text");
         if (!logChannel) return;
 
@@ -31,8 +36,15 @@ export default class messageDelete extends Listener {
             .setColor(YokiColors.GREEN)
             .setTitle("Message Deleted")
             .setDescription(
-                stripIndents`**Author:** ${message.author.tag}
-                **Content:** ${message.content ? `\`\`\`${message.content}\`\`\`` : "`No detectable content`"}`,
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                stripIndents`**Author:** ${message.partial ? `\`${message.author.tag}\`` : "`Unknown User`"}
+                **Channel:** ${message.channel}
+                **Embeds?**: ${Boolean(message.embeds.length)}
+                **Content:** ${
+                    message.content
+                        ? `\`\`\`${message.content}\`\`\``
+                        : "`No detectable content (Possibly only embeds)`"
+                }`,
             )
             .setTimestamp();
 

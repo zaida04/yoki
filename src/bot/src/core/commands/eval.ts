@@ -23,6 +23,7 @@ export default class Eval extends Command {
 
     // Borrowed from didinele, https://github.com/weeb-cafe/MewChan/blob/master/packages/bot/src/commands/dev/eval.ts
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _clean(text: any) {
         if (text?.then && text.catch) text = await text;
         if (typeof text !== "string") text = inspect(text, { depth: 0 });

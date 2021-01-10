@@ -19,6 +19,9 @@ export default class tagInfo extends Command {
                     id: "name",
                     match: "content",
                     type: "lowercase",
+                    prompt: {
+                        start: "What's the name of the tag that you want to show?",
+                    },
                 },
             ],
             channel: "guild",

@@ -16,6 +16,7 @@ export default class messageUpdate extends Listener {
 
     public async exec(oldMessage: Message, newMessage: Message) {
         if (!oldMessage.guild) return;
+        if (oldMessage.author.id === oldMessage.client.user!.id) return;
         if (oldMessage.content === newMessage.content) return;
 
         const logChannel = await oldMessage.guild.settings.channel<TextChannel>("logChannel", "text");
