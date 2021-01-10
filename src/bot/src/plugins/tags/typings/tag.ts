@@ -6,7 +6,8 @@ export interface DatabaseTagEntry {
     id: string;
     creator_id: string;
     content: string;
-    createdAt: number;
+    created_at: number;
+    updated_at: number;
 }
 
 export interface TagParams {

@@ -10,7 +10,19 @@ export default class ActionEmbed extends MessageEmbed {
         super.setDescription(stripIndents`
         **Target:** ${action.target} \`(${action.target.id})\`
         **Type:** \`${action.type}\`
-        **Reason:** ${action.reason ? `\`${action.reason}\`` : "`not set`"}`);
+        **Reason:** ${action.reason ? `\`${action.reason}\`` : "`not set`"}
+        ${
+            action.expiration_date
+                ? `**Expiration:** \`${action.expiration_date.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                  })} EST\``
+                : ""
+        }
+        `);
         super.setThumbnail(action.target.displayAvatarURL());
         super.setFooter(`Case-ID #${action.id}`, action.guild.icon ? action.guild.iconURL()! : undefined);
         super.setTimestamp();

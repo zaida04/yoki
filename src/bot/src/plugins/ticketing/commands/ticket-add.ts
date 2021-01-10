@@ -26,7 +26,6 @@ export default class ticketAdd extends Command {
                     id: "channel",
                     type: "textChannel",
                     prompt: {
-                        optional: true,
                         start: "Which channel that belongs do a ticket do you wish to add this person to?",
                     },
                 },

@@ -5,4 +5,6 @@ export interface TicketDatabaseEntry {
     guild_id: string;
     channel_id: string;
     closed: boolean;
+    created_at: number;
+    updated_at: number;
 }

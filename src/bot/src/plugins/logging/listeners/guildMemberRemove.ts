@@ -16,7 +16,10 @@ export default class guildMemberRemove extends Listener {
     }
 
     public async exec(member: GuildMember) {
-        if (this.client.caseActions.cache.some((x: Action) => x.target.id === member.id && x.type === "kick")) return;
+        if (
+            this.client.moderation.caseActions.cache.some((x: Action) => x.target.id === member.id && x.type === "kick")
+        )
+            return;
 
         const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberLog", "text");
         if (memberLogChannel) {

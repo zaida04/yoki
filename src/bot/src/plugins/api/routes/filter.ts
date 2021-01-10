@@ -21,9 +21,11 @@ export default () => {
             routeValidator(
                 body("ban_word", "Must supply a not already added word/phrase to ban under 30 characters.")
                     .notEmpty()
+                    .bail()
                     .isString()
-                    .trim()
-                    .isLength({ max: 30 }),
+                    .bail()
+                    .isLength({ max: 30 })
+                    .trim(),
             ),
             async (req: Request, res: Response, next: NextFunction) => {
                 const { ban_word } = req.body;
@@ -61,9 +63,11 @@ export default () => {
             routeValidator(
                 body("ban_word", "Must supply a word/phrase to unban under 30 characters.")
                     .notEmpty()
+                    .bail()
                     .isString()
-                    .trim()
-                    .isLength({ max: 30 }),
+                    .bail()
+                    .isLength({ max: 30 })
+                    .trim(),
             ),
             async (req: Request, res: Response, next: NextFunction) => {
                 const { ban_word } = req.body;

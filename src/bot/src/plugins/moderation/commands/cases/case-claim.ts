@@ -14,7 +14,9 @@ export default class CaseClaim extends Command {
             description: {
                 content: "Claim a case",
                 usage: "<message_id>",
-                example: ["cases fetch 345"],
+                example: [
+                    "cases claim https://discord.com/channels/222078108977594368/222197033908436994/796157326804647987",
+                ],
             },
             args: [
                 {
@@ -27,7 +29,7 @@ export default class CaseClaim extends Command {
                     },
                     prompt: {
                         start:
-                            "Please provide the id of a message in this guild that is an `Unknown Executor` Embed *(say it below)*",
+                            "Please provide the id of a message in this guild that is an `Unknown Executor` Embed *(say your answers below)*",
                     },
                 },
                 {
@@ -71,7 +73,7 @@ export default class CaseClaim extends Command {
             );
         const rows = existingData.description!.split("\n");
 
-        const createdCase = await this.client.caseActions.create({
+        const createdCase = await this.client.moderation.caseActions.create({
             guild: message.guild!,
             target: await this.client.users.fetch(
                 rows

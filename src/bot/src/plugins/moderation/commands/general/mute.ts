@@ -5,6 +5,8 @@ import ms from "@naval-base/ms";
 import { Message } from "discord.js";
 
 import ActionEmbed from "../../structures/ActionEmbed";
+import { stripIndents } from "common-tags";
+import { ActionDatabaseData } from "../../typings/Action";
 
 export default class Mute extends Command {
     public constructor() {
@@ -21,6 +23,9 @@ export default class Mute extends Command {
                 {
                     id: "target",
                     type: "member",
+                    prompt: {
+                        start: "Which member do you wish to mute?",
+                    },
                 },
                 {
                     // Taken from https://github.com/Naval-Base/yuudachi/blob/master/src/bot/commands/mod/mute.ts#L31
@@ -28,14 +33,25 @@ export default class Mute extends Command {
                     type: (_, str): number | null => {
                         if (!str) return null;
                         const duration = ms(str);
-                        if (duration && duration >= 100000 && !isNaN(duration)) return duration;
+                        if (
+                            duration &&
+                            duration >= this.client.moderation.caseActions.muteHandler.checkRate * 1000 &&
+                            !isNaN(duration)
+                        )
+                            return duration;
                         return null;
+                    },
+                    prompt: {
+                        start: "How long do you wish to mute them for? Ex. `15m`, `15m30s`, `8h`",
                     },
                 },
                 {
                     id: "reason",
                     match: "rest",
                     type: "string",
+                    prompt: {
+                        start: "And for what reason?",
+                    },
                 },
                 {
                     id: "hidden",
@@ -61,7 +77,10 @@ export default class Mute extends Command {
         if (!target)
             return message.channel.send(new this.client.Embeds.ErrorEmbed(this.client.Responses.INCORRECT_USER, null));
         if (target.id === message.author.id) return message.channel.send(this.client.Responses.SELF_ACTION("mute"));
-        if (!duration) return message.channel.send("Please input a time longer than 100 seconds");
+        if (!duration)
+            return message.channel.send(
+                `Please input a time longer than ${this.client.moderation.caseActions.muteHandler.checkRate} seconds`,
+            );
 
         const mutedRoleID = await message.guild!.settings.get<string>("muteRole");
         if (!mutedRoleID)
@@ -72,7 +91,21 @@ export default class Mute extends Command {
                 ),
             );
 
-        const createdCase = await this.client.caseActions.create({
+        const existingMute = await this.client.db
+            .api<ActionDatabaseData>("actions")
+            .where({
+                guild: message.guild!.id,
+                type: "mute",
+                expired: false,
+            })
+            .first();
+
+        if (existingMute)
+            return message.channel.send(
+                `This user already has an active mute on them, case \`#${existingMute.id}\`. Please delete that one using \`cases delete ${existingMute.id}\` if you wish to reissue a mute.`,
+            );
+
+        const createdCase = await this.client.moderation.caseActions.create({
             guild: message.guild!,
             reason: reason,
             executor: message.author,
@@ -85,21 +118,23 @@ export default class Mute extends Command {
         if (!hidden)
             await target
                 .send(
-                    `
-                You have been \`muted\` in **${message.guild!.name}**\n\n${reason ? `Reason: **${reason}**` : ""}
+                    stripIndents`
+                You have been \`muted\` in **${message.guild!.name}** for **${duration / 1000 / 60} minutes**
+                
+                ${reason ? `Reason: **${reason}**` : ""}
                 `,
                 )
                 .catch((e) => e);
 
         const mutedRole = await message.guild!.roles.fetch(mutedRoleID);
-        mutedRole ? await target.roles.add(mutedRole) : void 0;
+        mutedRole ? await target.roles.add(mutedRole, `Case #${createdCase.id}`) : void 0;
 
         const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
         const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
         if (logMessage) {
-            void this.client.caseActions.updateMessage(createdCase, logMessage);
+            void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);
         }
-        this.client.caseActions.cache.delete(createdCase.id);
+        this.client.moderation.caseActions.cache.delete(createdCase.id);
 
         return message.reply(
             new this.client.Embeds.SuccessEmbed(

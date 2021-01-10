@@ -18,7 +18,7 @@ export default class ticketFetch extends Command {
                     id: "id",
                     type: "string",
                     prompt: {
-                        start: "Please say the ID of a ticket to fetch before *(say it below)*",
+                        start: "Please say the ID of a ticket to fetch before *(say your answers below)*",
                     },
                 },
             ],

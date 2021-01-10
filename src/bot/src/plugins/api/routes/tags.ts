@@ -21,8 +21,11 @@ export default () => {
             routeValidator(
                 body("tag_name", "Tag name must be one word under 40 characters.")
                     .notEmpty()
+                    .bail()
                     .isString()
+                    .bail()
                     .custom((val) => val.split(" ").length < 2)
+                    .bail()
                     .isLength({ max: 40 })
                     .trim(),
                 body("tag_body").notEmpty().isString().isLength({ max: 100 }).trim().stripLow().escape(),
@@ -66,8 +69,11 @@ export default () => {
             routeValidator(
                 body("tag_name", "Tag name must be one word under 40 characters.")
                     .notEmpty()
+                    .bail()
                     .isString()
+                    .bail()
                     .custom((val) => val.split(" ").length < 2)
+                    .bail()
                     .isLength({ max: 40 })
                     .trim(),
             ),

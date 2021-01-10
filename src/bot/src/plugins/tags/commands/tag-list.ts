@@ -1,5 +1,6 @@
 import { Command } from "discord-akairo";
-import { GuildMember } from "discord.js";
+
+import { User } from "discord.js";
 import { MessageEmbed } from "discord.js";
 
 import { Message } from "discord.js";
@@ -18,14 +19,18 @@ export default class tagList extends Command {
             args: [
                 {
                     id: "target",
-                    type: "member",
+                    type: "user",
+                    prompt: {
+                        optional: true,
+                        start: "Who's the user whose tags you wish to see?",
+                    },
                 },
             ],
             channel: "guild",
         });
     }
 
-    public async exec(message: Message, { target }: { target?: GuildMember }) {
+    public async exec(message: Message, { target }: { target?: User }) {
         const embed = new MessageEmbed();
         if (target) {
             const user_tags: DatabaseTagEntry[] = await this.client.db.api<DatabaseTagEntry>("tags").where({

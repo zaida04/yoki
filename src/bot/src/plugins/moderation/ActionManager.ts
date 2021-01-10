@@ -5,8 +5,11 @@ import BaseManager from "../../common/BaseManager";
 import Action from "./structures/Action";
 import { TextChannel } from "discord.js";
 import { Message } from "discord.js";
+import MuteHandler from "./handlers/MuteHandler";
 
 export default class ActionManager extends BaseManager<Action> {
+    public muteHandler = new MuteHandler(this.client, 600);
+
     public constructor(public client: AkairoClient) {
         super(client);
     }
@@ -19,10 +22,12 @@ export default class ActionManager extends BaseManager<Action> {
                     guild: data.guild.id,
                     target_id: data.target.id,
                     executor_id: data.executor.id,
+                    expiration_date: data.expiration_date ?? null,
                     reason: data.reason,
                     message_id: data.message ? data.message.id : null,
                     channel_id: data.message ? data.message.channel.id : null,
                     type: data.type,
+                    expired: data.expired ?? false,
                 })
                 .returning("id")
         )[0];
@@ -36,6 +41,7 @@ export default class ActionManager extends BaseManager<Action> {
             data.type,
             data.expiration_date,
             data.reason ? data.reason : null,
+            data.expired ?? false,
         );
         this.cache.set(action.id, action);
         return action;
@@ -51,11 +57,12 @@ export default class ActionManager extends BaseManager<Action> {
             .update({
                 channel_id: message.channel.id,
                 message_id: message.id,
-            });
+            })
+            .then((x) => x);
     }
 
     public delete(guild_id: string, action_id: string): Promise<boolean> {
-        this.client.caseActions.cache.delete(action_id);
+        this.client.moderation.caseActions.cache.delete(action_id);
         return this.client.db
             .api<ActionDatabaseData>("actions")
             .where({
@@ -89,6 +96,7 @@ export default class ActionManager extends BaseManager<Action> {
                           x.type,
                           x.expiration_date ? new Date(x.expiration_date) : null,
                           x.reason,
+                          x.expired,
                       )
                     : null,
             );

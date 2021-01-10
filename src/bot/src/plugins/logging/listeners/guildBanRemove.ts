@@ -17,7 +17,7 @@ export default class guildBanRemove extends Listener {
 
     public async exec(guild: Guild, user: User) {
         if (
-            this.client.caseActions.cache.some(
+            this.client.moderation.caseActions.cache.some(
                 (x: Action) => x.target.id === user.id && (x.type === "unban" || x.type === "softban"),
             )
         )

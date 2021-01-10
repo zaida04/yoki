@@ -15,6 +15,9 @@ export default class filterAdd extends Command {
                 {
                     id: "word",
                     type: "lowercase",
+                    prompt: {
+                        start: "What word would you like to add to the filter?",
+                    },
                 },
             ],
             userPermissions: ["MANAGE_MESSAGES"],

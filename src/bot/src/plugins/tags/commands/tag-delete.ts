@@ -17,8 +17,7 @@ export default class tagInfo extends Command {
                     id: "name",
                     type: "string",
                     prompt: {
-                        optional: true,
-                        start: "What tag do you wish to delete?",
+                        start: "What's the name of the tag you wish to delete?",
                     },
                 },
             ],

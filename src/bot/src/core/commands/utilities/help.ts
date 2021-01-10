@@ -33,39 +33,59 @@ export default class Help extends Command {
         const embed = new MessageEmbed().setColor(YokiColors.LIGHT_ORANGE);
 
         if (command) {
-            embed
-                .addField("❯ Description", command.description.content || "No Description provided")
-                .addField(
-                    "❯ Usage",
-                    `\`${prefix}${command.aliases[0]}${
-                        command.description.usage ? ` ${command.description.usage}` : ""
-                    }\``,
-                );
+            embed.addField("❯ Description", command.description.content || "No Description provided");
 
-            if (command instanceof SubCommand)
-                embed.addField("❯ Commands", command.subCommands.map((x) => `\`${x[1]}\``).join(" "));
+            if (command instanceof SubCommand) {
+                const extracted_sub_commands = [];
+                for (const extracted_command of command.subCommands) {
+                    extracted_sub_commands.push(
+                        this.client.commandHandler.modules.find((x) => x.id === extracted_command[0]),
+                    );
+                }
 
-            if (command.description.example.length > 0)
                 embed.addField(
-                    "❯ Examples",
-                    command.description.example.map((x: string[]) => `\`${prefix}${x}\``).join("\n"),
+                    "❯ Commands",
+                    extracted_sub_commands
+                        .filter((x) => x !== undefined)
+                        .map(
+                            (x) =>
+                                `\`${command.aliases[0]} ${x!.id.split("-")[1]} ${x!.description.usage}\` - ${
+                                    x!.description.content
+                                }`,
+                        )
+                        .join("\n"),
                 );
+            } else {
+                if (command.description.usage) {
+                    embed.addField(
+                        "❯ Usage",
+                        `\`${prefix}${command.aliases[0]}${
+                            command.description.usage ? ` ${command.description.usage}` : ""
+                        }\``,
+                    );
+                }
 
-            if (command.aliases.filter((x: string) => x !== command.id).length > 1) {
-                embed.addField(
-                    "❯ Aliases",
-                    `\`${command.aliases.filter((x: string) => x !== command.id).join("`, `")}\``,
-                );
+                if (command.description.example.length > 0)
+                    embed.addField(
+                        "❯ Examples",
+                        command.description.example.map((x: string[]) => `\`${prefix}${x}\``).join("\n"),
+                    );
+
+                if (command.aliases.filter((x: string) => x !== command.id).length > 1) {
+                    embed.addField(
+                        "❯ Aliases",
+                        `\`${command.aliases.filter((x: string) => x !== command.id).join("`, `")}\``,
+                    );
+                }
+
+                if (command.userPermissions && Array.isArray(command.userPermissions)) {
+                    embed.addField("❯ Permissions Needed (from user)", `\`${command.userPermissions.join("`, `")}\``);
+                }
+
+                if (command.clientPermissions && Array.isArray(command.clientPermissions)) {
+                    embed.addField("❯ Permissions Needed (from me)", `\`${command.clientPermissions.join("`, `")}\``);
+                }
             }
-
-            if (command.userPermissions && Array.isArray(command.userPermissions)) {
-                embed.addField("❯ Permissions Needed (from user)", `\`${command.userPermissions.join("`, `")}\``);
-            }
-
-            if (command.clientPermissions && Array.isArray(command.clientPermissions)) {
-                embed.addField("❯ Permissions Needed (from me)", `\`${command.clientPermissions.join("`, `")}\``);
-            }
-
             return message.channel.send(embed);
         }
         embed.setTitle("Commands").setDescription(

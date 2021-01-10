@@ -17,11 +17,18 @@ export default class suggestionAccept extends Command {
                 {
                     id: "id",
                     type: "string",
+                    prompt: {
+                        start: "What's the ID of the suggestion you want to accept? *(say your answers below)*",
+                    },
                 },
                 {
                     id: "comment",
                     match: "rest",
                     type: "string",
+                    prompt: {
+                        optional: true,
+                        start: "Any comments?",
+                    },
                 },
             ],
             userPermissions: ["MANAGE_MESSAGES"],

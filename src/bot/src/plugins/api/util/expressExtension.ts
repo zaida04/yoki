@@ -8,6 +8,7 @@ declare global {
             bot_client: AkairoClient;
         }
         interface Request {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             data: any;
         }
     }
