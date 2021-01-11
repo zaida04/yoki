@@ -2,8 +2,8 @@ import Scheduler from "../../../common/Scheduler";
 import Action from "../structures/Action";
 import { ActionDatabaseData } from "../typings/Action";
 
-export default class MuteHandler extends Scheduler<Action> {
-    private async sweep(action: ActionDatabaseData) {
+export default class MuteHandler extends Scheduler<ActionDatabaseData> {
+    public async sweep(action: ActionDatabaseData) {
         const guild = await this.client.guilds.fetch(action.guild).catch(() => null);
         if (!guild) return;
         const member = await guild.members.fetch(action.target_id).catch(() => null);

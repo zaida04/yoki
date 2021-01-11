@@ -3,8 +3,8 @@ import { AkairoClient } from "discord-akairo";
 export default abstract class Scheduler<T> {
     public timeouts: Map<string, NodeJS.Timeout> = new Map();
 
-    public abstract sweeper(): Promise<void>;
-    public abstract sweep(input: T): Promise<void>;
+    public abstract sweeper(): Promise<any>;
+    public abstract sweep(input: T): Promise<any>;
     public constructor(public readonly client: AkairoClient, public readonly checkRate: number) {}
     public init() {
         void this.sweeper().then(() => {
