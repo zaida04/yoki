@@ -61,7 +61,7 @@ export default class GiveawayScheduler extends Scheduler<GiveawayDatabaseData> {
             this.client.Logger.error(
                 `There was an error sweeping giveaway with the id of ${giveaway.id} in guild ${giveaway.guild_id}. ${e.stack}`,
             );
-            return (await this.client.users.fetch(giveaway.creator))
+            void (await this.client.users.fetch(giveaway.creator))
                 .send(
                     stripIndent`
                     Your giveaway with the id of \`${giveaway.id}\` that was set to expire on \`${new Date(
