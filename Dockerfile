@@ -14,7 +14,7 @@ RUN curl -L https://unpkg.com/@pnpm/self-installer | node && apk del .build-deps
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ./
 COPY libs/logger/package.json ./libs/logger/
-COPY packages/bot/package.json ./packages/bot/
+COPY src/bot/package.json ./src/bot/
 
 RUN pnpm i --recursive
 
@@ -24,4 +24,4 @@ COPY . .
 RUN pnpm run build && pnpm prune --prod
 RUN pnpm run knex:init
 
-CMD [ "node", "packages/bot/dist/index.js"]
+CMD [ "node", "src/bot/dist/index.js"]

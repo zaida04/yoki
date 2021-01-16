@@ -6,5 +6,6 @@ import Moderation from "./moderation/moderation";
 import ReactionRoles from "./reaction-roles/rr";
 import Suggestion from "./suggestion/suggestion";
 import Ticketing from "./ticketing/ticketing";
+import Leveling from "./leveling/leveling";
 
-export { Giveaway, Logging, MessageFilter, Moderation, ReactionRoles, Suggestion, Tags, Ticketing };
+export { Giveaway, Logging, MessageFilter, Moderation, ReactionRoles, Suggestion, Tags, Ticketing, Leveling };
