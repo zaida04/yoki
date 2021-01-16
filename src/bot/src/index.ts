@@ -26,6 +26,6 @@ void (async () => {
     try {
         await BotClient.login(process.env.TOKEN);
     } catch (e) {
-        throw new Error(`Error logging in with provided token! ${e}`);
+        throw new Error(`Error starting up! ${e}`);
     }
 })();

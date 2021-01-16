@@ -27,6 +27,7 @@ import {
     MessageFilter,
     Ticketing,
     Giveaway,
+    Leveling,
 } from "../../plugins";
 import API from "../../plugins/api";
 
@@ -125,6 +126,7 @@ export default class YokiClient extends AkairoClient {
         this.Modules.set("reaction-roles", await new ReactionRoles(this).load());
         this.Modules.set("suggestions", await new Suggestion(this).load());
         this.Modules.set("giveaways", await new Giveaway(this).load());
+        this.Modules.set("leveling", await new Leveling(this).load());
         this.external_api = API(this);
         this.external_api.listen(this.config.api_port, "0.0.0.0", () =>
             this.Logger.log(`[API] Server started at port ${this.config.api_port}`),
