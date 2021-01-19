@@ -3,7 +3,7 @@ import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import type { TextChannel, GuildChannel, DMChannel } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
-import { GamerNestColors } from "../../../common/GamerNestColors";
+import { YokiColors } from "../../../common/YokiColors";
 
 export default class channelCreate extends Listener {
     public constructor() {
@@ -21,7 +21,7 @@ export default class channelCreate extends Listener {
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
-            .setColor(GamerNestColors.GREEN)
+            .setColor(YokiColors.GREEN)
             .setTitle("Channel Created")
             .setDescription(
                 stripIndents`

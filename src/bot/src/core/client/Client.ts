@@ -28,6 +28,7 @@ import {
     Ticketing,
     Giveaway,
     Leveling,
+    PrivateVoice,
 } from "../../plugins";
 import API from "../../plugins/api";
 

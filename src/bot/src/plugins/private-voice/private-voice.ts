@@ -1,8 +1,8 @@
 import type { AkairoClient } from "discord-akairo";
-import gamernestModule from "../../common/GamerNestModule";
+import YokiModule from "../../common/YokiModule";
 import ChannelSweeper from "./util/ChannelSweeper";
 
-export default class PrivateVoice extends gamernestModule {
+export default class PrivateVoice extends YokiModule {
     public sweeper = new ChannelSweeper(this.client, 8.64e7);
 
     public constructor(client: AkairoClient) {

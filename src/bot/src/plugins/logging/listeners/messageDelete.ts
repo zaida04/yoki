@@ -3,7 +3,7 @@ import { Listener } from "discord-akairo";
 import type { TextChannel, Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
-import { GamerNestColors } from "../../../common/GamerNestColors";
+import { YokiColors } from "../../../common/YokiColors";
 
 export default class messageDelete extends Listener {
     public constructor() {
@@ -32,7 +32,7 @@ export default class messageDelete extends Listener {
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
-            .setColor(GamerNestColors.GREEN)
+            .setColor(YokiColors.GREEN)
             .setTitle("Message Deleted")
             .setDescription(
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

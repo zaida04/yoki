@@ -1,7 +1,7 @@
 import type { AkairoClient } from "discord-akairo";
-import GamerNestModule from "../../common/GamerNestModule";
+import YokiModule from "../../common/YokiModule";
 
-export default class Logging extends GamerNestModule {
+export default class Logging extends YokiModule {
     public constructor(client: AkairoClient) {
         super(
             {
