@@ -1,14 +1,14 @@
 import { stripIndents } from "common-tags";
 import { MessageEmbed } from "discord.js";
-import { GuildMember } from "discord.js";
-import { YokiColors } from "../../../common/YokiColors";
+import type { GuildMember } from "discord.js";
+import { GamerNestColors } from "../../../common/GamerNestColors";
 import { FormatDate } from "./FormatDate";
 
 export default class LeaveEmbed extends MessageEmbed {
     public constructor(member: GuildMember) {
         super();
         super
-            .setColor(YokiColors.ORANGE_RED)
+            .setColor(GamerNestColors.ORANGE_RED)
             .setAuthor(member.user.tag, member.user.displayAvatarURL())
             .setDescription(
                 stripIndents`

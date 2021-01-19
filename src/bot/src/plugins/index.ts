@@ -7,5 +7,17 @@ import ReactionRoles from "./reaction-roles/rr";
 import Suggestion from "./suggestion/suggestion";
 import Ticketing from "./ticketing/ticketing";
 import Leveling from "./leveling/leveling";
+import PrivateVoice from "./private-voice/private-voice";
 
-export { Giveaway, Logging, MessageFilter, Moderation, ReactionRoles, Suggestion, Tags, Ticketing, Leveling };
+export {
+    Giveaway,
+    Logging,
+    MessageFilter,
+    Moderation,
+    ReactionRoles,
+    Suggestion,
+    Tags,
+    Ticketing,
+    Leveling,
+    PrivateVoice,
+};

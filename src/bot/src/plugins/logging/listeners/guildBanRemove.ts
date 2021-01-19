@@ -1,8 +1,7 @@
 import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
-import { Guild } from "discord.js";
-import { User } from "discord.js";
-import Action from "../../moderation/structures/Action";
+import type { Guild, User } from "discord.js";
+import type Action from "../../moderation/structures/Action";
 
 import { TextChannel } from "discord.js";
 import { stripIndents } from "common-tags";

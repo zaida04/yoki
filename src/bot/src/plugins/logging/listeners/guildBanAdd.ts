@@ -1,10 +1,8 @@
 import { stripIndents } from "common-tags";
 import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
-import { TextChannel } from "discord.js";
-import { Guild } from "discord.js";
-import { User } from "discord.js";
-import Action from "../../moderation/structures/Action";
+import type { TextChannel, User, Guild } from "discord.js";
+import type Action from "../../moderation/structures/Action";
 
 export default class guildBanAdd extends Listener {
     public constructor() {

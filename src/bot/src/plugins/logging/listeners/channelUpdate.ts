@@ -1,10 +1,8 @@
 import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
-import { TextChannel } from "discord.js";
-import { DMChannel } from "discord.js";
-import { GuildChannel } from "discord.js";
+import type { TextChannel, GuildChannel, DMChannel } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
-import { YokiColors } from "../../../common/YokiColors";
+import { GamerNestColors } from "../../../common/GamerNestColors";
 
 export default class channelUpdate extends Listener {
     public constructor() {
@@ -15,7 +13,9 @@ export default class channelUpdate extends Listener {
     }
 
     public async exec(oldChannel: GuildChannel | DMChannel, newChannel: GuildChannel | DMChannel) {
-        if (oldChannel instanceof DMChannel || newChannel instanceof DMChannel) return;
+        if (oldChannel.type === "dm" || newChannel.type === "dm") return;
+        if (this.client.inhibitedChannels.has(oldChannel.id))
+            return this.client.inhibitedChannels.delete(oldChannel.id);
         const logChannel = await oldChannel.guild.settings.channel<TextChannel>("logChannel", "text");
         if (!logChannel) return;
         const changes = [];
@@ -32,7 +32,7 @@ export default class channelUpdate extends Listener {
 
         if (!changes.length) return;
         const embed = new MessageEmbed()
-            .setColor(YokiColors.LIGHT_ORANGE)
+            .setColor(GamerNestColors.LIGHT_ORANGE)
             .setTitle("Channel Updated")
             .setDescription(changes.join("\n"))
             .setTimestamp();

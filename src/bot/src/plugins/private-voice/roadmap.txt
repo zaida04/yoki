@@ -1,0 +1,7 @@
+Private Voice Channels
+  A Channel Called "+ new session"
+  when someone joins it, it creates a voice channel called "#(ID if multiple channels at once) [general]" or if their status says playing a game, then "#1 [Game Name}
+  A !vc lock command, which creates a channel about it called "Join [name] v"
+  Automatically create a text channel to go along with each voice channel. 
+  When everyone leaves, achieve the text channel, and delete the voice channel
+  !vc rename

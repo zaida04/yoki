@@ -19,10 +19,6 @@ export default class LevelingRank extends Command {
                 {
                     id: "target",
                     type: "member",
-                    prompt: {
-                        optional: true,
-                        start: "Who do you want to see the levels of??",
-                    },
                 },
             ],
             channel: "guild",
@@ -38,10 +34,11 @@ export default class LevelingRank extends Command {
 
         if (!result) return message.channel.send("That person has no progress on this server.");
 
+        const isAuthorTarget = user.id === message.author.id;
         return message.channel.send(
-            stripIndents`${user.id === message.author.id ? "Your" : `${message.author.tag}'s`} rank is Level \`${
-                result.level
-            }\` and their current XP is \`${result.xp}/${this.client.leveling.calculateLevelXPCap(result.level)}\``,
+            stripIndents`${isAuthorTarget ? "Your" : `${message.author.tag}'s`} rank is Level \`${result.level}\` and ${
+                isAuthorTarget ? "your" : "their"
+            } current XP is \`${result.xp}/${this.client.leveling.calculateLevelXPCap(result.level)}\``,
         );
     }
 }

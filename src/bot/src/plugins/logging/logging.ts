@@ -1,8 +1,7 @@
-import { AkairoClient } from "discord-akairo";
+import type { AkairoClient } from "discord-akairo";
+import GamerNestModule from "../../common/GamerNestModule";
 
-import YokiModule from "../../common/YokiModule";
-
-export default class Logging extends YokiModule {
+export default class Logging extends GamerNestModule {
     public constructor(client: AkairoClient) {
         super(
             {
@@ -12,5 +11,6 @@ export default class Logging extends YokiModule {
             },
             client,
         );
+        this.client.inhibitedChannels = new Set();
     }
 }

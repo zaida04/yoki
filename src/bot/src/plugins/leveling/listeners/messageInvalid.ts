@@ -13,6 +13,7 @@ export default class LevelingMessageInvalid extends Listener {
         if (!message.guild) return;
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (message.partial) return;
+        if (!(await message.guild.settings.get<boolean>("levelingEnabled"))) return;
         return this.client.leveling.onMessage(message);
     }
 }
