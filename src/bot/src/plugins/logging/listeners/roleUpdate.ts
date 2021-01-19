@@ -2,7 +2,7 @@ import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
 import type { Role, TextChannel } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
-import { GamerNestColors } from "../../../common/GamerNestColors";
+import { YokiColors } from "../../../common/YokiColors";
 
 export default class roleUpdate extends Listener {
     public constructor() {
@@ -22,7 +22,7 @@ export default class roleUpdate extends Listener {
 
         if (!changes.length) return;
         const embed = new MessageEmbed()
-            .setColor(GamerNestColors.LIGHT_ORANGE)
+            .setColor(YokiColors.LIGHT_ORANGE)
             .setTitle("Role Updated")
             .setDescription(changes.join("\n"))
             .setTimestamp();

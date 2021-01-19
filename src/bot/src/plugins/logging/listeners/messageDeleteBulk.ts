@@ -2,7 +2,7 @@ import { Listener } from "discord-akairo";
 import { Collection, MessageEmbed, MessageAttachment } from "discord.js";
 import { TextChannel, Message } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
-import { GamerNestColors } from "../../../common/GamerNestColors";
+import { YokiColors } from "../../../common/YokiColors";
 
 export default class messageDeleteBulk extends Listener {
     public constructor() {
@@ -26,7 +26,7 @@ export default class messageDeleteBulk extends Listener {
             );
 
         const embed = new MessageEmbed()
-            .setColor(GamerNestColors.GREEN)
+            .setColor(YokiColors.GREEN)
             .setTitle("Messages Deleted in bulk")
             .setDescription(`Attached file contains deleted messages from ${messages.first()?.channel}`)
             .setTimestamp();

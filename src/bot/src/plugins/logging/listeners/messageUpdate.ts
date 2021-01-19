@@ -3,7 +3,7 @@ import { Listener } from "discord-akairo";
 import type { TextChannel, Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
-import { GamerNestColors } from "../../../common/GamerNestColors";
+import { YokiColors } from "../../../common/YokiColors";
 
 export default class messageUpdate extends Listener {
     public constructor() {
@@ -28,7 +28,7 @@ export default class messageUpdate extends Listener {
 
         const embed = new MessageEmbed()
             .setTitle("Message Updated!")
-            .setColor(GamerNestColors.LIGHT_ORANGE)
+            .setColor(YokiColors.LIGHT_ORANGE)
             .setDescription(
                 stripIndents`
                 **Old Message:** 
