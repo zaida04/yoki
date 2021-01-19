@@ -1,14 +1,14 @@
 import { stripIndents } from "common-tags";
 import { MessageEmbed } from "discord.js";
-import { GuildMember } from "discord.js";
-import { YokiColors } from "../../../common/YokiColors";
+import type { GuildMember } from "discord.js";
+import { GamerNestColors } from "../../../common/GamerNestColors";
 import { FormatDate, suspicious as sus } from "./FormatDate";
 
 export default class JoinEmbed extends MessageEmbed {
     public constructor(member: GuildMember) {
         super();
         const suspicious = sus(member.user.createdAt);
-        suspicious ? super.setColor("YELLOW") : super.setColor(YokiColors.GREEN);
+        suspicious ? super.setColor("YELLOW") : super.setColor(GamerNestColors.GREEN);
         super
             .setAuthor(member.user.tag, member.user.displayAvatarURL())
             .setDescription(

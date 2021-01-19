@@ -1,15 +1,4 @@
-export type CustomizableSettings =
-    | "log-channel"
-    | "mute-role"
-    | "welcome-channel"
-    | "mod-log"
-    | "message-filter"
-    | "member-log"
-    | "welcome-message"
-    | "leave-message"
-    | "ticket-category"
-    | "suggestion-channel";
-export const CustomizableSettingsArr = {
+export const CustomizableSettingsArr: { [key: string]: { mappedName: string; type: string } } = {
     "log-channel": {
         mappedName: "logChannel",
         type: "textChannel",
@@ -49,5 +38,17 @@ export const CustomizableSettingsArr = {
     "suggestion-channel": {
         mappedName: "suggestionChannel",
         type: "textChannel",
+    },
+    "private-voice": {
+        mappedName: "privateVoiceEnabled",
+        type: "y/n",
+    },
+    "private-voice-channel": {
+        mappedName: "privateVoiceChannel",
+        type: "voiceChannel",
+    },
+    "level-system": {
+        mappedName: "levelingEnabled",
+        type: "y/n",
     },
 };

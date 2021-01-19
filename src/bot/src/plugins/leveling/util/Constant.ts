@@ -1,5 +1,5 @@
 export default {
-    xpLimitPerLevel: 500,
-    xpGainRatePerLevel: 0.015,
+    xpLimitPerLevel: 25,
+    xpGainRatePerLevel: 0.15,
     xpCooldownInterval: 120000,
 };

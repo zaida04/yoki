@@ -8,23 +8,9 @@ import { TextChannel, VoiceChannel } from "discord.js";
 import { Message } from "discord.js";
 import { YokiColors } from "../../../common/YokiColors";
 
-import { CustomizableSettings, CustomizableSettingsArr } from "../../typings/CustomizableSettings";
+import { CustomizableSettingsArr } from "../../typings/CustomizableSettings";
 const settingsKeys = Object.keys(CustomizableSettingsArr);
-const viewableSettings = [
-    "logChannel",
-    "modLogChannel",
-    "memberLog",
-    "muteRole",
-    "joinRoles",
-    "prefix",
-    "welcomeChannel",
-    "welcomeMessage",
-    "leaveMessage",
-    "ticketCategory",
-    "messageFilterEnabled",
-    "autoModEnabled",
-    "suggestionChannel",
-];
+const viewableSettings = settingsKeys.map((x: string) => CustomizableSettingsArr[x].mappedName);
 
 export default class Settings extends Command {
     public constructor() {
@@ -87,7 +73,7 @@ export default class Settings extends Command {
             setting,
             value,
         }: {
-            setting?: CustomizableSettings;
+            setting?: string;
             value?: TextChannel | VoiceChannel | CategoryChannel | Role | boolean | null | string;
         },
     ) {

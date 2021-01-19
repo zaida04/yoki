@@ -1,8 +1,6 @@
 import { Listener } from "discord-akairo";
-import { GuildMember } from "discord.js";
+import type { GuildMember, TextChannel } from "discord.js";
 import JoinEmbed from "../util/JoinEmbed";
-
-import { TextChannel } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
 
 export default class guildMemberAdd extends Listener {

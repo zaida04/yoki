@@ -9,7 +9,7 @@ export default class LevelingHandler {
 
     public constructor(public client: AkairoClient) {}
     public calculateLevelGainPerMessage(level: number) {
-        return level * Constant.xpGainRatePerLevel;
+        return level * Constant.xpLimitPerLevel * Constant.xpGainRatePerLevel;
     }
 
     public calculateLevelXPCap(level: number) {
@@ -19,7 +19,7 @@ export default class LevelingHandler {
     public async onMessage(message: Message) {
         if (this.cooldowns.has(`${message.guild!.id}:${message.author.id}`)) {
             const cooldown = this.cooldowns.get(`${message.guild!.id}:${message.author.id}`);
-            if (cooldown! > Date.now()) return;
+            if (cooldown && cooldown > Date.now()) return;
             this.cooldowns.delete(message.author.id);
         }
         const user = await this.client.db

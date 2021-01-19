@@ -1,10 +1,10 @@
-import { CategoryChannel } from "discord.js";
-import { TextChannel } from "discord.js";
+import type { CategoryChannel } from "discord.js";
+import type { TextChannel } from "discord.js";
 
-import { VoiceChannel } from "discord.js";
-import { Guild } from "discord.js";
-import { QueryBuilder } from "knex";
-import DatabaseManager from "./DatabaseManager";
+import type { VoiceChannel } from "discord.js";
+import type { Guild } from "discord.js";
+import type { QueryBuilder } from "knex";
+import type DatabaseManager from "./DatabaseManager";
 
 export default class SettingsManager {
     public guild: Guild;
@@ -21,7 +21,7 @@ export default class SettingsManager {
     public get<T>(key: string | string[]): Promise<T | null> {
         return (
             this.baseGuildSettings()
-                .select(Array.isArray(key) ? key.join(", ") : key)
+                .select(key)
                 .first()
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 .then((x: Record<string, any> | undefined) => {
@@ -32,7 +32,7 @@ export default class SettingsManager {
                     if (Array.isArray(key)) {
                         returnValue = {};
                         for (const k of key) {
-                            returnValue[k] = x[k];
+                            returnValue[k] = x[k] ?? null;
                         }
                     } else {
                         returnValue = x[key];

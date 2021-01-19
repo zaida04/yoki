@@ -126,6 +126,7 @@ export default class YokiClient extends AkairoClient {
         this.Modules.set("reaction-roles", await new ReactionRoles(this).load());
         this.Modules.set("suggestions", await new Suggestion(this).load());
         this.Modules.set("giveaways", await new Giveaway(this).load());
+        this.Modules.set("private-voice", await new PrivateVoice(this).load());
         this.Modules.set("leveling", await new Leveling(this).load());
         this.external_api = API(this);
         this.external_api.listen(this.config.api_port, "0.0.0.0", () =>

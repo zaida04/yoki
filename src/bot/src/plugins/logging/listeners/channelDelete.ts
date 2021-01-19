@@ -1,11 +1,9 @@
 import { stripIndents } from "common-tags";
 import { Listener } from "discord-akairo";
 import { MessageEmbed } from "discord.js";
-import { TextChannel } from "discord.js";
-import { DMChannel } from "discord.js";
-import { GuildChannel } from "discord.js";
+import type { TextChannel, GuildChannel, DMChannel } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
-import { YokiColors } from "../../../common/YokiColors";
+import { GamerNestColors } from "../../../common/GamerNestColors";
 
 export default class channelDelete extends Listener {
     public constructor() {
@@ -16,12 +14,13 @@ export default class channelDelete extends Listener {
     }
 
     public async exec(channel: GuildChannel | DMChannel) {
-        if (channel instanceof DMChannel) return;
+        if (channel.type === "dm") return;
+        if (this.client.inhibitedChannels.has(channel.id)) return this.client.inhibitedChannels.delete(channel.id);
         const logChannel = await channel.guild.settings.channel<TextChannel>("logChannel", "text");
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
-            .setColor(YokiColors.RED)
+            .setColor(GamerNestColors.RED)
             .setTitle("Channel Deleted")
             .setDescription(
                 stripIndents`

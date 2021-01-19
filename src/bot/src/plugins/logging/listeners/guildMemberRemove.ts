@@ -1,10 +1,7 @@
 import { Listener } from "discord-akairo";
-import { GuildMember } from "discord.js";
-
+import type { GuildMember, TextChannel } from "discord.js";
 import LeaveEmbed from "../util/LeaveEmbed";
-
-import Action from "../../moderation/structures/Action";
-import { TextChannel } from "discord.js";
+import type Action from "../../moderation/structures/Action";
 import { handleMissingSend } from "../../../common/PermissionUtil";
 
 export default class guildMemberRemove extends Listener {

@@ -1,10 +1,9 @@
 import { stripIndents } from "common-tags";
 import { Listener } from "discord-akairo";
-import { TextChannel } from "discord.js";
+import type { TextChannel, Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
-import { Message } from "discord.js";
 import { handleMissingSend } from "../../../common/PermissionUtil";
-import { YokiColors } from "../../../common/YokiColors";
+import { GamerNestColors } from "../../../common/GamerNestColors";
 
 export default class messageUpdate extends Listener {
     public constructor() {
@@ -29,7 +28,7 @@ export default class messageUpdate extends Listener {
 
         const embed = new MessageEmbed()
             .setTitle("Message Updated!")
-            .setColor(YokiColors.LIGHT_ORANGE)
+            .setColor(GamerNestColors.LIGHT_ORANGE)
             .setDescription(
                 stripIndents`
                 **Old Message:** 

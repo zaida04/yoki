@@ -8,8 +8,8 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-    return knex.schema.alterTable("actions", (table) => {
+    /* return knex.schema.alterTable("actions", (table) => {
         table.dropColumn("expiration_date");
         table.dropColumn("expired");
-    });
+    }); */
 };
