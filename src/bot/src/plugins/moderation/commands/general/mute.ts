@@ -82,6 +82,10 @@ export default class Mute extends Command {
                 `Please input a time longer than ${this.client.moderation.caseActions.muteHandler.checkRate} seconds`,
             );
 
+        if (message.member!.roles.highest.position <= target.roles.highest.position) {
+            return message.channel.send("You cannot manage this person!");
+        }
+
         const mutedRoleID = await message.guild!.settings.get<string>("muteRole");
         if (!mutedRoleID)
             return message.channel.send(
