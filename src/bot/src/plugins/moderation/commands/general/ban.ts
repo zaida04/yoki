@@ -60,7 +60,7 @@ export default class Ban extends Command {
                     new this.client.Embeds.ErrorEmbed(null, this.client.Responses.NOT_ACTIONABLE("bann")),
                 );
 
-            if (message.member!.roles.highest.position < target.roles.highest.position)
+            if (message.member!.roles.highest.position <= target.roles.highest.position)
                 return message.channel.send(
                     new this.client.Embeds.ErrorEmbed(
                         this.client.Responses.INSUFFICENT_PERMISSIONS_HEADING,
