@@ -1,8 +1,6 @@
 FROM node:14-alpine
 LABEL name "Yoki BOT"
 LABEL version "0.0.1"
-ENV TOKEN= \
-    DEFAULTPREFIX=
 
 WORKDIR /usr/yoki
 
@@ -16,12 +14,14 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ./
 COPY libs/logger/package.json ./libs/logger/
 COPY src/bot/package.json ./src/bot/
 
-RUN pnpm i --recursive
+RUN pnpm i --recursive --prod
 
-ENV NODE_ENV=
+ENV TOKEN= \
+    DEFAULTPREFIX= \
+    NODE_ENV=
 
 COPY . .
-RUN pnpm run build && pnpm prune --prod
+RUN pnpm run build
 RUN pnpm run knex:init
 
 CMD [ "node", "src/bot/dist/index.js"]
