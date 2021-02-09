@@ -45,23 +45,29 @@ importers:
   services/api:
     dependencies:
       '@yoki/logger': link:../../packages/logger
+      '@yoki/types': link:../dashboard
       typescript: 4.1.3
     specifiers:
       '@yoki/logger': workspace:1.0.0
+      '@yoki/types': workspace:1.0.0
       typescript: ^4.1.3
   services/bot:
     dependencies:
       '@yoki/logger': link:../../packages/logger
+      '@yoki/types': link:../dashboard
       typescript: 4.1.3
     specifiers:
       '@yoki/logger': workspace:1.0.0
+      '@yoki/types': workspace:1.0.0
       typescript: ^4.1.3
   services/dashboard:
     dependencies:
       '@yoki/logger': link:../../packages/logger
+      '@yoki/types': 'link:'
       typescript: 4.1.3
     specifiers:
       '@yoki/logger': workspace:1.0.0
+      '@yoki/types': workspace:1.0.0
       typescript: ^4.1.3
 lockfileVersion: 5.2
 packages:

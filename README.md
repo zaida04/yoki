@@ -49,7 +49,6 @@ Yoki has gone through a couple of rewrites at this point, going from a sub-guild
 Yoki **requires Node.js >=12** due to its dependency on discord.js.  
 
 ### Installation 
-
 > Requires [docker](https://docs.docker.com/get-started/overview/) and [docker-compose](https://docs.docker.com/compose/)
 
 - `git clone https://github.com/zaida04/Yoki.git`
@@ -58,7 +57,6 @@ Yoki **requires Node.js >=12** due to its dependency on discord.js.
 - `docker-compose up -d`
 
 ## Contributing
-
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 It's advised to use an sqlite database for testing purposes. You must install this yourself.
