@@ -1,9 +1,0 @@
-import routeValidator from "../util/routeValidator";
-import { Response, Request, NextFunction, Router } from "express";
-import { body } from "express-validator";
-
-export default () => {
-    const router = Router({mergeParams: true});
-
-    return router;
-};

@@ -6,7 +6,8 @@
         "node_modules/**",
         "dist/**",
         "types/**",
-        "*.js"
+        "*.js",
+        "*.d.ts"
     ],
     "parserOptions": {
         "ecmaVersion": 11,
@@ -18,7 +19,6 @@
         "prettier/@typescript-eslint",
         "plugin:prettier/recommended"
     ],
-    "plugins": ["unused-imports"],
     "rules": {
         "linebreak-style": "off",
         "prefer-template": "warn",
@@ -29,7 +29,6 @@
                 "argsIgnorePattern": "^_"
             }
         ],
-        "unused-imports/no-unused-imports": "warn",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
@@ -37,7 +36,6 @@
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/no-base-to-string": "off",
         "@typescript-eslint/no-misused-promises": "off",
-        "no-duplicate-imports": "off",
         "prettier/prettier": [
             "warn",
             {

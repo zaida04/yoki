@@ -1,65 +1,155 @@
-/* eslint-disable func-names */
-exports.up = async function (knex) {
+exports.up = async function(knex) {
     await knex.schema.createTable("settings", (table) => {
-        table.boolean("left");
-        table.boolean("premium");
-        table.string("guild");
-        table.string("prefix");
-        table.date("joinedDate");
+        /**
+         * General guild related information.
+         */
+        table.boolean("leftServer");
+        table.boolean("premiumServer");
+        table.string("id");
+        table.string("customPrefix");
+        table.date("joinedAt");
+        table.timestamps(true, true);
 
-        // roles
+        /**
+         * Snowflake ID containing fields.
+         */
+        table.string("auditLogChannel");
         table.string("muteRole");
-        table.string("joinRoles");
-
-        // channels
-        table.string("suggestionChannel");
-        table.string("logChannel");
-        table.string("modLogChannel");
-        table.string("memberLog");
+        table.string("moderationLogChannel");
+        table.string("memberLogChannel");
         table.string("welcomeChannel");
-        table.string("ticketCategory");
+        table.string("ticketParentCategory");
+        table.string("privateVCCreationChannel");
+        table.string("starboardChannel");
 
-        //  messages
-        table.string("suggestionMessage");
-        table.string("welcomeMessage");
-        table.string("leaveMessage");
-
-        /* Bools */
+        /**
+         * Bools.
+         */
         table.boolean("messageFilterEnabled");
-        table.boolean("autoModEnabled");
+        table.boolean("autoModerationEnabled");
+        table.boolean("levelingEnabled");
+        table.boolean("starboardEnabled");
+
+        /**
+         * Etc.
+         */
+        table.integer("starRequirement");
     });
 
-    await knex.schema.createTable("actions", (table) => {
-        table.increments("id");
-        table.string("channel_id");
-        table.string("executor_id");
-        table.string("guild");
-        table.string("message_id");
-        table.string("reason");
-        table.string("target_id");
-        table.string("type");
-        table.date("createdAt");
+    /**
+     * Actions such as a kick, ban, etc. produce a case entry.
+     */
+    await knex.schema.createTable("cases", (table) => {
+        table.increments("caseID");
+        table.string("caseExecutorID");
+        table.string("guildID");
+        table.string("logMessageID");
+        table.string("targetUserID");
+        table.boolean("expired");
+        table.datetime('expirationDate', { precision: 4 }); 
+        table.enum("caseType", ["KICK", "MUTE", "BAN", "SOFTBAN", "LOCKDOWN", "PURGE", "MULTIBAN", "UNBAN", "WARN"]);
+        table.timestamps(true, true);
     });
+
+    /**
+     * Words/Phrases in the message filter.
+     */
     await knex.schema.createTable("messageFilter", (table) => {
-        table.string("guild_id");
-        table.string("content");
-        table.string("creator_id");
-        table.date("createdAt");
+        table.increments("filterEntryID");
+        table.string("guildID");
+        table.string("blockedContent");
+        table.string("creatorID");
+        table.timestamps(true, true);
     });
+
+    /**
+     * Custom commands
+     */
     await knex.schema.createTable("tags", (table) => {
-        table.increments("id");
-        table.string("content");
-        table.date("createdAt");
-        table.string("creator_id");
-        table.string("guild_id");
-        table.string("name");
+        table.increments("tagID");
+        table.string("tagContent");
+        table.string("creatorID");
+        table.string("guildID");
+        table.string("tagName");
+        table.boolean("resolveMentions");
+        table.timestamps(true, true);
+    });
+
+    /**
+     * Ticketing system.
+     */
+    await knex.schema.createTable("tickets", (table) => {
+        table.increments("ticketID");
+        table.string("ticketOpenerID");
+        table.string("ticketMainReason");
+        table.string("guildID");
+        table.string("ticketChannelID");
+        table.enum("status", ["CLOSED", "OPEN", "PENDING"]);
+        table.timestamps(true, true);
+    });
+
+    /**
+     * Reaction Roles
+     */
+    await knex.schema.createTable("reactionRoles", (table) => {
+        table.increments("reactionRoleID");
+        table.string("guildID");
+        table.string("messageID");
+        table.string("targetRoleID");
+        table.string("reactionIDOrName");
+        table.timestamps(true, true);
+    });
+
+    /**
+     * Private Voice Channels.
+     */
+    await knex.schema.createTable("privateVoiceChannels", (table) => {
+        table.increments("privateVoiceID");
+        table.string("guildID");
+        table.string("voiceChannnelID");
+        table.string("creatorID");
+        table.timestamps(true, true);
+    });
+
+    /**
+     * Leveling System
+     */
+    await knex.schema.createTable("leveling", (table) => {
+        table.increments("levelingID");
+        table.float("currentXP");
+        table.integer("currentLevel");
+        table.string("userID");
+        table.string("guildID");
+        table.timestamps(true, true);
+    });
+
+    /**
+     * Giveaway System.
+     */
+    await knex.schema.createTable("giveaways", (table) => {
+        table.increments("giveawayID");
+        table.string("guildID");
+        table.string("sentMessageID");
+        table.string("sentChannelID");
+        table.string("title");
+        table.string("description");
+        table.string("entryEmojiIDOrName");
+        table.string("creatorID");
+        table.boolean("ended");
+        table.integer("winnerAmount");
+        table.datetime('expirationDate', { precision: 4 });        
+        table.timestamps(true, true);
     });
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 exports.down = async function (knex) {
     await knex.schema.dropTable("settings");
-    await knex.schema.dropTable("actions");
+    await knex.schema.dropTable("cases");
     await knex.schema.dropTable("messageFilter");
     await knex.schema.dropTable("tags");
+    await knex.schema.dropTable("tickets");
+    await knex.schema.dropTable("reactionRoles");
+    await knex.schema.dropTable("privateVoiceChannels");
+    await knex.schema.dropTable("leveling");
+    await knex.schema.dropTable("giveaways");
 };

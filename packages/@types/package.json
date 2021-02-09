@@ -1,0 +1,14 @@
+{
+  "name": "@yoki/types",
+  "version": "1.0.0",
+  "description": "Typings for various Yoki services",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Zaid \"Nico\"",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^4.1.3"
+  }
+}

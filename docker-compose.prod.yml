@@ -1,9 +1,0 @@
-version: '2.2'
-
-services:
-  bot:
-    image: zaid450/yoki-bot
-    restart: unless-stopped
-    env_file:
-      - bot.env
-    network_mode: 'host'
