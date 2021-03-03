@@ -47,7 +47,7 @@
   "dependencies": {
     "@types/common-tags": "^1.8.0",
     "knex": "^0.21.14",
-    "mysql": "^2.18.1",
+    "pg": "^8.5.1",
     "typescript": "^3.9.7"
   }
 }

@@ -33,7 +33,7 @@ exports.up = async function(knex) {
     });
 };
 
-exports.down = function(knex) {
+exports.down = async function(knex) {
     await knex.schema.alterTable("settings", (table) => {
         table.dropTimestamps(true, true);
     });
