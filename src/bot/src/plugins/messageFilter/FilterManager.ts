@@ -30,7 +30,7 @@ export default class FilterHandler {
             .del();
         const existing = await this.guilds.get(data.guild_id);
         existing?.delete(data.content);
-        this.guilds.set(data.guild_id, existing);
+        if (existing) this.guilds.set(data.guild_id, existing);
     }
 
     public async add(data: filterAddOptions) {
