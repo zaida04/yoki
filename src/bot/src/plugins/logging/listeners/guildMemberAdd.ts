@@ -12,7 +12,7 @@ export default class guildMemberAdd extends Listener {
     }
 
     public async exec(member: GuildMember) {
-        const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberLog", "text");
+        const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberlog", "text");
         if (memberLogChannel) {
             memberLogChannel
                 .send(new JoinEmbed(member))
@@ -25,9 +25,9 @@ export default class guildMemberAdd extends Listener {
             void member.roles.add(parsedjoinRoles, "Auto role add");
         }
 
-        const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomeChannel", "text");
+        const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomechannel", "text");
         if (welcomeChannel) {
-            const welcomeChannelMessage = await member.guild.settings.get<string>("welcomeMessage");
+            const welcomeChannelMessage = await member.guild.settings.get<string>("welcomemessage");
             welcomeChannel
                 .send(
                     welcomeChannelMessage ? welcomeChannelMessage : `${member.user} has joined! Welcome to the server!`,

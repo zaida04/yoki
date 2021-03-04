@@ -18,16 +18,16 @@ export default class guildMemberRemove extends Listener {
         )
             return;
 
-        const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberLog", "text");
+        const memberLogChannel = await member.guild.settings.channel<TextChannel>("memberlog", "text");
         if (memberLogChannel) {
             memberLogChannel
                 .send(new LeaveEmbed(member))
                 .catch((e) => handleMissingSend(e, memberLogChannel, member.guild));
         }
 
-        const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomeChannel", "text");
+        const welcomeChannel = await member.guild.settings.channel<TextChannel>("welcomechannel", "text");
         if (welcomeChannel) {
-            const leaveChannelMessage = await member.guild.settings.get<string>("leaveMessage");
+            const leaveChannelMessage = await member.guild.settings.get<string>("leavemessage");
             welcomeChannel
                 .send(leaveChannelMessage ? leaveChannelMessage : `${member.user} has left!`)
                 .catch((e) => handleMissingSend(e, welcomeChannel, member.guild));

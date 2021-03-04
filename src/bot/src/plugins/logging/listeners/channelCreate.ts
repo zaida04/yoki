@@ -17,7 +17,7 @@ export default class channelCreate extends Listener {
         if (channel.type === "dm") return;
         if (this.client.tickets.cache.some((x) => x.channel!.id === channel.id)) return;
         if (this.client.inhibitedChannels.has(channel.id)) return this.client.inhibitedChannels.delete(channel.id);
-        const logChannel = await channel.guild.settings.channel<TextChannel>("logChannel", "text");
+        const logChannel = await channel.guild.settings.channel<TextChannel>("logchannel", "text");
         if (!logChannel) return;
 
         const embed = new MessageEmbed()

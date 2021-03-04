@@ -86,7 +86,7 @@ export default class Mute extends Command {
             return message.channel.send("You cannot manage this person!");
         }
 
-        const mutedRoleID = await message.guild!.settings.get<string>("muteRole");
+        const mutedRoleID = await message.guild!.settings.get<string>("muterole");
         if (!mutedRoleID)
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
@@ -133,7 +133,7 @@ export default class Mute extends Command {
         const mutedRole = await message.guild!.roles.fetch(mutedRoleID);
         mutedRole ? await target.roles.add(mutedRole, `Case #${createdCase.id}`) : void 0;
 
-        const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
+        const logChannel = await message.guild!.settings.channel<TextChannel>("modlogchannel", "text");
         const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
         if (logMessage) {
             void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);

@@ -17,14 +17,14 @@ export default class messageFilterMessageInvalid extends Listener {
         if (!message.guild) return;
         if (message.member?.hasPermission("MANAGE_GUILD")) return;
         if (message.guild.messageFilter === undefined) {
-            message.guild.messageFilter = (await message.guild.settings.get<boolean>("messageFilterEnabled")) ?? false;
+            message.guild.messageFilter = (await message.guild.settings.get<boolean>("messagefilterenabled")) ?? false;
         }
         if (!message.guild.messageFilter) return;
 
         const sanitizedContent = message.content.replace(/[\u200B-\u200D\uFEFF]/g, "").toLowerCase();
         const words = await this.client.messageFilter.get(message.guild.id);
 
-        if (await message.guild.settings.get("autoModEnabled"))
+        if (await message.guild.settings.get("automodenabled"))
             if (discordRegex.test(sanitizedContent)) {
                 if (message.deletable) void message.delete();
                 const createdCase = await this.client.moderation.caseActions.create({
@@ -36,7 +36,7 @@ export default class messageFilterMessageInvalid extends Listener {
                     target: message.author,
                     guild: message.guild,
                 });
-                const logChannel = await message.guild.settings.channel<TextChannel>("modLogChannel", "text");
+                const logChannel = await message.guild.settings.channel<TextChannel>("modlogchannel", "text");
                 if (logChannel) {
                     const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
                     void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);
@@ -66,7 +66,7 @@ export default class messageFilterMessageInvalid extends Listener {
                           target: message.author,
                           guild: message.guild!,
                       });
-                      const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
+                      const logChannel = await message.guild!.settings.channel<TextChannel>("modlogchannel", "text");
                       if (logChannel) {
                           const logMessage = await logChannel.send(new this.client.moderation.ActionEmbed(createdCase));
                           void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);

@@ -37,13 +37,13 @@ export default class suggestionCreate extends Command {
     }
 
     public async exec(message: Message, { guild }: { guild: Guild }) {
-        const suggestion_channel = await guild.settings.channel<TextChannel>("suggestionChannel", "text");
+        const suggestion_channel = await guild.settings.channel<TextChannel>("suggestionchannel", "text");
         if (!suggestion_channel) return message.channel.send("Sorry, but this isn't enabled on that server!");
 
         const member = await guild.members.fetch(message.author.id).catch(() => null);
         if (!member) return message.channel.send("Couldn't find you in that server!");
 
-        const suggestion_description = await guild.settings.get("suggestionMessage");
+        const suggestion_description = await guild.settings.get("suggestionmessage");
         await message.channel.send(
             new MessageEmbed()
                 .setTitle("Say your message! You have 60 seconds")

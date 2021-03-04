@@ -98,7 +98,7 @@ export default class Ban extends Command {
             return message.channel.send("There was an error banning that person!!");
         }
 
-        const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
+        const logChannel = await message.guild!.settings.channel<TextChannel>("modlogchannel", "text");
         const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
         if (logMessage) {
             void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);

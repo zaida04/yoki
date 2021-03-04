@@ -28,7 +28,7 @@ export default class messageDelete extends Listener {
             }
         }
 
-        const logChannel = await message.guild.settings.channel<TextChannel>("logChannel", "text");
+        const logChannel = await message.guild.settings.channel<TextChannel>("logchannel", "text");
         if (!logChannel) return;
 
         const embed = new MessageEmbed()

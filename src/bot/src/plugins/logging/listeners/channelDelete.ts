@@ -16,7 +16,7 @@ export default class channelDelete extends Listener {
     public async exec(channel: GuildChannel | DMChannel) {
         if (channel.type === "dm") return;
         if (this.client.inhibitedChannels.has(channel.id)) return this.client.inhibitedChannels.delete(channel.id);
-        const logChannel = await channel.guild.settings.channel<TextChannel>("logChannel", "text");
+        const logChannel = await channel.guild.settings.channel<TextChannel>("logchannel", "text");
         if (!logChannel) return;
 
         const embed = new MessageEmbed()

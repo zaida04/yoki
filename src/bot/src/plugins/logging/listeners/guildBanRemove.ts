@@ -22,7 +22,7 @@ export default class guildBanRemove extends Listener {
         )
             return;
 
-        const logChannel = await guild.settings.channel<TextChannel>("modLogChannel", "text");
+        const logChannel = await guild.settings.channel<TextChannel>("modlogchannel", "text");
         if (!logChannel) return;
 
         return logChannel.send(

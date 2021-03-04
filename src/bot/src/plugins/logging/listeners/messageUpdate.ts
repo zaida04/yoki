@@ -18,7 +18,7 @@ export default class messageUpdate extends Listener {
         if (oldMessage.author.id === oldMessage.client.user!.id) return;
         if (oldMessage.content === newMessage.content) return;
 
-        const logChannel = await oldMessage.guild.settings.channel<TextChannel>("logChannel", "text");
+        const logChannel = await oldMessage.guild.settings.channel<TextChannel>("logchannel", "text");
         if (!logChannel) return;
 
         let diff = "";

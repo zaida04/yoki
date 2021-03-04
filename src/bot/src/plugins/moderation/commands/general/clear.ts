@@ -42,7 +42,7 @@ export default class Clear extends Command {
         if (amount > 1) {
             try {
                 const deleted_messages = await message.channel.bulkDelete(amount + 1);
-                const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
+                const logChannel = await message.guild!.settings.channel<TextChannel>("modlogchannel", "text");
 
                 logChannel
                     ?.send({

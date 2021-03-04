@@ -50,7 +50,7 @@ export default class UnBan extends Command {
         });
         try {
             await message.guild!.members.unban(target, reason).catch((e) => e);
-            const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
+            const logChannel = await message.guild!.settings.channel<TextChannel>("modlogchannel", "text");
             const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
             if (logMessage) {
                 void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);

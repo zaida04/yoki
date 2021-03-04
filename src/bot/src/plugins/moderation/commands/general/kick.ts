@@ -82,7 +82,7 @@ export default class Kick extends Command {
 
         await target.kick(`Kick case: ${createdCase.id} ${reason ? `| ${reason}` : ""}`);
 
-        const logChannel = await message.guild!.settings.channel<TextChannel>("modLogChannel", "text");
+        const logChannel = await message.guild!.settings.channel<TextChannel>("modlogchannel", "text");
         const logMessage = await logChannel?.send(new ActionEmbed(createdCase));
         if (logMessage) {
             void this.client.moderation.caseActions.updateMessage(createdCase, logMessage);

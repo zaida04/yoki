@@ -16,7 +16,7 @@ export default class channelUpdate extends Listener {
         if (oldChannel.type === "dm" || newChannel.type === "dm") return;
         if (this.client.inhibitedChannels.has(oldChannel.id))
             return this.client.inhibitedChannels.delete(oldChannel.id);
-        const logChannel = await oldChannel.guild.settings.channel<TextChannel>("logChannel", "text");
+        const logChannel = await oldChannel.guild.settings.channel<TextChannel>("logchannel", "text");
         if (!logChannel) return;
         const changes = [];
 

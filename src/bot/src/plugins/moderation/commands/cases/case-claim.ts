@@ -24,7 +24,7 @@ export default class CaseClaim extends Command {
                     type: "guildMessage",
                     default: async (message: Message) => {
                         return (
-                            await message.guild?.settings.channel<TextChannel>("modLogChannel", "text")
+                            await message.guild?.settings.channel<TextChannel>("modlogchannel", "text")
                         )?.messages.fetch({ limit: 1 });
                     },
                     prompt: {

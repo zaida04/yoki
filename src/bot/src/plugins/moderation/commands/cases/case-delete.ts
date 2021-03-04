@@ -59,7 +59,7 @@ export default class CaseDelete extends Command {
                     .catch(() => "caught");
             }
             case "mute": {
-                const mutedRoleID = await message.guild!.settings.get<string>("muteRole");
+                const mutedRoleID = await message.guild!.settings.get<string>("muterole");
                 const mutedRole = mutedRoleID ? await message.guild!.roles.fetch(mutedRoleID) : null;
                 if (mutedRole) {
                     void (await message.guild!.members.fetch(fetchCase.target.id)).roles.remove(mutedRole);

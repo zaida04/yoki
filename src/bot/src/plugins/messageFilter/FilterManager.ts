@@ -9,7 +9,7 @@ export default class FilterHandler {
 
     public async fetch(guild_id: string) {
         const words: DatabaseBannedWordEntry[] = await this.client.db
-            .api<DatabaseBannedWordEntry>("messageFilter")
+            .api<DatabaseBannedWordEntry>("messagefilter")
             .where("guild_id", guild_id);
         const existing = this.guilds.get(guild_id);
         if (existing) {
@@ -22,7 +22,7 @@ export default class FilterHandler {
 
     public async delete(data: filterDeleteOptions) {
         await this.client.db
-            .api("messageFilter")
+            .api("messagefilter")
             .where({
                 guild_id: data.guild_id,
                 content: data.content,
@@ -30,11 +30,11 @@ export default class FilterHandler {
             .del();
         const existing = await this.guilds.get(data.guild_id);
         existing?.delete(data.content);
-        this.guilds.set(data.guild_id, existing!);
+        this.guilds.set(data.guild_id, existing);
     }
 
     public async add(data: filterAddOptions) {
-        await this.client.db.api<DatabaseBannedWordEntry>("messageFilter").insert({
+        await this.client.db.api<DatabaseBannedWordEntry>("messagefilter").insert({
             guild_id: data.guild_id,
             creator_id: data.creator_id,
             content: data.content,

@@ -24,7 +24,7 @@ export default class filterAutomod extends Command {
     }
 
     public async exec(message: Message, { word }: { word?: string }) {
-        if (!(await message.guild?.settings.get("messageFilterEnabled")))
+        if (!(await message.guild?.settings.get("messagefilterenabled")))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Message filter is not enabled!",
@@ -38,7 +38,7 @@ export default class filterAutomod extends Command {
 
         const value = word === "enable" ? true : false;
 
-        await message.guild!.settings.update("autoModEnabled", value);
+        await message.guild!.settings.update("automodenabled", value);
         return message.channel.send(`Automod has been ${value ? "`enabled`" : "`disabled`"}!`);
     }
 }

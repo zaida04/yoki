@@ -19,7 +19,7 @@ export default class filterList extends Command {
     }
 
     public async exec(message: Message) {
-        if (!(await message.guild?.settings.get("messageFilterEnabled")))
+        if (!(await message.guild?.settings.get("messagefilterenabled")))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Message filter is not enabled!",
@@ -28,7 +28,7 @@ export default class filterList extends Command {
             );
 
         const guild_filter_words: DatabaseBannedWordEntry[] = await this.client.db
-            .api<DatabaseBannedWordEntry>("messageFilter")
+            .api<DatabaseBannedWordEntry>("messagefilter")
             .where("guild_id", message.guild!.id);
 
         return message.channel.send(

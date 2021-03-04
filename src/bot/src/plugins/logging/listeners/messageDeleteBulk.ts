@@ -14,7 +14,7 @@ export default class messageDeleteBulk extends Listener {
 
     public async exec(messages: Collection<string, Message>) {
         if (!messages.first() || !messages.first()?.guild) return;
-        const logChannel = await messages.first()!.guild!.settings.channel<TextChannel>("logChannel", "text");
+        const logChannel = await messages.first()!.guild!.settings.channel<TextChannel>("logchannel", "text");
         if (!logChannel) return;
 
         const deletion_content = messages

@@ -27,7 +27,7 @@ export default class filterRemove extends Command {
     }
 
     public async exec(message: Message, { word }: { word?: string }) {
-        if (!(await message.guild?.settings.get("messageFilterEnabled")))
+        if (!(await message.guild?.settings.get("messagefilterenabled")))
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(
                     "Message filter is not enabled!",

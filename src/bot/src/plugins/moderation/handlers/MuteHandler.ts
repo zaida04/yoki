@@ -8,7 +8,7 @@ export default class MuteHandler extends Scheduler<ActionDatabaseData> {
         if (!guild) return;
         const member = await guild.members.fetch(action.target_id).catch(() => null);
         if (!member) return;
-        const guild_mute_role = await guild.settings.get<string>("muteRole");
+        const guild_mute_role = await guild.settings.get<string>("muterole");
         if (!guild_mute_role) return;
         if (guild_mute_role) void member.roles.remove(guild_mute_role, `Automatic unmute. Case #${action.id}`);
         await this.client.db.api<Action>("actions").where("id", action.id).update("expired", true);

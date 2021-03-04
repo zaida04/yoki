@@ -13,7 +13,7 @@ export default class roleUpdate extends Listener {
     }
 
     public async exec(oldRole: Role, newRole: Role) {
-        const logChannel = await oldRole.guild.settings.channel<TextChannel>("logChannel", "text");
+        const logChannel = await oldRole.guild.settings.channel<TextChannel>("logchannel", "text");
         if (!logChannel) return;
         const changes = [];
 

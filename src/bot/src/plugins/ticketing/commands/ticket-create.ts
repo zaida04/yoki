@@ -29,7 +29,7 @@ export default class ticketCreate extends Command {
     }
 
     public async exec(message: Message, { reason }: { reason?: string }) {
-        const ticket_category = await message.guild!.settings.get<string>("ticketCategory");
+        const ticket_category = await message.guild!.settings.get<string>("ticketcategory");
         if (!ticket_category)
             return message.channel.send(
                 new this.client.Embeds.ErrorEmbed(

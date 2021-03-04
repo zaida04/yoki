@@ -9,7 +9,7 @@ export default () => {
         .route("/filter")
         .get(async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const words = await req.app.bot_client.db.api("messageFilter").where({ guild_id: req.params.id });
+                const words = await req.app.bot_client.db.api("messagefilter").where({ guild_id: req.params.id });
                 return res.status(200).json({
                     words: words,
                 });
@@ -33,7 +33,7 @@ export default () => {
                 try {
                     if (
                         await req.app.bot_client.db
-                            .api("messageFilter")
+                            .api("messagefilter")
                             .where({
                                 guild_id: req.params.id,
                                 content: ban_word,
@@ -47,7 +47,7 @@ export default () => {
                             },
                         });
 
-                    await req.app.bot_client.db.api("messageFilter").insert({
+                    await req.app.bot_client.db.api("messagefilter").insert({
                         guild_id: req.params.id,
                         content: ban_word,
                     });
@@ -73,7 +73,7 @@ export default () => {
                 const { ban_word } = req.body;
                 try {
                     await req.app.bot_client.db
-                        .api("messageFilter")
+                        .api("messagefilter")
                         .where({
                             guild_id: req.params.id,
                             content: ban_word,

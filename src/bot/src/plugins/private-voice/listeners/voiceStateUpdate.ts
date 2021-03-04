@@ -63,7 +63,7 @@ export default class PrivateChannelVoiceStateUpdate extends Listener {
             .catch(() => null)) as VoiceChannel | null;
         if (!private_channel) return;
         if (private_channel.members.size) return;
-        await this.client.db.api("privateVoice").where({ id: potentialPrivateChannel.id }).del();
+        await this.client.db.api("privatevoice").where({ id: potentialPrivateChannel.id }).del();
         if (!private_channel.deletable) return;
         this.client.inhibitedChannels.add(private_channel.id);
         return private_channel.delete(`Automatic deletion of empty Private Voice Channel.`);

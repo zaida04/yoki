@@ -14,7 +14,7 @@ export default class ChannelSweeper {
             .catch(() => null)) as VoiceChannel | null;
         if (!private_channel) return;
         if (private_channel.members.size) return;
-        await this.client.db.api("privateVoice").where({ id: channel.id }).del();
+        await this.client.db.api("privatevoice").where({ id: channel.id }).del();
         if (private_channel.deletable)
             void private_channel.delete(`Automatic deletion of Private Voice Channels after 24 hours.`);
     }

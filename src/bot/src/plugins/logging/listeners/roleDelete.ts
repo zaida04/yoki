@@ -13,7 +13,7 @@ export default class roleDelete extends Listener {
     }
 
     public async exec(role: Role) {
-        const logChannel = await role.guild.settings.channel<TextChannel>("logChannel", "text");
+        const logChannel = await role.guild.settings.channel<TextChannel>("logchannel", "text");
         if (!logChannel) return;
 
         const embed = new MessageEmbed()
